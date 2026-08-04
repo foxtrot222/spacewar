@@ -25,8 +25,6 @@ func _physics_process(delta: float) -> void:
 	var forward = Vector2.UP.rotated(rotation)
 	if Input.is_action_pressed("forward_thrust" + player_prefix):
 		velocity += forward * THRUST * delta
-	if Input.is_action_pressed("reverse_thrust" + player_prefix):
-		velocity -= forward * REVERSE_THRUST * delta
 
 	if velocity.length() > MAX_SPEED:
 		velocity = velocity.normalized() * MAX_SPEED
