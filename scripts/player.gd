@@ -1,18 +1,19 @@
 extends CharacterBody2D
 
-@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@export var player_prefix : String
+@export var texture : Texture2D
 
 const THRUST := 100.0
 const REVERSE_THRUST := 70.0
 const ROTATION_SPEED := 30.0
 const MAX_SPEED := 800.0
 const WRAP_MARGIN := 40.0
-
 var screen_size: Vector2
 
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
+	$Sprite2D.texture = texture
 
 
 func _physics_process(delta: float) -> void:
