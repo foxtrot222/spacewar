@@ -2,8 +2,7 @@ extends CharacterBody2D
 
 @export var player_prefix : String
 @export var texture : Texture2D
-@export var spawn_marker : Marker2D
-@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@export var spawn_position : Vector2
 
 const THRUST := 100.0
 const ROTATION_SPEED := 30.0
@@ -11,12 +10,16 @@ const MAX_SPEED := 800.0
 const WRAP_MARGIN := 40.0
 const QUANTUM_JUMP_OFFSET := 100
 const VELOCITY_RETENTION := 0.5
+
 var screen_size: Vector2
 
 func _ready() -> void:
+	
 	screen_size = get_viewport_rect().size
 	$Sprite2D.texture = texture
-
+	global_position = spawn_position
+	$Sprite2D.modulate.a = 0.35
+	
 func _physics_process(delta: float) -> void:
 
 	# Gravity
@@ -66,12 +69,11 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	)
 	
 func quantum_jump():
-
 	var random_position = Vector2(
 		randf_range(0, screen_size.x),
 		randf_range(0, screen_size.y)
 	)
-
+	
 	if velocity.length() > 0:
 		random_position += velocity.normalized() * QUANTUM_JUMP_OFFSET
 
@@ -79,3 +81,8 @@ func quantum_jump():
 
 	# Reduce momentum after teleport
 	velocity *= VELOCITY_RETENTION
+
+func _on_ghost_timer_timeout() -> void:
+	$Sprite2D.modulate.a = 1.0
+	collision_layer = 1
+	collision_mask = 3
