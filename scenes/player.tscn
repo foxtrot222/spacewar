@@ -11,6 +11,7 @@ collision_mask = 0
 script = ExtResource("1_hjaqi")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=986086804]
+modulate = Color(1, 1, 1, 0.35000002)
 texture = ExtResource("2_fvtld")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=545320082]

@@ -18,7 +18,7 @@ func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	$Sprite2D.texture = texture
 	global_position = spawn_position
-	$Sprite2D.modulate.a = 0.35
+
 	
 func _physics_process(delta: float) -> void:
 
