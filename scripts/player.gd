@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var player_prefix : String
 @export var texture : Texture2D
+@export var spawn_marker : Marker2D
 
 const THRUST := 100.0
 const ROTATION_SPEED := 30.0
