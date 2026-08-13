@@ -12,12 +12,14 @@ const QUANTUM_JUMP_OFFSET := 100
 const VELOCITY_RETENTION := 0.5
 
 var screen_size: Vector2
+var birth := true
 
 func _ready() -> void:
-	
 	screen_size = get_viewport_rect().size
 	$Sprite2D.texture = texture
 	global_position = spawn_position
+	if birth:
+		$GhostTimer.timeout.emit()
 
 	
 func _physics_process(delta: float) -> void:
