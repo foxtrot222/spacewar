@@ -2,14 +2,22 @@
 
 [ext_resource type="PackedScene" uid="uid://citcq11bhhs0b" path="res://scenes/player.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://b7blkru5ed8kq" path="res://assets/red_triangle.svg" id="2_sugp2"]
-[ext_resource type="PackedScene" uid="uid://cao82m7f0s4gp" path="res://scenes/GravityWell.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://cao82m7f0s4gp" path="res://scenes/gravity_well.tscn" id="3_sugp2"]
+[ext_resource type="Texture2D" uid="uid://bvn8dygb0jg42" path="res://assets/green_triangle.svg" id="4_jyhfs"]
 
 [node name="Main" type="Node2D" unique_id=170585860]
 
 [node name="GravityWell" parent="." unique_id=1793359952 instance=ExtResource("3_sugp2")]
 position = Vector2(465, 405)
 
-[node name="Player0" parent="." unique_id=1459089273 instance=ExtResource("1_ig7tw")]
-position = Vector2(822, 734)
-player_prefix = "0"
+[node name="Player1" parent="." unique_id=1459089273 instance=ExtResource("1_ig7tw")]
+position = Vector2(156, 262)
+player_prefix = "1"
 texture = ExtResource("2_sugp2")
+spawn_position = Vector2(156, 262)
+
+[node name="Player2" parent="." unique_id=1507594264 instance=ExtResource("1_ig7tw")]
+position = Vector2(779, 676)
+player_prefix = "2"
+texture = ExtResource("4_jyhfs")
+spawn_position = Vector2(779, 676)
