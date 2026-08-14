@@ -52,16 +52,6 @@ func _physics_process(delta: float) -> void:
 		MAX_ANGULAR_SPEED
 	)
 
-	# Apply rotational damping when no rotation key is pressed
-	if not Input.is_action_pressed("rotate_left" + player_prefix) \
-	and not Input.is_action_pressed("rotate_right" + player_prefix):
-
-		angular_velocity = move_toward(
-			angular_velocity,
-			0.0,
-			delta
-		)
-
 	# Apply rotation
 	rotation_degrees += angular_velocity * delta
 
