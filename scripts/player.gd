@@ -4,8 +4,6 @@ extends CharacterBody2D
 @export var texture : Texture2D
 @export var spawn_position : Vector2
 
-@onready var qj_cool_down_timer: Timer = $QJCoolDown
-
 const THRUST := 100.0
 const ROTATION_SPEED := 30.0
 const MAX_SPEED := 800.0
@@ -14,7 +12,6 @@ const QUANTUM_JUMP_OFFSET := 100
 const VELOCITY_RETENTION := 0.5
 const ANGULAR_ACCELERATION := 120.0
 const MAX_ANGULAR_SPEED := 180.0
-const ANGULAR_DAMPING := 80.0
 
 var angular_velocity := 0.0
 var screen_size: Vector2
@@ -62,7 +59,7 @@ func _physics_process(delta: float) -> void:
 		angular_velocity = move_toward(
 			angular_velocity,
 			0.0,
-			ANGULAR_DAMPING * delta
+			delta
 		)
 
 	# Apply rotation
@@ -78,7 +75,7 @@ func _physics_process(delta: float) -> void:
 		if qj_cooldown:
 			quantum_jump()
 			qj_cooldown=false
-			qj_cool_down_timer.start()
+			$QJCooldown.start()
 
 	# Maximum speed
 	if velocity.length() > MAX_SPEED:
