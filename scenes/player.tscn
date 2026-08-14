@@ -27,5 +27,9 @@ wait_time = 2.5
 one_shot = true
 autostart = true
 
+[node name="QJCooldown" type="Timer" parent="." unique_id=1241653968]
+wait_time = 2.0
+
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
+[connection signal="timeout" from="QJCooldown" to="." method="_on_qj_cool_down_timeout"]
