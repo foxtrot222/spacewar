@@ -4,15 +4,22 @@ extends CharacterBody2D
 @export var texture : Texture2D
 @export var spawn_position : Vector2
 
+@onready var qj_cool_down_timer: Timer = $QJCoolDown
+
 const THRUST := 100.0
 const ROTATION_SPEED := 30.0
 const MAX_SPEED := 800.0
 const WRAP_MARGIN := 40.0
 const QUANTUM_JUMP_OFFSET := 100
 const VELOCITY_RETENTION := 0.5
+const ANGULAR_ACCELERATION := 120.0
+const MAX_ANGULAR_SPEED := 180.0
+const ANGULAR_DAMPING := 80.0
 
+var angular_velocity := 0.0
 var screen_size: Vector2
 var birth := true
+var qj_cooldown := true
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
@@ -35,11 +42,31 @@ func _physics_process(delta: float) -> void:
 	velocity += gravity_force * delta
 
 	# Rotation
-	if Input.is_action_pressed("rotate_left" + player_prefix ):
-		rotation_degrees -= ROTATION_SPEED * delta
+	if Input.is_action_pressed("rotate_left" + player_prefix):
+		angular_velocity -= ANGULAR_ACCELERATION * delta
 
-	if Input.is_action_pressed("rotate_right" + player_prefix ):
-		rotation_degrees += ROTATION_SPEED * delta
+	if Input.is_action_pressed("rotate_right" + player_prefix):
+		angular_velocity += ANGULAR_ACCELERATION * delta
+
+	# Limit rotational speed
+	angular_velocity = clamp(
+		angular_velocity,
+		-MAX_ANGULAR_SPEED,
+		MAX_ANGULAR_SPEED
+	)
+
+	# Apply rotational damping when no rotation key is pressed
+	if not Input.is_action_pressed("rotate_left" + player_prefix) \
+	and not Input.is_action_pressed("rotate_right" + player_prefix):
+
+		angular_velocity = move_toward(
+			angular_velocity,
+			0.0,
+			ANGULAR_DAMPING * delta
+		)
+
+	# Apply rotation
+	rotation_degrees += angular_velocity * delta
 
 	# Thrust
 	var forward = Vector2.UP.rotated(rotation)
@@ -48,7 +75,10 @@ func _physics_process(delta: float) -> void:
 		velocity += forward * THRUST * delta
 
 	if Input.is_action_just_pressed("quantum_jump" + player_prefix ):
-		quantum_jump()
+		if qj_cooldown:
+			quantum_jump()
+			qj_cooldown=false
+			qj_cool_down_timer.start()
 
 	# Maximum speed
 	if velocity.length() > MAX_SPEED:
@@ -88,3 +118,7 @@ func _on_ghost_timer_timeout() -> void:
 	$Sprite2D.modulate.a = 1.0
 	collision_layer = 1
 	collision_mask = 3
+
+
+func _on_qj_cool_down_timeout() -> void:
+	qj_cooldown=true
