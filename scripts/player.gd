@@ -75,18 +75,16 @@ func _physics_process(delta: float) -> void:
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 
-	global_position.x = wrapf(
-		global_position.x,
-		WRAP_MARGIN,
-		screen_size.x
-	)
+	if global_position.x < 0:
+		global_position.x = screen_size.x
+	elif global_position.x > screen_size.x:
+		global_position.x = 0
 
-	global_position.y = wrapf(
-		global_position.y,
-		-WRAP_MARGIN,
-		screen_size.y
-	)
-	
+	if global_position.y < 0:
+		global_position.y = screen_size.y
+	elif global_position.y > screen_size.y:
+		global_position.y = 0
+
 func quantum_jump():
 	var random_position = Vector2(
 		randf_range(0, screen_size.x),
