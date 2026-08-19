@@ -5,16 +5,16 @@ extends CharacterBody2D
 @export var spawn_position : Vector2
 
 const THRUST := 100.0
-const ROTATION_SPEED := 30.0
 const MAX_SPEED := 800.0
-const WRAP_MARGIN := 40.0
-const QUANTUM_JUMP_OFFSET := 100
-const VELOCITY_RETENTION := 0.5
+const ROTATION_SPEED := 60.0
 const ANGULAR_ACCELERATION := 120.0
 const MAX_ANGULAR_SPEED := 180.0
+const QUANTUM_JUMP_OFFSET := 100
+const VELOCITY_RETENTION := 0.5
 
-var angular_velocity := 0.0
 var screen_size: Vector2
+var angular_velocity := 0.0
+var bullet_slots = 5
 var birth := true
 var qj_cooldown := true
 
@@ -45,14 +45,9 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("rotate_right" + player_prefix):
 		angular_velocity += ANGULAR_ACCELERATION * delta
 		
-	if Input.is_action_just_pressed("torpedo" + player_prefix):
-		fire_torpedo()
-	# Limit rotational speed
-	angular_velocity = clamp(
-		angular_velocity,
-		-MAX_ANGULAR_SPEED,
-		MAX_ANGULAR_SPEED
-	)
+	if Input.is_action_just_pressed("bullet" + player_prefix) and bullet_slots:
+		bullet_slots -= 1
+		fire_bullet()
 
 	# Apply rotation
 	rotation_degrees += angular_velocity * delta
@@ -62,7 +57,9 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_pressed("forward_thrust" + player_prefix ):
 		velocity += forward * THRUST * delta
-
+	if Input.is_action_pressed("reverse_thrust" + player_prefix ):
+		velocity += -forward * THRUST * delta
+		
 	if Input.is_action_just_pressed("quantum_jump" + player_prefix ):
 		if qj_cooldown:
 			quantum_jump()
@@ -89,7 +86,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
-		print("Torpedo hit player!")
+		print("bullet hit player!")
 		body.queue_free()
 		queue_free()
 
@@ -107,13 +104,13 @@ func quantum_jump():
 	# Reduce momentum after teleport
 	velocity *= VELOCITY_RETENTION
 
-func fire_torpedo() -> void:
+func fire_bullet() -> void:
 	var forward := Vector2.UP.rotated(rotation)
 
-	Global.spawn_torpedo(
+	Global.spawn_bullet(
 		global_position + forward * 30.0,
 		forward,
-		player_prefix
+		self
 	)
 
 func _on_ghost_timer_timeout() -> void:
@@ -124,3 +121,6 @@ func _on_ghost_timer_timeout() -> void:
 
 func _on_qj_cool_down_timeout() -> void:
 	qj_cooldown=true
+
+func increment_slot():
+	bullet_slots += 1

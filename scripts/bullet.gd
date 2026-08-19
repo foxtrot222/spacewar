@@ -3,19 +3,19 @@ extends Area2D
 const TORPEDO_SPEED := 500.0
 const MAX_SPEED := 800.0
 
-var velocity: Vector2
-var owner_prefix: String
 
+var velocity: Vector2
+var shooter: CharacterBody2D
 
 func setup(
 	start_position: Vector2,
 	start_direction: Vector2,
-	shooter_prefix: String
+	shooter_player: CharacterBody2D
 ) -> void:
 	global_position = start_position
 	velocity = start_direction.normalized() * TORPEDO_SPEED
 	rotation = start_direction.angle()
-	owner_prefix = shooter_prefix
+	shooter = shooter_player
 
 
 func _physics_process(delta: float) -> void:
@@ -44,10 +44,26 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
 
-		if body.player_prefix == owner_prefix:
+		if body == shooter:
 			return
 
 		print("Torpedo hit player!")
 		body.queue_free()
 		queue_free()
 		Global.respawn_player(body)
+		
+		
+		if is_instance_valid(shooter):
+			shooter.increment_slot()
+		
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	if is_instance_valid(shooter):
+		shooter.increment_slot()
+	queue_free()
+
+func _on_life_timer_timeout() -> void:
+	if is_instance_valid(shooter):
+		shooter.increment_slot()
+	queue_free()

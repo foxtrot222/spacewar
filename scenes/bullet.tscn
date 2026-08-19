@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cin2ioskvfdc7"]
+
+[ext_resource type="Script" uid="uid://wuia3lyipa8e" path="res://scripts/bullet.gd" id="1_y25gk"]
+[ext_resource type="Texture2D" uid="uid://blcuagvkero8i" path="res://assets/white_triangle.svg" id="2_l5glv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ddwc"]
+size = Vector2(34, 8)
+
+[node name="Bullet" type="Area2D" unique_id=1434779568]
+script = ExtResource("1_y25gk")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=160723538]
+rotation = 1.5707964
+scale = Vector2(0.41, 0.47)
+texture = ExtResource("2_l5glv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1515094647]
+shape = SubResource("RectangleShape2D_0ddwc")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1177745384]
+
+[node name="LifeTimer" type="Timer" parent="." unique_id=1993397638]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="LifeTimer" to="." method="_on_life_timer_timeout"]
