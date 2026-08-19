@@ -86,11 +86,13 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 		global_position.y = screen_size.y
 	elif global_position.y > screen_size.y:
 		global_position.y = 0
+
 func _on_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
 		print("Torpedo hit player!")
 		body.queue_free()
 		queue_free()
+
 func quantum_jump():
 	var random_position = Vector2(
 		randf_range(0, screen_size.x),
@@ -104,6 +106,7 @@ func quantum_jump():
 
 	# Reduce momentum after teleport
 	velocity *= VELOCITY_RETENTION
+
 func fire_torpedo() -> void:
 	var forward := Vector2.UP.rotated(rotation)
 
@@ -112,6 +115,7 @@ func fire_torpedo() -> void:
 		forward,
 		player_prefix
 	)
+
 func _on_ghost_timer_timeout() -> void:
 	$Sprite2D.modulate.a = 1.0
 	collision_layer = 1

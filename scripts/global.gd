@@ -3,7 +3,7 @@ extends Node
 var gravity_well: Node2D
 
 const PLAYER_SCENE = preload("res://scenes/player.tscn")
-const TORPEDO_SCENE = preload("res://scenes/Torpedo.tscn")
+const TORPEDO_SCENE = preload("res://scenes/torpedo.tscn")
 
 
 func respawn_player(player: CharacterBody2D) -> void:
@@ -37,10 +37,10 @@ func spawn_torpedo(
 
 	var torpedo := TORPEDO_SCENE.instantiate()
 
-	get_tree().current_scene.add_child(torpedo)
-
 	torpedo.setup(
 		start_position,
 		start_direction,
 		shooter_prefix
 	)
+	
+	get_tree().current_scene.add_child(torpedo)
