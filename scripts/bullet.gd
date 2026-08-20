@@ -3,7 +3,6 @@ extends Area2D
 const TORPEDO_SPEED := 500.0
 const MAX_SPEED := 800.0
 
-
 var velocity: Vector2
 var shooter: CharacterBody2D
 
@@ -16,7 +15,6 @@ func setup(
 	velocity = start_direction.normalized() * TORPEDO_SPEED
 	rotation = start_direction.angle()
 	shooter = shooter_player
-
 
 func _physics_process(delta: float) -> void:
 
@@ -40,7 +38,6 @@ func _physics_process(delta: float) -> void:
 	# Rotate toward movement direction
 	rotation = velocity.angle()
 
-
 func _on_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
 
@@ -55,8 +52,6 @@ func _on_body_entered(body: Node2D) -> void:
 		
 		if is_instance_valid(shooter):
 			shooter.increment_slot()
-		
-
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	if is_instance_valid(shooter):

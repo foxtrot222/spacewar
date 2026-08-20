@@ -2,6 +2,8 @@ extends Node
 
 var gravity_well: Node2D
 
+const ENABLE_ANGULAR_INERTIA = false
+
 const PLAYER_SCENE = preload("res://scenes/player.tscn")
 const BULLET_SCENE = preload("res://scenes/bullet.tscn")
 

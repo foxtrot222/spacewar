@@ -40,17 +40,24 @@ func _physics_process(delta: float) -> void:
 
 	# Rotation
 	if Input.is_action_pressed("rotate_left" + player_prefix):
-		angular_velocity -= ANGULAR_ACCELERATION * delta
+		if Global.ENABLE_ANGULAR_INERTIA:
+			angular_velocity -= ANGULAR_ACCELERATION * delta
+		else:
+			rotation_degrees -= ROTATION_SPEED * delta
 
 	if Input.is_action_pressed("rotate_right" + player_prefix):
-		angular_velocity += ANGULAR_ACCELERATION * delta
+		if Global.ENABLE_ANGULAR_INERTIA:
+			angular_velocity += ANGULAR_ACCELERATION * delta
+		else:
+			rotation_degrees += ROTATION_SPEED * delta
 		
 	if Input.is_action_just_pressed("bullet" + player_prefix) and bullet_slots:
 		bullet_slots -= 1
 		fire_bullet()
 
 	# Apply rotation
-	rotation_degrees += angular_velocity * delta
+	if Global.ENABLE_ANGULAR_INERTIA:
+		rotation_degrees += angular_velocity * delta
 
 	# Thrust
 	var forward = Vector2.UP.rotated(rotation)
