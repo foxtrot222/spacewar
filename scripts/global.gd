@@ -26,6 +26,7 @@ func respawn_player(player: CharacterBody2D) -> void:
 	new_player.texture = player_texture
 	new_player.spawn_position = spawn_position
 	new_player.birth = false
+	new_player.ghost = true
 
 	get_tree().current_scene.add_child(new_player)
 

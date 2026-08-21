@@ -17,6 +17,7 @@ var angular_velocity := 0.0
 var bullet_slots = 5
 var birth := true
 var qj_cooldown := true
+var ghost := false
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
@@ -31,12 +32,12 @@ func _physics_process(delta: float) -> void:
 	# Gravity
 	var direction = Global.gravity_well.global_position - global_position
 	var distance = max(direction.length(), 30.0)
+	if not ghost:
+		var gravity_force = direction.normalized() * (
+			Global.gravity_well.GRAVITY_STRENGTH / (distance * distance)
+		)
 
-	var gravity_force = direction.normalized() * (
-		Global.gravity_well.GRAVITY_STRENGTH / (distance * distance)
-	)
-
-	velocity += gravity_force * delta
+		velocity += gravity_force * delta
 
 	# Rotation
 	if Input.is_action_pressed("rotate_left" + player_prefix):
@@ -51,7 +52,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			rotation_degrees += ROTATION_SPEED * delta
 		
-	if Input.is_action_just_pressed("bullet" + player_prefix) and bullet_slots:
+	if Input.is_action_just_pressed("bullet" + player_prefix) and bullet_slots and not ghost:
 		bullet_slots -= 1
 		fire_bullet()
 
@@ -96,6 +97,7 @@ func _on_body_entered(body: Node2D) -> void:
 		print("bullet hit player!")
 		body.queue_free()
 		queue_free()
+		ghost = true
 
 func quantum_jump():
 	var random_position = Vector2(
@@ -124,6 +126,7 @@ func _on_ghost_timer_timeout() -> void:
 	$Sprite2D.modulate.a = 1.0
 	collision_layer = 1
 	collision_mask = 3
+	ghost = false
 
 
 func _on_qj_cool_down_timeout() -> void:
