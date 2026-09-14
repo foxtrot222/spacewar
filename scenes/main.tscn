@@ -1,17 +1,27 @@
 [gd_scene format=3 uid="uid://ck244wsn1nj50"]
 
 [ext_resource type="PackedScene" uid="uid://citcq11bhhs0b" path="res://scenes/player.tscn" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://bp8d7pyl4wxiq" path="res://assets/space/space_background.png" id="1_tbgi4"]
+[ext_resource type="Shader" uid="uid://cgu76c2smn8bj" path="res://assets/space/space.gdshader" id="1_tefeu"]
 [ext_resource type="Texture2D" uid="uid://b7blkru5ed8kq" path="res://assets/red_triangle.svg" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://cao82m7f0s4gp" path="res://scenes/gravity_well.tscn" id="3_sugp2"]
 [ext_resource type="Texture2D" uid="uid://bvn8dygb0jg42" path="res://assets/green_triangle.svg" id="4_jyhfs"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
+shader = ExtResource("1_tefeu")
+
 [node name="Main" type="Node2D" unique_id=170585860]
+
+[node name="Space" type="Sprite2D" parent="." unique_id=610580299]
+material = SubResource("ShaderMaterial_tefeu")
+position = Vector2(512, 512)
+texture = ExtResource("1_tbgi4")
 
 [node name="GravityWell" parent="." unique_id=1793359952 instance=ExtResource("3_sugp2")]
 position = Vector2(465, 405)
 
 [node name="Player1" parent="." unique_id=1459089273 instance=ExtResource("1_ig7tw")]
-position = Vector2(156, 262)
+position = Vector2(668, 774)
 player_prefix = "1"
 texture = ExtResource("2_sugp2")
 spawn_position = Vector2(156, 262)
