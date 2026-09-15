@@ -4,6 +4,11 @@ extends CharacterBody2D
 @export var texture : Texture2D
 @export var spawn_position : Vector2
 
+# Player health
+const MAX_HEALTH := 100
+var health := MAX_HEALTH
+
+# Movement constants
 const THRUST := 100.0
 const MAX_SPEED := 800.0
 const ROTATION_SPEED := 60.0
@@ -12,12 +17,19 @@ const MAX_ANGULAR_SPEED := 180.0
 const QUANTUM_JUMP_OFFSET := 100
 const VELOCITY_RETENTION := 0.5
 
+# Torpedo weapon settings
+const MAX_TORPEDO_SLOTS := 5
+const TORPEDO_FIRE_INTERVAL := 1.5
+const TORPEDO_SLOT_RECOVERY_SECONDS := 7.5
+
+# Input state
 var screen_size: Vector2
 var angular_velocity := 0.0
-var bullet_slots = 5
-var birth := true
-var qj_cooldown := true
 var ghost := false
+var is_eliminated := false
+var qj_cooldown := true
+var torpedo_slots := MAX_TORPEDO_SLOTS
+var torpedo_fire_cooldown := 0.0
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
@@ -26,17 +38,14 @@ func _ready() -> void:
 	if birth:
 		$GhostTimer.timeout.emit()
 
-	
 func _physics_process(delta: float) -> void:
+	torpedo_fire_cooldown = max(torpedo_fire_cooldown - delta, 0.0)
 
 	# Gravity
 	var direction = Global.gravity_well.global_position - global_position
 	var distance = max(direction.length(), 30.0)
 	if not ghost:
-		var gravity_force = direction.normalized() * (
-			Global.gravity_well.GRAVITY_STRENGTH / (distance * distance)
-		)
-
+		var gravity_force = direction.normalized() * (Global.gravity_well.GRAVITY_STRENGTH / (distance * distance))
 		velocity += gravity_force * delta
 
 	# Rotation
@@ -51,10 +60,12 @@ func _physics_process(delta: float) -> void:
 			angular_velocity += ANGULAR_ACCELERATION * delta
 		else:
 			rotation_degrees += ROTATION_SPEED * delta
-		
-	if Input.is_action_just_pressed("bullet" + player_prefix) and bullet_slots and not ghost:
-		bullet_slots -= 1
+
+	if Input.is_action_just_pressed("bullet" + player_prefix) and not ghost:
 		fire_bullet()
+
+	if Input.is_action_just_pressed("torpedo" + player_prefix) and not ghost:
+		try_fire_torpedo()
 
 	# Apply rotation
 	if Global.ENABLE_ANGULAR_INERTIA:
@@ -67,12 +78,11 @@ func _physics_process(delta: float) -> void:
 		velocity += forward * THRUST * delta
 	if Input.is_action_pressed("reverse_thrust" + player_prefix ):
 		velocity += -forward * THRUST * delta
-		
-	if Input.is_action_just_pressed("quantum_jump" + player_prefix ):
-		if qj_cooldown:
-			quantum_jump()
-			qj_cooldown=false
-			$QJCooldown.start()
+
+	if Input.is_action_just_pressed("quantum_jump" + player_prefix ) and qj_cooldown:
+		quantum_jump()
+		qj_cooldown=false
+		$QJCooldown.start()
 
 	# Maximum speed
 	if velocity.length() > MAX_SPEED:
@@ -93,18 +103,33 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 		global_position.y = 0
 
 func _on_body_entered(body: Node2D) -> void:
-	if body is CharacterBody2D:
-		print("bullet hit player!")
-		body.queue_free()
-		queue_free()
-		ghost = true
+	if body.is_in_group("star") or body.name == "GravityWell":
+		die("by entering the star")
 
-func quantum_jump():
+func take_damage(amount: int) -> void:
+	if is_eliminated:
+		return
+
+	health = max(health - amount, 0)
+	print("Player " + str(int(player_prefix)) + " took " + str(amount) + " damage! Health: " + str(health))
+
+	if health <= 0:
+		die("after health reached zero")
+
+func die(reason: String) -> void:
+	if is_eliminated:
+		return
+
+	is_eliminated = true
+	print("Player " + str(int(player_prefix)) + " died " + reason + "!")
+	Global.respawn_player(self)
+
+func quantum_jump() -> void:
 	var random_position = Vector2(
 		randf_range(0, screen_size.x),
 		randf_range(0, screen_size.y)
 	)
-	
+
 	if velocity.length() > 0:
 		random_position += velocity.normalized() * QUANTUM_JUMP_OFFSET
 
@@ -114,13 +139,27 @@ func quantum_jump():
 	velocity *= VELOCITY_RETENTION
 
 func fire_bullet() -> void:
-	var forward := Vector2.UP.rotated(rotation)
-
 	Global.spawn_bullet(
-		global_position + forward * 30.0,
-		forward,
+		global_position + Vector2.UP.rotated(rotation) * 30.0,
+		Vector2.UP.rotated(rotation),
 		self
 	)
+
+func try_fire_torpedo() -> void:
+	if torpedo_slots <= 0 or torpedo_fire_cooldown > 0.0:
+		return
+
+	torpedo_slots -= 1
+	torpedo_fire_cooldown = TORPEDO_FIRE_INTERVAL
+	Global.spawn_torpedo(
+		global_position + Vector2.UP.rotated(rotation) * 30.0,
+		Vector2.UP.rotated(rotation),
+		self
+	)
+	get_tree().create_timer(TORPEDO_SLOT_RECOVERY_SECONDS).timeout.connect(_recover_torpedo_slot)
+
+func _recover_torpedo_slot() -> void:
+	torpedo_slots = min(torpedo_slots + 1, MAX_TORPEDO_SLOTS)
 
 func _on_ghost_timer_timeout() -> void:
 	$Sprite2D.modulate.a = 1.0
@@ -128,9 +167,7 @@ func _on_ghost_timer_timeout() -> void:
 	collision_mask = 3
 	ghost = false
 
-
 func _on_qj_cool_down_timeout() -> void:
 	qj_cooldown=true
 
-func increment_slot():
-	bullet_slots += 1
+var birth := true
