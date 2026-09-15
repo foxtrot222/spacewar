@@ -17,7 +17,7 @@ void fragment() {
 	vec4 final = max(current, max(left, max(right,  max(top, bottom))));
 	if (final.rgb == vec3(1.0)) {
 		if ( int((UV / size).y) % twink_cood == 0 ) {
-			COLOR.rgb = abs(vec3(sin(TIME)*twink_factor));
+			COLOR.rgb = abs(vec3(sin(TIME*twink_factor)));
 		} else {
 			COLOR.rgb = vec3(1.0);
 		}
