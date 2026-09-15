@@ -3,10 +3,10 @@ extends Area2D
 const BULLET_SPEED := 800.0
 const MAX_SPEED := 800.0
 
-# Damage constants - torpedo does 50, bullet does 10
+# Damage constants - missile does 50, bullet does 10
 const BULLET_DAMAGE := 5
 
-# No slots counter - torpedos/bullets have unlimited fire with cooldown handled by player
+# No slots counter - missiles/bullets have unlimited fire with cooldown handled by player
 
 var velocity: Vector2
 var shooter: CharacterBody2D
@@ -22,19 +22,15 @@ func setup(
 	shooter = shooter_player
 
 func _physics_process(delta: float) -> void:
-
 	# Gravity
-	var direction_to_star = global_position
-	var distance = max(direction_to_star.length(), 30.0)
-
-	var gravity_force = direction_to_star.normalized() * (Global.gravity_well.GRAVITY_STRENGTH / (distance * distance))
+	var gravity_force = Vector2.ZERO
 	velocity += gravity_force * delta
 
 	# Maximum speed
 	if velocity.length() > MAX_SPEED:
 		velocity = velocity.normalized() * MAX_SPEED
 
-	# Move torpedo/bullet
+	# Move missile/bullet
 	global_position += velocity * delta
 
 	# Rotate toward movement direction
