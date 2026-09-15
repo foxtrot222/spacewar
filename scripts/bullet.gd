@@ -4,7 +4,7 @@ const BULLET_SPEED := 800.0
 const MAX_SPEED := 800.0
 
 # Damage constants - torpedo does 50, bullet does 10
-const BULLET_DAMAGE := 10
+const BULLET_DAMAGE := 5
 
 # No slots counter - torpedos/bullets have unlimited fire with cooldown handled by player
 
@@ -24,7 +24,7 @@ func setup(
 func _physics_process(delta: float) -> void:
 
 	# Gravity
-	var direction_to_star = Global.gravity_well.global_position - global_position
+	var direction_to_star = global_position
 	var distance = max(direction_to_star.length(), 30.0)
 
 	var gravity_force = direction_to_star.normalized() * (Global.gravity_well.GRAVITY_STRENGTH / (distance * distance))
