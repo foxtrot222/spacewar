@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://d2c7457gq4pli"]
+
+[ext_resource type="Texture2D" uid="uid://spd42fv6wtdq" path="res://assets/torpedo-missile-svgrepo-com.svg" id="1_w885k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ddwc"]
+size = Vector2(34, 8)
+
+[node name="Torpedo" type="Area2D" unique_id=1191329197]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1738464198]
+position = Vector2(-0.9999999, 0)
+rotation = 4.0142574
+scale = Vector2(0.06, 0.07)
+texture = ExtResource("1_w885k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=300952497]
+shape = SubResource("RectangleShape2D_0ddwc")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=382317434]
+
+[node name="LifeTimer" type="Timer" parent="." unique_id=1472427456]
+wait_time = 3.0
+one_shot = true
+autostart = true

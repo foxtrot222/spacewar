@@ -9,45 +9,45 @@ var shooter: CharacterBody2D
 var life_timer: Timer
 
 func _ready() -> void:
-\tlife_timer = $LifeTimer
-\tlife_timer.timeout.connect(queue_free)
+	life_timer = $LifeTimer
+	life_timer.timeout.connect(queue_free)
 
 func setup(
-\tstart_position: Vector2,
-\tstart_direction: Vector2,
-\tshooter_player: CharacterBody2D
+	start_position: Vector2,
+	start_direction: Vector2,
+	shooter_player: CharacterBody2D
 ) -> void:
-\tglobal_position = start_position
-\tvelocity = start_direction.normalized() * MISSILE_SPEED
-\trotation = start_direction.angle()
-\tshooter = shooter_player
-\tlife_timer.start()
+	global_position = start_position
+	velocity = start_direction.normalized() * MISSILE_SPEED
+	rotation = start_direction.angle()
+	shooter = shooter_player
+	life_timer.start()
 
 func _physics_process(delta: float) -> void:
-\t# Gravity
-\tvar direction_to_star = Global.gravity_well.global_position - global_position
-\tvar distance = max(direction_to_star.length(), 30.0)
-\tvar gravity_force = direction_to_star.normalized() * (Global.gravity_well.GRAVITY_STRENGTH / (distance * distance))
-\tvelocity += gravity_force * delta
+	# Gravity
+	var direction_to_star = Global.gravity_well.global_position - global_position
+	var distance = max(direction_to_star.length(), 30.0)
+	var gravity_force = direction_to_star.normalized() * (Global.gravity_well.GRAVITY_STRENGTH / (distance * distance))
+	velocity += gravity_force * delta
 
-\t# Move missile
-\tglobal_position += velocity * delta
+	# Move missile
+	global_position += velocity * delta
 
-\t# Rotate toward movement direction
-\trotation = velocity.angle()
+	# Rotate toward movement direction
+	rotation = velocity.angle()
 
-\tif global_position.distance_to(Global.gravity_well.global_position) > 1500:
-\t\tqueue_free()
+	if global_position.distance_to(Global.gravity_well.global_position) > 1500:
+		queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
-\tif body is CharacterBody2D:
-\t\tif body == shooter:
-\t\t\treturn
+	if body is CharacterBody2D:
+		if body == shooter:
+			return
 
-\t\t# Deal missile damage
-\t\tbody.take_damage(MISSILE_DAMAGE)
-\t\tprint("Missile hit Player " + str(int(body.player_prefix)) + "! Damage: " + str(MISSILE_DAMAGE))
-\t\tqueue_free()
+		# Deal missile damage
+		body.take_damage(MISSILE_DAMAGE)
+		print("Missile hit Player " + str(int(body.player_prefix)) + "! Damage: " + str(MISSILE_DAMAGE))
+		queue_free()
 
 func _on_life_timer_timeout() -> void:
-\tqueue_free()
+	queue_free()

@@ -23,48 +23,48 @@ var gravity_well: Node2D
 #\t#InputMap.action_add_event(action_name, event)
 
 func set_gravity_well(value: Node2D) -> void:
-\tgravity_well = value
+	gravity_well = value
 
 func respawn_player(player: CharacterBody2D) -> void:
-\tif player == null:
-\t\treturn
+	if player == null:
+		return
 
-\tvar player_prefix: String = player.player_prefix
-\tvar player_texture: Texture2D = player.texture
-\tvar spawn_position: Vector2 = player.spawn_position
+	var player_prefix: String = player.player_prefix
+	var player_texture: Texture2D = player.texture
+	var spawn_position: Vector2 = player.spawn_position
 
-\tplayer.queue_free()
+	player.queue_free()
 
-\tawait get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(2.0).timeout
 
-\tvar new_player := PLAYER_SCENE.instantiate() as CharacterBody2D
+	var new_player := PLAYER_SCENE.instantiate() as CharacterBody2D
 
-\tnew_player.player_prefix = player_prefix
-\tnew_player.texture = player_texture
-\tnew_player.spawn_position = spawn_position
-\tnew_player.health = new_player.MAX_HEALTH
-\tnew_player.birth = false
-\tnew_player.ghost = true
+	new_player.player_prefix = player_prefix
+	new_player.texture = player_texture
+	new_player.spawn_position = spawn_position
+	new_player.health = new_player.MAX_HEALTH
+	new_player.birth = false
+	new_player.ghost = true
 
-\tget_tree().current_scene.add_child(new_player)
+	get_tree().current_scene.add_child(new_player)
 
 
 func spawn_bullet(
-\tstart_position: Vector2,
-\tstart_direction: Vector2,
-\tshooter_player: CharacterBody2D
+	start_position: Vector2,
+	start_direction: Vector2,
+	shooter_player: CharacterBody2D
 ) -> void:
-\tvar bullet := BULLET_SCENE.instantiate()
-\tbullet.setup(start_position, start_direction, shooter_player)
-\tget_tree().current_scene.add_child(bullet)
+	var bullet := BULLET_SCENE.instantiate()
+	bullet.setup(start_position, start_direction, shooter_player)
+	get_tree().current_scene.add_child(bullet)
 
 func spawn_missile(
-\tstart_position: Vector2,
-\tstart_direction: Vector2,
-\tshooter_player: CharacterBody2D
+	start_position: Vector2,
+	start_direction: Vector2,
+	shooter_player: CharacterBody2D
 ) -> void:
-\tvar missile := MISSILE_SCENE.instantiate()
-\tmissile.set_script(load("res://scripts/missile.gd"))
-\tmissile.body_entered.connect(missile._on_body_entered)
-\tget_tree().current_scene.add_child(missile)
-\tmissile.setup(start_position, start_direction, shooter_player)
+	var missile := MISSILE_SCENE.instantiate()
+	missile.set_script(load("res://scripts/missile.gd"))
+	missile.body_entered.connect(missile._on_body_entered)
+	get_tree().current_scene.add_child(missile)
+	missile.setup(start_position, start_direction, shooter_player)
