@@ -22,7 +22,7 @@ shape = SubResource("RectangleShape2D_0ddwc")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1177745384]
 position = Vector2(0, 3)
-rect = Rect2(-7, -5, 14, 4)
+rect = Rect2(-8, -6, 16, 6)
 
 [node name="LifeTimer" type="Timer" parent="." unique_id=1993397638]
 wait_time = 3.0
