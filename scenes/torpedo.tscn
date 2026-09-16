@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ddwc"]
 size = Vector2(34, 8)
 
-[node name="Torpedo" type="Area2D" unique_id=1191329197]
+[node name="Missile" type="Area2D" unique_id=1191329197]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1738464198]
 position = Vector2(-0.9999999, 0)

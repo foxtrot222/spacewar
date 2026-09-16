@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://bypkrlqddq6yb"]
 
+[ext_resource type="Script" uid="uid://bxb7dbldpv6iu" path="res://scripts/missile.gd" id="1_6cx5e"]
 [ext_resource type="Texture2D" uid="uid://spd42fv6wtdq" path="res://assets/torpedo-missile-svgrepo-com.svg" id="1_w885k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ddwc"]
 size = Vector2(34, 8)
 
-[node name="Torpedo" type="Area2D" unique_id=1191329197]
+[node name="Missile" type="Area2D" unique_id=1191329197]
+script = ExtResource("1_6cx5e")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1738464198]
 position = Vector2(-0.9999999, 0)
