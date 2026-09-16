@@ -47,3 +47,5 @@ func spawn_bullet(
 	
 	get_tree().current_scene.add_child(bullet)
 	
+func _ready() -> void:
+	get_viewport().set_use_hdr_2d(true)

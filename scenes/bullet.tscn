@@ -1,23 +1,28 @@
 [gd_scene format=3 uid="uid://cin2ioskvfdc7"]
 
 [ext_resource type="Script" uid="uid://wuia3lyipa8e" path="res://scripts/bullet.gd" id="1_y25gk"]
-[ext_resource type="Texture2D" uid="uid://blcuagvkero8i" path="res://assets/white_triangle.svg" id="2_l5glv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ddwc"]
-size = Vector2(34, 8)
+size = Vector2(16, 6)
 
 [node name="Bullet" type="Area2D" unique_id=1434779568]
 script = ExtResource("1_y25gk")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=160723538]
-rotation = 1.5707964
-scale = Vector2(0.41, 0.47)
-texture = ExtResource("2_l5glv")
+[node name="Line2D" type="Line2D" parent="." unique_id=1362633326]
+modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+points = PackedVector2Array(-5, 0, 5, 0)
+width = 6.0
+default_color = Color(1, 0, 0, 1)
+begin_cap_mode = 2
+end_cap_mode = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1515094647]
 shape = SubResource("RectangleShape2D_0ddwc")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1177745384]
+position = Vector2(0, 3)
+rect = Rect2(-7, -5, 14, 4)
 
 [node name="LifeTimer" type="Timer" parent="." unique_id=1993397638]
 wait_time = 3.0

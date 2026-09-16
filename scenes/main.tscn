@@ -12,6 +12,11 @@ shader = ExtResource("1_tefeu")
 shader_parameter/twink_factor = 10.0
 shader_parameter/twink_cood = 3
 
+[sub_resource type="Environment" id="Environment_ms4yx"]
+background_mode = 3
+glow_enabled = true
+glow_hdr_threshold = 2.0
+
 [node name="Main" type="Node2D" unique_id=170585860]
 
 [node name="Space" type="Sprite2D" parent="." unique_id=610580299]
@@ -20,7 +25,7 @@ position = Vector2(512, 512)
 texture = ExtResource("1_tbgi4")
 
 [node name="GravityWell" parent="." unique_id=1793359952 instance=ExtResource("3_sugp2")]
-position = Vector2(465, 405)
+position = Vector2(512, 512)
 
 [node name="Player1" parent="." unique_id=1459089273 instance=ExtResource("1_ig7tw")]
 position = Vector2(668, 774)
@@ -33,3 +38,6 @@ position = Vector2(779, 676)
 player_prefix = "2"
 texture = ExtResource("4_jyhfs")
 spawn_position = Vector2(779, 676)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1433941411]
+environment = SubResource("Environment_ms4yx")
