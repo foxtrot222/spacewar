@@ -8,7 +8,28 @@ size = Vector2(16, 6)
 [node name="Bullet" type="Area2D" unique_id=1434779568]
 script = ExtResource("1_y25gk")
 
+[node name="HeadLine2D" type="Line2D" parent="." unique_id=844002090]
+position = Vector2(-0.88461506, 0)
+scale = Vector2(0.8846155, 1)
+points = PackedVector2Array(-15, 0, 19.086954, 0)
+width = 12.0
+default_color = Color(0.29411766, 0.30588236, 0.3254902, 1)
+end_cap_mode = 2
+round_precision = 10
+
+[node name="TailLine2D" type="Line2D" parent="." unique_id=2014715246]
+modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+position = Vector2(-4, 0)
+scale = Vector2(0.8846155, 1)
+points = PackedVector2Array(-15, 0, -11.304346, 0)
+width = 12.0
+default_color = Color(1, 0, 0, 1)
+begin_cap_mode = 2
+round_precision = 10
+
 [node name="Line2D" type="Line2D" parent="." unique_id=1362633326]
+visible = false
 modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 points = PackedVector2Array(-5, 0, 5, 0)
