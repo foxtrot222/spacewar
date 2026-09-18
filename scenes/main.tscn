@@ -4,20 +4,21 @@
 [ext_resource type="Texture2D" uid="uid://bp8d7pyl4wxiq" path="res://assets/space_background.png" id="1_tbgi4"]
 [ext_resource type="Shader" uid="uid://cgu76c2smn8bj" path="res://shaders/space.gdshader" id="1_tefeu"]
 [ext_resource type="PackedScene" uid="uid://cao82m7f0s4gp" path="res://scenes/gravity_well.tscn" id="3_sugp2"]
-[ext_resource type="Texture2D" uid="uid://bvn8dygb0jg42" path="res://assets/green_triangle.svg" id="4_jyhfs"]
-[ext_resource type="Texture2D" uid="uid://dmqqo2c3vlwkv" path="res://assets/untitled.png" id="5_tefeu"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
-shader = ExtResource("1_tefeu")
-shader_parameter/twink_factor = 5.0
-shader_parameter/twink_cood = 3
 
 [sub_resource type="Environment" id="Environment_ms4yx"]
 background_mode = 3
 glow_enabled = true
 glow_hdr_threshold = 2.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
+shader = ExtResource("1_tefeu")
+shader_parameter/twink_factor = 5.0
+shader_parameter/twink_cood = 3
+
 [node name="Main" type="Node2D" unique_id=170585860]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1433941411]
+environment = SubResource("Environment_ms4yx")
 
 [node name="Space" type="Sprite2D" parent="." unique_id=610580299]
 material = SubResource("ShaderMaterial_tefeu")
@@ -30,14 +31,11 @@ position = Vector2(512, 512)
 [node name="Player1" parent="." unique_id=1459089273 instance=ExtResource("1_ig7tw")]
 position = Vector2(668, 774)
 player_prefix = "1"
-texture = ExtResource("5_tefeu")
+color = Color(0.98, 0, 0, 1)
 spawn_position = Vector2(156, 262)
 
 [node name="Player2" parent="." unique_id=1507594264 instance=ExtResource("1_ig7tw")]
 position = Vector2(779, 676)
 player_prefix = "2"
-texture = ExtResource("4_jyhfs")
+color = Color(0.05000007, 1, 0, 1)
 spawn_position = Vector2(779, 676)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1433941411]
-environment = SubResource("Environment_ms4yx")

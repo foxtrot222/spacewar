@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var player_prefix : String
-@export var texture : Texture2D
+@export var color : Color
 @export var spawn_position : Vector2
 
 const THRUST := 100.0
@@ -11,6 +11,9 @@ const ANGULAR_ACCELERATION := 120.0
 const MAX_ANGULAR_SPEED := 180.0
 const QUANTUM_JUMP_OFFSET := 100
 const VELOCITY_RETENTION := 0.5
+const THRUST_LENGTH := 48.0 # > 32.0
+const THRUST_FACTOR := 0.3
+const NO_THRUST_FACTOR := 1.0
 
 var screen_size: Vector2
 var angular_velocity := 0.0
@@ -21,8 +24,11 @@ var ghost := false
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	$Sprite2D.texture = texture
 	global_position = spawn_position
+	$Indicator.default_color = color
+	$Thruster1.default_color = color
+	$Thruster2.default_color = color
+	
 	if birth:
 		$GhostTimer.timeout.emit()
 
@@ -62,11 +68,15 @@ func _physics_process(delta: float) -> void:
 
 	# Thrust
 	var forward = Vector2.UP.rotated(rotation)
-
+	var is_thrusting = false
 	if Input.is_action_pressed("forward_thrust" + player_prefix ):
 		velocity += forward * THRUST * delta
+		thruster_animation(true)
+		is_thrusting = true
 	if Input.is_action_pressed("reverse_thrust" + player_prefix ):
 		velocity += -forward * THRUST * delta
+		thruster_animation(true)
+		is_thrusting = true
 		
 	if Input.is_action_just_pressed("quantum_jump" + player_prefix ):
 		if qj_cooldown:
@@ -77,7 +87,9 @@ func _physics_process(delta: float) -> void:
 	# Maximum speed
 	if velocity.length() > MAX_SPEED:
 		velocity = velocity.normalized() * MAX_SPEED
-
+	
+	if not is_thrusting:
+		thruster_animation(false)
 	move_and_slide()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
@@ -124,6 +136,9 @@ func fire_bullet() -> void:
 
 func _on_ghost_timer_timeout() -> void:
 	$Sprite2D.modulate.a = 1.0
+	$Indicator.modulate.a = 1.0
+	$Thruster1.modulate.a = 1.0
+	$Thruster2.modulate.a = 1.0
 	collision_layer = 1
 	collision_mask = 3
 	ghost = false
@@ -134,3 +149,23 @@ func _on_qj_cool_down_timeout() -> void:
 
 func increment_slot():
 	bullet_slots += 1
+	
+func thruster_animation(thrust : bool) -> void:
+	if thrust:
+		var tmp = $Thruster1.points
+		if tmp[1].y < THRUST_LENGTH:
+			tmp[1].y += THRUST_FACTOR
+		$Thruster1.points = tmp
+		tmp = $Thruster2.points
+		if tmp[1].y < THRUST_LENGTH:
+			tmp[1].y += THRUST_FACTOR
+		$Thruster2.points = tmp
+	else:
+		var tmp = $Thruster1.points
+		if tmp[1].y > 32.0:
+			tmp[1].y -= NO_THRUST_FACTOR
+		$Thruster1.points = tmp	
+		tmp = $Thruster2.points
+		if tmp[1].y > 32.0:
+			tmp[1].y -= NO_THRUST_FACTOR
+		$Thruster2.points = tmp

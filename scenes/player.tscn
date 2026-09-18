@@ -1,9 +1,7 @@
 [gd_scene format=3 uid="uid://citcq11bhhs0b"]
 
 [ext_resource type="Script" uid="uid://c0ajr8mhjnqpo" path="res://scripts/player.gd" id="1_hjaqi"]
-[ext_resource type="Texture2D" uid="uid://b7blkru5ed8kq" path="res://assets/red_triangle.svg" id="2_fvtld"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_iiltf"]
+[ext_resource type="Texture2D" uid="uid://dfo1qocyuda2q" path="res://assets/ship.png" id="2_g2els"]
 
 [node name="Player" type="CharacterBody2D" unique_id=1459089273]
 collision_layer = 4
@@ -12,15 +10,33 @@ script = ExtResource("1_hjaqi")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=986086804]
 modulate = Color(1, 1, 1, 0.35000002)
-texture = ExtResource("2_fvtld")
+texture = ExtResource("2_g2els")
+
+[node name="Indicator" type="Line2D" parent="." unique_id=1164787133]
+modulate = Color(1, 1, 1, 0.34901962)
+position = Vector2(12, -35)
+points = PackedVector2Array(-12, 11, -12, 35)
+width = 16.0
+
+[node name="Thruster1" type="Line2D" parent="." unique_id=967369349]
+modulate = Color(1.5720325, 1.5720325, 1.5720325, 0.34901962)
+self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+points = PackedVector2Array(-12, 32, -12, 32)
+width = 8.0
+
+[node name="Thruster2" type="Line2D" parent="." unique_id=656040490]
+modulate = Color(1.5720325, 1.5720325, 1.5720325, 0.34901962)
+self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+position = Vector2(24, 0)
+points = PackedVector2Array(-12, 32, -12, 32)
+width = 8.0
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=545320082]
 scale = Vector2(4, 4)
+rect = Rect2(-10, -12, 20, 24)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1028303416]
-position = Vector2(0, 15)
-scale = Vector2(2.5, 2.5)
-shape = SubResource("CircleShape2D_iiltf")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1298041126]
+polygon = PackedVector2Array(-8, -48, 8, -48, 40, 8, 40, 31, 24, 40, 9, 48, -8, 48, -24, 40, -40, 32, -40, 8)
 
 [node name="GhostTimer" type="Timer" parent="." unique_id=1748035997]
 wait_time = 2.5
