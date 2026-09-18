@@ -9,7 +9,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
 shader = ExtResource("1_tefeu")
-shader_parameter/twink_factor = 10.0
+shader_parameter/twink_factor = 5.0
 shader_parameter/twink_cood = 3
 
 [sub_resource type="Environment" id="Environment_ms4yx"]
