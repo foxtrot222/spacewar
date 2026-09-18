@@ -6,6 +6,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uky64"]
 shader = ExtResource("2_rdvqj")
+shader_parameter/m1 = 0.400000019
+shader_parameter/m2 = 0.30000001425
+shader_parameter/m3 = 0.2000000095
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c7ew2"]
 radius = 100.0
@@ -19,6 +22,7 @@ scale = Vector2(2.5, 2.5)
 texture = ExtResource("2_uky64")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=495165208]
+visible = false
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1181455033]
