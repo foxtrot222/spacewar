@@ -28,8 +28,8 @@ func _ready() -> void:
 	set_is_casting(is_casting)
 	
 	# Initialize line points: start at start_distance along +X axis
-	line_2d.points[0] = Vector2.RIGHT * start_distance
-	line_2d.points[1] = Vector2.RIGHT * start_distance
+	line_2d.set_point_position(0, Vector2.RIGHT * start_distance)
+	line_2d.set_point_position(1, Vector2.RIGHT * start_distance)
 	line_2d.visible = false
 	
 	# Initialize laser_target after line_2d is ready
@@ -68,7 +68,7 @@ func _physics_process(delta: float) -> void:
 		damage_timer = 0.0
 
 	# Update visual line endpoint - line points along local +X
-	line_2d.points[1] = laser_end_position
+	line_2d.set_point_position(1, laser_end_position)
 
 func set_is_casting(new_value: bool) -> void:
 	if is_casting == new_value:
@@ -78,8 +78,8 @@ func set_is_casting(new_value: bool) -> void:
 
 	if is_casting:
 		var laser_start := Vector2.RIGHT * start_distance
-		line_2d.points[0] = laser_start
-		line_2d.points[1] = laser_start
+		line_2d.set_point_position(0, laser_start)
+		line_2d.set_point_position(1, laser_start)
 		line_2d.scale = Vector2(0, 1)  # Reset scale for tween animation
 		damage_timer = 0.0
 
