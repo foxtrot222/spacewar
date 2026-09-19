@@ -1,28 +1,22 @@
 [gd_scene format=3 uid="uid://cao82m7f0s4gp"]
 
 [ext_resource type="Script" uid="uid://br8v74t0x4aqm" path="res://scripts/gravity_well.gd" id="1_2p5qd"]
-[ext_resource type="Shader" uid="uid://8gjbn4uul1gi" path="res://shaders/gravity_well.gdshader" id="2_rdvqj"]
-[ext_resource type="Texture2D" uid="uid://bhxm301qhrhuv" path="res://assets/circle.svg" id="2_uky64"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uky64"]
-shader = ExtResource("2_rdvqj")
-shader_parameter/m1 = 0.400000019
-shader_parameter/m2 = 0.30000001425
-shader_parameter/m3 = 0.2000000095
+[ext_resource type="Texture2D" uid="uid://mn63rl7k0ny5" path="res://assets/gravity_well.png" id="2_uky64"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c7ew2"]
-radius = 100.0
+radius = 80.0
 
 [node name="GravityWell" type="Node2D" unique_id=1793359952]
 script = ExtResource("1_2p5qd")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1812083077]
-material = SubResource("ShaderMaterial_uky64")
-scale = Vector2(2.5, 2.5)
+modulate = Color(1.353256, 0.15451749, 0, 1)
+self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+texture_filter = 1
+scale = Vector2(5, 5)
 texture = ExtResource("2_uky64")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=495165208]
-visible = false
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1181455033]

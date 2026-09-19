@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhxm301qhrhuv"
-path="res://.godot/imported/circle.svg-ff756a352dbdb34004a1a6dc9326dc7c.ctex"
+uid="uid://mn63rl7k0ny5"
+path="res://.godot/imported/gravity_well.png-df211ecd2b26157362d082b06717cc6a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/circle.svg"
-dest_files=["res://.godot/imported/circle.svg-ff756a352dbdb34004a1a6dc9326dc7c.ctex"]
+source_file="res://assets/gravity_well.png"
+dest_files=["res://.godot/imported/gravity_well.png-df211ecd2b26157362d082b06717cc6a.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false
