@@ -31,10 +31,7 @@ autostart = true
 wait_time = 2.0
 
 [node name="Laser2D" parent="." unique_id=2090494508 instance=ExtResource("3_laser")]
-position = Vector2(0, -31.999998)
 rotation = -1.5707964
-scale = Vector2(10, 1.25)
-target_position = Vector2(1100, 0)
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
