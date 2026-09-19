@@ -3,6 +3,9 @@ extends CharacterBody2D
 @export var player_prefix : String
 @export var texture : Texture2D
 @export var spawn_position : Vector2
+@export var laser_color : Color = Color.WHITE
+
+@onready var laser: RayCast2D = $Laser2D
 
 # Player health
 const MAX_HEALTH := 100
@@ -35,8 +38,19 @@ func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	$Sprite2D.texture = texture
 	global_position = spawn_position
+	
+	# Apply laser color
+	if laser:
+		laser.set_color(laser_color)
+	
 	if birth:
 		$GhostTimer.timeout.emit()
+	else:
+		# Start in ghost mode if not birth (respawning)
+		ghost = true
+		collision_layer = 4  # ghost layer
+		collision_mask = 0
+		$Sprite2D.modulate.a = 0.35
 
 func _physics_process(delta: float) -> void:
 	missile_fire_cooldown = max(missile_fire_cooldown - delta, 0.0)
@@ -66,6 +80,11 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("missile" + player_prefix) and not ghost:
 		try_fire_missile()
+
+	if Input.is_action_pressed("laser" + player_prefix) and not ghost:
+		laser.is_casting = true
+	else:
+		laser.is_casting = false
 
 	# Apply rotation
 	if Global.ENABLE_ANGULAR_INERTIA:
