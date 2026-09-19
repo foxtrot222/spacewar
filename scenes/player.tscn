@@ -10,8 +10,6 @@ script = ExtResource("1_hjaqi")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=986086804]
 modulate = Color(1, 1, 1, 0.35000002)
-texture_filter = 1
-scale = Vector2(4, 4)
 texture = ExtResource("2_g2els")
 
 [node name="Indicator" type="Line2D" parent="." unique_id=1164787133]
