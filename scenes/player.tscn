@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://c0ajr8mhjnqpo" path="res://scripts/player.gd" id="1_hjaqi"]
 [ext_resource type="Texture2D" uid="uid://dfo1qocyuda2q" path="res://assets/ship.png" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://ch10ouhn7vsse" path="res://scenes/laser.tscn" id="3_laser"]
 
 [node name="Player" type="CharacterBody2D" unique_id=1459089273]
-collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_hjaqi")
 
@@ -45,6 +45,9 @@ autostart = true
 
 [node name="QJCooldown" type="Timer" parent="." unique_id=1241653968]
 wait_time = 2.0
+
+[node name="Laser2D" parent="." unique_id=2090494508 instance=ExtResource("3_laser")]
+rotation = -1.5707964
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]

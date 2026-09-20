@@ -33,9 +33,11 @@ position = Vector2(668, 774)
 player_prefix = "1"
 color = Color(0.98, 0, 0, 1)
 spawn_position = Vector2(156, 262)
+laser_color = Color(1, 0, 0, 1)
 
 [node name="Player2" parent="." unique_id=1507594264 instance=ExtResource("1_ig7tw")]
 position = Vector2(779, 676)
 player_prefix = "2"
 color = Color(0, 1, 0, 1)
 spawn_position = Vector2(779, 676)
+laser_color = Color(0, 1, 0, 1)

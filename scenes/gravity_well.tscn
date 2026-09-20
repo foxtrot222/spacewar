@@ -3,10 +3,14 @@
 [ext_resource type="Script" uid="uid://br8v74t0x4aqm" path="res://scripts/gravity_well.gd" id="1_2p5qd"]
 [ext_resource type="Texture2D" uid="uid://mn63rl7k0ny5" path="res://assets/gravity_well.png" id="2_uky64"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_c7ew2"]
-radius = 80.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_iiltf"]
+radius = 96.332756
 
-[node name="GravityWell" type="Node2D" unique_id=1793359952]
+[sub_resource type="CircleShape2D" id="CircleShape2D_c7ew2"]
+radius = 104.019226
+
+[node name="GravityWell" type="StaticBody2D" unique_id=1793359952]
+collision_layer = 2
 script = ExtResource("1_2p5qd")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1812083077]
@@ -16,11 +20,14 @@ texture_filter = 1
 scale = Vector2(5, 5)
 texture = ExtResource("2_uky64")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=31363889]
+shape = SubResource("CircleShape2D_iiltf")
+
 [node name="Area2D" type="Area2D" parent="." unique_id=495165208]
 collision_layer = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1181455033]
-position = Vector2(-1, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1181455034]
+position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_c7ew2")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
