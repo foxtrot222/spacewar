@@ -29,8 +29,6 @@ func respawn_player(player: CharacterBody2D) -> void:
 	
 	get_tree().current_scene.add_child(exp)
 
-	var player_laser_color: Color = player.laser_color
-
 	player.queue_free()
 
 	await get_tree().create_timer(2.0).timeout
@@ -40,7 +38,6 @@ func respawn_player(player: CharacterBody2D) -> void:
 	new_player.player_prefix = player_prefix
 	new_player.color = player_color
 	new_player.spawn_position = spawn_position
-	new_player.laser_color = player_laser_color
 	new_player.health = new_player.MAX_HEALTH
 	new_player.birth = false
 	new_player.ghost = true

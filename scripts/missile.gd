@@ -18,6 +18,7 @@ func setup(start_position: Vector2, start_direction: Vector2, shooter_player: Ch
 	rotation = start_direction.angle()
 	shooter = shooter_player
 	life_timer.start()
+	$TailLine2D.default_color = shooter.color
 
 func _physics_process(delta: float) -> void:
 	# Gravity

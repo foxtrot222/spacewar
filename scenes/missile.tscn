@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bxb7dbldpv6iu" path="res://scripts/missile.gd" id="1_6cx5e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ddwc"]
-size = Vector2(38, 12)
+size = Vector2(44, 12)
 
 [node name="Missile" type="Area2D" unique_id=1191329197]
 script = ExtResource("1_6cx5e")
@@ -11,9 +11,9 @@ script = ExtResource("1_6cx5e")
 [node name="HeadLine2D" type="Line2D" parent="." unique_id=1592345161]
 position = Vector2(2.7307682, 0)
 scale = Vector2(0.8846155, 1)
-points = PackedVector2Array(-14.826086, 0, 17.95652, 0)
+points = PackedVector2Array(-14.826086, 0, 22.913042, 0)
 width = 12.0
-default_color = Color(0.17177936, 0.17972982, 0.19298142, 1)
+default_color = Color(0.5137255, 0.49411765, 0.5294118, 1)
 round_precision = 10
 
 [node name="TailLine2D" type="Line2D" parent="." unique_id=1227544564]
@@ -21,18 +21,18 @@ modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 position = Vector2(-0.38461685, 0)
 scale = Vector2(0.8846155, 1)
-points = PackedVector2Array(-21.478258, 0, -11.304346, 0)
+points = PackedVector2Array(-23.304344, 0, -11.304346, 0)
 width = 12.0
 default_color = Color(1, 0, 0, 1)
 round_precision = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=300952497]
-position = Vector2(-0.38461685, 0)
+position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_0ddwc")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=382317434]
 position = Vector2(-0.38461685, 0)
-rect = Rect2(-19, -6, 38, 12)
+rect = Rect2(-20.615383, -6, 44, 12)
 
 [node name="LifeTimer" type="Timer" parent="." unique_id=1472427456]
 wait_time = 3.0

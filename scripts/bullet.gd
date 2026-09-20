@@ -15,6 +15,7 @@ func setup(start_position: Vector2, start_direction: Vector2, shooter_player: Ch
 	velocity = start_direction.normalized() * BULLET_SPEED
 	rotation = start_direction.angle()
 	shooter = shooter_player
+	$Line2D.default_color = shooter.color
 
 func _physics_process(delta: float) -> void:
 	# Maximum speed

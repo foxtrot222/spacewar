@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var player_prefix : String
 @export var color : Color
 @export var spawn_position : Vector2
-@export var laser_color : Color = Color.WHITE
+
 
 @onready var laser: RayCast2D = $Laser2D
 @onready var marker: Marker2D = $Marker2D
@@ -47,7 +47,7 @@ func _ready() -> void:
 
 	# Apply laser color
 	if laser:
-		laser.set_color(laser_color)
+		laser.set_color(color)
 	
 	if birth:
 		$GhostTimer.timeout.emit()
