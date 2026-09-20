@@ -3,26 +3,26 @@
 [ext_resource type="Script" uid="uid://br8v74t0x4aqm" path="res://scripts/gravity_well.gd" id="1_2p5qd"]
 [ext_resource type="Texture2D" uid="uid://bhxm301qhrhuv" path="res://assets/circle.svg" id="2_75dvb"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_iiltf"]
+radius = 96.332756
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_c7ew2"]
-radius = 104.0
+radius = 104.019226
 
 [node name="GravityWell" type="StaticBody2D" unique_id=1793359952]
-script = ExtResource("1_2p5qd")
 collision_layer = 2
+script = ExtResource("1_2p5qd")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1456411365]
 position = Vector2(-1.9073486e-06, 1.9999924)
 scale = Vector2(2.61, 2.6363635)
 texture = ExtResource("2_75dvb")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1181455033]
-position = Vector2(0, 2)
-shape = SubResource("CircleShape2D_c7ew2")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=31363889]
+shape = SubResource("CircleShape2D_iiltf")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=495165208]
 collision_layer = 2
-monitoring = true
-monitorable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1181455034]
 position = Vector2(0, 2)
