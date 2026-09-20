@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var laser_color : Color = Color.WHITE
 
 @onready var laser: RayCast2D = $Laser2D
+@onready var marker: Marker2D = $Marker2D
 
 # Player health
 const MAX_HEALTH := 100
@@ -171,22 +172,19 @@ func quantum_jump() -> void:
 
 func fire_bullet() -> void:
 	Global.spawn_bullet(
-	global_position + Vector2.UP.rotated(rotation) * 30.0,
-	Vector2.UP.rotated(rotation),
-	self
-	)
+		marker.global_position,
+		Vector2.UP.rotated(rotation),
+		self)
 
 func try_fire_missile() -> void:
 	if missile_slots <= 0 or missile_fire_cooldown > 0.0:
 		return
-
 	missile_slots -= 1
 	missile_fire_cooldown = MISSILE_FIRE_INTERVAL
 	Global.spawn_missile(
-	global_position + Vector2.UP.rotated(rotation) * 30.0,
-	Vector2.UP.rotated(rotation),
-	self
-	)
+		marker.global_position,
+		Vector2.UP.rotated(rotation),
+		self)
 	get_tree().create_timer(MISSILE_SLOT_RECOVERY_SECONDS).timeout.connect(_recover_missile_slot)
 
 func _recover_missile_slot() -> void:

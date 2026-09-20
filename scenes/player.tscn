@@ -47,6 +47,11 @@ autostart = true
 wait_time = 2.0
 
 [node name="Laser2D" parent="." unique_id=2090494508 instance=ExtResource("3_laser")]
+position = Vector2(0, -56)
+rotation = -1.5707964
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=658544316]
+position = Vector2(0, -56)
 rotation = -1.5707964
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

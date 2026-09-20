@@ -10,6 +10,7 @@ script = ExtResource("1_xmihv")
 [node name="Line2D" type="Line2D" parent="." unique_id=1183768390]
 modulate = Color(2.454227, 2.454227, 2.454227, 1)
 self_modulate = Color(2.454227, 2.454227, 2.454227, 1)
+position = Vector2(-40, 0)
 points = PackedVector2Array(40, 0, 40, 0)
 width = 5.0
 begin_cap_mode = 2
