@@ -45,7 +45,6 @@ func _on_body_entered(body: Node2D) -> void:
 			return
 
 		print("Torpedo hit player!")
-		body.queue_free()
 		queue_free()
 		Global.respawn_player(body)
 		

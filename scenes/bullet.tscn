@@ -9,7 +9,6 @@ size = Vector2(16, 6)
 script = ExtResource("1_y25gk")
 
 [node name="HeadLine2D" type="Line2D" parent="." unique_id=844002090]
-visible = false
 position = Vector2(-0.88461506, 0)
 scale = Vector2(0.8846155, 1)
 points = PackedVector2Array(-14.826086, 0, 17.95652, 0)
@@ -18,7 +17,6 @@ default_color = Color(0.29411766, 0.30588236, 0.3254902, 1)
 round_precision = 10
 
 [node name="TailLine2D" type="Line2D" parent="." unique_id=2014715246]
-visible = false
 modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 position = Vector2(-4, 0)
@@ -29,6 +27,7 @@ default_color = Color(1, 0, 0, 1)
 round_precision = 10
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1362633326]
+visible = false
 modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 points = PackedVector2Array(-8, 0, 8, 0)
