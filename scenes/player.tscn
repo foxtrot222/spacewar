@@ -8,6 +8,10 @@
 collision_mask = 0
 script = ExtResource("1_hjaqi")
 
+[node name="Laser" parent="." unique_id=2090494508 instance=ExtResource("3_laser")]
+position = Vector2(0, -56)
+rotation = -1.5707964
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=986086804]
 modulate = Color(1, 1, 1, 0.35000002)
 texture = ExtResource("2_g2els")
@@ -31,12 +35,16 @@ position = Vector2(24, 0)
 points = PackedVector2Array(-12, 32, -12, 32)
 width = 8.0
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=545320082]
-scale = Vector2(4, 4)
-rect = Rect2(-10, -12, 20, 24)
+[node name="FirePosition" type="Marker2D" parent="." unique_id=658544316]
+position = Vector2(0, -56)
+rotation = -1.5707964
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1298041126]
 polygon = PackedVector2Array(-8, -48, 8, -48, 40, 8, 40, 31, 24, 40, 9, 48, -8, 48, -24, 40, -40, 32, -40, 8)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=545320082]
+scale = Vector2(4, 4)
+rect = Rect2(-10, -12, 20, 24)
 
 [node name="GhostTimer" type="Timer" parent="." unique_id=1748035997]
 wait_time = 2.5
@@ -45,14 +53,6 @@ autostart = true
 
 [node name="QJCooldown" type="Timer" parent="." unique_id=1241653968]
 wait_time = 2.0
-
-[node name="Laser2D" parent="." unique_id=2090494508 instance=ExtResource("3_laser")]
-position = Vector2(0, -56)
-rotation = -1.5707964
-
-[node name="Marker2D" type="Marker2D" parent="." unique_id=658544316]
-position = Vector2(0, -56)
-rotation = -1.5707964
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]

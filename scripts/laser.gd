@@ -9,7 +9,6 @@ extends RayCast2D
 @export var start_distance := 40.0
 ## Base duration of the tween animation in seconds.
 @export var growth_time := 0.1
-@export var color := Color.WHITE: set = set_color
 
 ## If `true`, the laser is firing.
 ## It plays appearing and disappearing animations when it's not animating.
@@ -24,7 +23,6 @@ var length
 @onready var line_2d: Line2D = $Line2D
 
 func _ready() -> void:
-	set_color(color)
 	set_is_casting(is_casting)
 	
 	# Initialize line points: start at start_distance along +X axis
@@ -101,11 +99,3 @@ func disappear() -> void:
 	tween = create_tween()
 	tween.tween_property(line_2d, "scale:x", 0.0, growth_time).from_current()
 	tween.tween_callback(line_2d.hide)
-
-func set_color(new_color: Color) -> void:
-	color = new_color
-
-	if line_2d == null:
-		return
-
-	line_2d.modulate = new_color
