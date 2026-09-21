@@ -55,10 +55,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	missile_fire_cooldown = max(missile_fire_cooldown - delta, 0.0)
 
-	var direction = Global.gravity_well.global_position - global_position
+	var direction = Global.star.global_position - global_position
 	var distance = max(direction.length(), 30.0)
 	if not ghost:
-		var gravity_force = direction.normalized() * (Global.gravity_well.GRAVITY_STRENGTH / (distance * distance))
+		var gravity_force = direction.normalized() * (Global.star.GRAVITY_STRENGTH / (distance * distance))
 		velocity += gravity_force * delta
 
 	if Input.is_action_pressed("rotate_left" + player_prefix):
@@ -124,7 +124,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 		global_position.y = 0
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("star") or body.name == "GravityWell":
+	if body.is_in_group("star") or body.name == "Star":
 		die("by entering the star")
 
 func take_damage(amount: int) -> void:

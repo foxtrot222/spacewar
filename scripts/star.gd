@@ -4,7 +4,7 @@ const GRAVITY_STRENGTH: float = 500000.0
 const ROTATE_FACTOR := 5
 
 func _ready() -> void:
-	Global.set_gravity_well(self)
+	Global.set_star(self)
 	add_to_group("star")
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

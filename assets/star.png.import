@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://mn63rl7k0ny5"
-path="res://.godot/imported/gravity_well.png-df211ecd2b26157362d082b06717cc6a.ctex"
+path="res://.godot/imported/star.png-db40ec76fb3fd808480ce0481255e27b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gravity_well.png"
-dest_files=["res://.godot/imported/gravity_well.png-df211ecd2b26157362d082b06717cc6a.ctex"]
+source_file="res://assets/star.png"
+dest_files=["res://.godot/imported/star.png-db40ec76fb3fd808480ce0481255e27b.ctex"]
 
 [params]
 

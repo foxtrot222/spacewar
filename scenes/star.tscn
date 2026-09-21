@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cao82m7f0s4gp"]
 
-[ext_resource type="Script" uid="uid://br8v74t0x4aqm" path="res://scripts/gravity_well.gd" id="1_2p5qd"]
-[ext_resource type="Texture2D" uid="uid://mn63rl7k0ny5" path="res://assets/gravity_well.png" id="2_uky64"]
+[ext_resource type="Script" uid="uid://br8v74t0x4aqm" path="res://scripts/star.gd" id="1_2p5qd"]
+[ext_resource type="Texture2D" uid="uid://mn63rl7k0ny5" path="res://assets/star.png" id="2_uky64"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iiltf"]
 radius = 96.332756
@@ -9,7 +9,7 @@ radius = 96.332756
 [sub_resource type="CircleShape2D" id="CircleShape2D_c7ew2"]
 radius = 104.019226
 
-[node name="GravityWell" type="StaticBody2D" unique_id=1793359952]
+[node name="Star" type="StaticBody2D" unique_id=1793359952]
 collision_layer = 2
 script = ExtResource("1_2p5qd")
 

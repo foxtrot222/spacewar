@@ -15,9 +15,9 @@ func setup(start_position: Vector2, start_direction: Vector2, shooter_player: Ch
 	$TailLine2D.default_color = shooter.color
 
 func _physics_process(delta: float) -> void:
-	var direction_to_star = Global.gravity_well.global_position - global_position
+	var direction_to_star = Global.star.global_position - global_position
 	var distance = max(direction_to_star.length(), 30.0)
-	var gravity_force = direction_to_star.normalized() * (Global.gravity_well.GRAVITY_STRENGTH / (distance * distance))
+	var gravity_force = direction_to_star.normalized() * (Global.star.GRAVITY_STRENGTH / (distance * distance))
 	velocity += gravity_force * delta
 
 	global_position += velocity * delta

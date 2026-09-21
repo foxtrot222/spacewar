@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://citcq11bhhs0b" path="res://scenes/player.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://bp8d7pyl4wxiq" path="res://assets/space_background.png" id="1_tbgi4"]
 [ext_resource type="Shader" uid="uid://cgu76c2smn8bj" path="res://shaders/space.gdshader" id="1_tefeu"]
-[ext_resource type="PackedScene" uid="uid://cao82m7f0s4gp" path="res://scenes/gravity_well.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://cao82m7f0s4gp" path="res://scenes/star.tscn" id="3_sugp2"]
 
 [sub_resource type="Environment" id="Environment_ms4yx"]
 background_mode = 3
@@ -25,7 +25,7 @@ material = SubResource("ShaderMaterial_tefeu")
 position = Vector2(512, 512)
 texture = ExtResource("1_tbgi4")
 
-[node name="GravityWell" parent="." unique_id=1793359952 instance=ExtResource("3_sugp2")]
+[node name="Star" parent="." unique_id=1793359952 instance=ExtResource("3_sugp2")]
 position = Vector2(512, 512)
 
 [node name="Player1" parent="." unique_id=1459089273 instance=ExtResource("1_ig7tw")]
