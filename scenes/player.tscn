@@ -5,14 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://ch10ouhn7vsse" path="res://scenes/laser.tscn" id="3_laser"]
 
 [node name="Player" type="CharacterBody2D" unique_id=1459089273]
-collision_mask = 0
+collision_mask = 63
 script = ExtResource("1_hjaqi")
 
 [node name="Laser" parent="." unique_id=2090494508 instance=ExtResource("3_laser")]
 position = Vector2(0, -48)
 rotation = -1.5707964
-collision_mask = 59
-collision_layer = 32
+target_position = Vector2(0, 0)
+collide_with_areas = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=986086804]
 modulate = Color(1, 1, 1, 0.35000002)
