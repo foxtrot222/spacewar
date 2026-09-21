@@ -1,7 +1,7 @@
 extends Node2D
 
 const GRAVITY_STRENGTH: float = 500000.0
-const ROTATE_FACTOR := 0.15
+const ROTATE_FACTOR := 5
 
 func _ready() -> void:
 	Global.set_gravity_well(self)
@@ -12,4 +12,4 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		body.take_damage(1000)
 
 func _process(delta: float) -> void:
-	$Sprite2D.rotate(deg_to_rad(ROTATE_FACTOR))
+	$Sprite2D.rotate(deg_to_rad(ROTATE_FACTOR) * delta)
