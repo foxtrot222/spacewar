@@ -4,8 +4,6 @@ const PLAYER_SCENE = preload("res://scenes/player.tscn")
 const BULLET_SCENE = preload("res://scenes/bullet.tscn")
 const MISSILE_SCENE = preload("res://scenes/missile.tscn")
 
-const EX = preload("res://scenes/explosion.tscn")
-
 func respawn_player(player: CharacterBody2D) -> void:
 	if player == null:
 		return
@@ -13,13 +11,8 @@ func respawn_player(player: CharacterBody2D) -> void:
 	var player_prefix: String = player.player_prefix
 	var player_color: Color = player.color
 	var spawn_position: Vector2 = player.spawn_position
-	var exp = EX.instantiate()
-	exp.position = player.position
-	exp.process_material.color = player_color
-	exp.restart()
-	
-	get_tree().current_scene.add_child(exp)
 
+	Global.explosion.set_explosion(player.position, player_color, "ShipExplode")
 	player.queue_free()
 
 	await get_tree().create_timer(2.0).timeout

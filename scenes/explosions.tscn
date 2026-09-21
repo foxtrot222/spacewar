@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://cnj05l6072alu"]
 
+[ext_resource type="Script" uid="uid://bbx7ope8gcjhn" path="res://scripts/explosions.gd" id="1_h8kb6"]
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ms4yx"]
 particle_flag_disable_z = true
 spread = 180.0
@@ -7,13 +9,16 @@ initial_velocity_min = -20.0
 initial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
 scale_max = 6.0
-color = Color(1, 0, 0, 1)
 
-[node name="GPUParticles2D" type="GPUParticles2D" unique_id=1742030958]
+[node name="Explosions" type="Node2D" unique_id=56338772]
+script = ExtResource("1_h8kb6")
+
+[node name="ShipExplode" type="GPUParticles2D" parent="." unique_id=1742030958]
 modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 emitting = false
 amount = 100
+lifetime = 10.0
 one_shot = true
 explosiveness = 1.0
 randomness = 0.5

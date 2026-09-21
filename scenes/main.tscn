@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bp8d7pyl4wxiq" path="res://assets/space_background.png" id="1_tbgi4"]
 [ext_resource type="Shader" uid="uid://cgu76c2smn8bj" path="res://shaders/space.gdshader" id="1_tefeu"]
 [ext_resource type="PackedScene" uid="uid://cao82m7f0s4gp" path="res://scenes/star.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://cnj05l6072alu" path="res://scenes/explosions.tscn" id="5_tbgi4"]
 
 [sub_resource type="Environment" id="Environment_ms4yx"]
 background_mode = 3
@@ -28,11 +29,13 @@ texture = ExtResource("1_tbgi4")
 [node name="Star" parent="." unique_id=1793359952 instance=ExtResource("3_sugp2")]
 position = Vector2(512, 512)
 
+[node name="Explosions" parent="." unique_id=56338772 instance=ExtResource("5_tbgi4")]
+
 [node name="Player1" parent="." unique_id=1459089273 instance=ExtResource("1_ig7tw")]
-position = Vector2(668, 774)
+position = Vector2(220, 368)
 player_prefix = "1"
 color = Color(1, 0, 0, 1)
-spawn_position = Vector2(156, 262)
+spawn_position = Vector2(220, 368)
 
 [node name="Player2" parent="." unique_id=1507594264 instance=ExtResource("1_ig7tw")]
 position = Vector2(779, 676)
