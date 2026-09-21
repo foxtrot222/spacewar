@@ -9,7 +9,7 @@ collision_mask = 0
 script = ExtResource("1_hjaqi")
 
 [node name="Laser" parent="." unique_id=2090494508 instance=ExtResource("3_laser")]
-position = Vector2(0, -56)
+position = Vector2(0, -48)
 rotation = -1.5707964
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=986086804]
@@ -36,7 +36,7 @@ points = PackedVector2Array(-12, 32, -12, 32)
 width = 8.0
 
 [node name="FirePosition" type="Marker2D" parent="." unique_id=658544316]
-position = Vector2(0, -56)
+position = Vector2(0, -48)
 rotation = -1.5707964
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1298041126]

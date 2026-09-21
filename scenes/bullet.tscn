@@ -11,15 +11,17 @@ script = ExtResource("1_y25gk")
 [node name="Line2D" type="Line2D" parent="." unique_id=1362633326]
 modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+position = Vector2(8, 0)
 points = PackedVector2Array(-8, 0, 8, 0)
 width = 6.0
 default_color = Color(1, 0, 0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1515094647]
+position = Vector2(8, 0)
 shape = SubResource("RectangleShape2D_0ddwc")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1177745384]
-position = Vector2(0, 3)
+position = Vector2(8, 3)
 rect = Rect2(-8, -6, 16, 6)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -5,8 +5,6 @@ extends RayCast2D
 @export var cast_speed := 7000.0
 ## Maximum length of the laser in pixels.
 @export var max_length := 1400.0
-## Distance in pixels from the origin to start drawing and firing the laser.
-@export var start_distance := 40.0
 ## Base duration of the tween animation in seconds.
 @export var growth_time := 0.1
 
@@ -26,12 +24,10 @@ func _ready() -> void:
 	set_is_casting(is_casting)
 	
 	# Initialize line points: start at start_distance along +X axis
-	line_2d.set_point_position(0, Vector2.RIGHT * start_distance)
-	line_2d.set_point_position(1, Vector2.RIGHT * start_distance)
+	line_2d.set_point_position(0, Vector2.ZERO)
+	line_2d.set_point_position(1, Vector2.ZERO)
+
 	line_2d.visible = false
-	
-	# Initialize laser_target after line_2d is ready
-	laser_target = Vector2.RIGHT * start_distance
 	
 	# Configure raycast length
 	length = max_length
@@ -75,9 +71,8 @@ func set_is_casting(new_value: bool) -> void:
 	set_physics_process(is_casting)
 
 	if is_casting:
-		var laser_start := Vector2.RIGHT * start_distance
-		line_2d.set_point_position(0, laser_start)
-		line_2d.set_point_position(1, laser_start)
+		line_2d.set_point_position(0, Vector2.ZERO)
+		line_2d.set_point_position(1, Vector2.ZERO)
 		line_2d.scale = Vector2(0, 1)  # Reset scale for tween animation
 		damage_timer = 0.0
 
