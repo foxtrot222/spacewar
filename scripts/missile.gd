@@ -1,6 +1,6 @@
 extends Area2D
 
-const MISSILE_SPEED := 500.0
+const MISSILE_SPEED := 150.0
 const MISSILE_LIFETIME := 5.0
 const MISSILE_DAMAGE := 50
 
@@ -15,7 +15,6 @@ func setup(start_position: Vector2, start_direction: Vector2, shooter_player: Ch
 	$TailLine2D.default_color = shooter.color
 
 func _physics_process(delta: float) -> void:
-
 	var direction_to_star = Global.gravity_well.global_position - global_position
 	var distance = max(direction_to_star.length(), 30.0)
 	var gravity_force = direction_to_star.normalized() * (Global.gravity_well.GRAVITY_STRENGTH / (distance * distance))
@@ -23,9 +22,6 @@ func _physics_process(delta: float) -> void:
 
 	global_position += velocity * delta
 	rotation = velocity.angle()
-
-	if global_position.distance_to(Global.gravity_well.global_position) > 1500:
-		queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D:
