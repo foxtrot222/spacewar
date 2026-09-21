@@ -26,11 +26,11 @@ func _ready() -> void:
 	# Initialize line points: start at start_distance along +X axis
 	line_2d.set_point_position(0, Vector2.ZERO)
 	line_2d.set_point_position(1, Vector2.ZERO)
-
+	
 	line_2d.visible = false
 	
-	# Configure raycast length
-	length = max_length
+	# Configure raycast target position
+	target_position = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
 	if not is_casting:
@@ -42,6 +42,9 @@ func _physics_process(delta: float) -> void:
 		max_length,
 		cast_speed * delta
 	)
+
+	# Update raycast target position
+	target_position = laser_target
 
 	# Force raycast update and check collisions
 	force_raycast_update()
@@ -57,6 +60,18 @@ func _physics_process(delta: float) -> void:
 			if collider and collider.has_method("take_damage"):
 				collider.take_damage(1)  # 1 damage per 10ms
 			damage_timer = 0.0
+		
+		# Check if it's a missile - laser destroys missile
+		var collider = get_collider()
+		if collider and collider.name == "Missile":
+			collider.queue_free()
+		# Check if it's a bullet - laser destroys bullet
+		elif collider and collider.name == "Bullet":
+			collider.queue_free()
+		# Check if it's another laser - lasers destroy each other
+		elif collider and collider.name == "Laser":
+			collider.queue_free()
+			# This laser will be handled by the other laser's collision
 	else:
 		laser_end_position = laser_target
 		damage_timer = 0.0
@@ -75,10 +90,13 @@ func set_is_casting(new_value: bool) -> void:
 		line_2d.set_point_position(1, Vector2.ZERO)
 		line_2d.scale = Vector2(0, 1)  # Reset scale for tween animation
 		damage_timer = 0.0
+		laser_target = Vector2.ZERO
+		target_position = Vector2.ZERO
 
 		appear()
 	else:
 		laser_target = Vector2.ZERO
+		target_position = Vector2.ZERO
 		disappear()
 
 func appear() -> void:

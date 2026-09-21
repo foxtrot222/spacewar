@@ -29,5 +29,13 @@ func _on_body_entered(body: Node2D) -> void:
 		body.take_damage(damage)
 		queue_free()
 
+func _on_area_entered(area: Area2D) -> void:
+	# Check if it's a missile - bullets don't destroy missiles
+	if area.name == "Missile":
+		return  # Don't destroy missile, bullet passes through
+	# Check if it's another bullet - bullets pass through each other
+	if area.name == "Bullet":
+		return  # Don't destroy other bullets
+
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()

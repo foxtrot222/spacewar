@@ -29,13 +29,14 @@ texture = ExtResource("1_tbgi4")
 position = Vector2(512, 512)
 
 [node name="Player1" parent="." unique_id=1459089273 instance=ExtResource("1_ig7tw")]
-position = Vector2(668, 774)
+position = Vector2(768, 320)
+rotation = 3.1415927
 player_prefix = "1"
 color = Color(1, 0, 0, 1)
-spawn_position = Vector2(156, 262)
+spawn_position = Vector2(768, 320)
 
 [node name="Player2" parent="." unique_id=1507594264 instance=ExtResource("1_ig7tw")]
-position = Vector2(779, 676)
+position = Vector2(768, 704)
 player_prefix = "2"
 color = Color(0, 1, 0, 1)
-spawn_position = Vector2(779, 676)
+spawn_position = Vector2(768, 704)

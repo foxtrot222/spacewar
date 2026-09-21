@@ -4,13 +4,13 @@
 
 [node name="Laser" type="RayCast2D" unique_id=2090494508]
 target_position = Vector2(1400, 0)
-collision_mask = 3
+collision_mask = 59
+collision_layer = 32
 script = ExtResource("1_xmihv")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1183768390]
-visible = false
 modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 scale = Vector2(1e-05, 1)
-points = PackedVector2Array(4000000, 0, 4000000, 0)
+points = PackedVector2Array(0, 0, 0, 0)
 width = 5.0

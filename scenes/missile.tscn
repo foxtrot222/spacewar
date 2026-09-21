@@ -6,6 +6,8 @@
 size = Vector2(44, 12)
 
 [node name="Missile" type="Area2D" unique_id=1191329197]
+collision_layer = 16
+collision_mask = 63
 script = ExtResource("1_6cx5e")
 
 [node name="HeadLine2D" type="Line2D" parent="." unique_id=1592345161]
@@ -33,3 +35,4 @@ position = Vector2(12, 0)
 rect = Rect2(-12, -6, 44, 12)
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

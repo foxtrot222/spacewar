@@ -48,7 +48,7 @@ func _ready() -> void:
 		$GhostTimer.timeout.emit()
 	else:
 		ghost = true
-		collision_layer = 4
+		collision_layer = 4  # layer 3 = ghost
 		collision_mask = 0
 		$Sprite2D.modulate.a = 0.35
 
@@ -184,7 +184,7 @@ func _on_ghost_timer_timeout() -> void:
 	thruster1.modulate.a = 1.0
 	thruster2.modulate.a = 1.0
 	collision_layer = 1
-	collision_mask = 3
+	collision_mask = 58
 	ghost = false
 
 func _on_qj_cool_down_timeout() -> void:

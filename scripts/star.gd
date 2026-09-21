@@ -1,6 +1,6 @@
 extends Node2D
 
-const GRAVITY_STRENGTH: float = 500000.0
+const GRAVITY_STRENGTH: float = 0#500000.0
 const ROTATE_FACTOR := 5
 
 func _ready() -> void:

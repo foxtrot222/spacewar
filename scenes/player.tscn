@@ -11,6 +11,8 @@ script = ExtResource("1_hjaqi")
 [node name="Laser" parent="." unique_id=2090494508 instance=ExtResource("3_laser")]
 position = Vector2(0, -48)
 rotation = -1.5707964
+collision_mask = 59
+collision_layer = 32
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=986086804]
 modulate = Color(1, 1, 1, 0.35000002)
