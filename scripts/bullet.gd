@@ -27,6 +27,7 @@ func _on_body_entered(body: Node2D) -> void:
 		var damage := BULLET_DAMAGE
 		print("Bullet hit Player %s! Damage: %s" % [int(body.player_prefix), damage])
 		body.take_damage(damage)
+		Global.explosion.set_explosion(position, shooter.color, "BulletExplode")
 		queue_free()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:

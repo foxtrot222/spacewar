@@ -10,6 +10,22 @@ initial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
 scale_max = 6.0
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h8kb6"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = -20.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_max = 3.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u62fb"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = -20.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_max = 4.0
+
 [node name="Explosions" type="Node2D" unique_id=56338772]
 script = ExtResource("1_h8kb6")
 
@@ -18,8 +34,29 @@ modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 emitting = false
 amount = 100
-lifetime = 10.0
 one_shot = true
 explosiveness = 1.0
 randomness = 0.5
 process_material = SubResource("ParticleProcessMaterial_ms4yx")
+
+[node name="BulletExplode" type="GPUParticles2D" parent="." unique_id=1129230080]
+modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+emitting = false
+amount = 25
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_h8kb6")
+
+[node name="MissileExplode" type="GPUParticles2D" parent="." unique_id=759091558]
+modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+emitting = false
+amount = 50
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_u62fb")
