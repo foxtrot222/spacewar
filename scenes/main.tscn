@@ -32,13 +32,13 @@ position = Vector2(512, 512)
 [node name="Explosions" parent="." unique_id=56338772 instance=ExtResource("5_tbgi4")]
 
 [node name="Player1" parent="." unique_id=1459089273 instance=ExtResource("1_ig7tw")]
-position = Vector2(220, 368)
+position = Vector2(823, 767)
 player_prefix = "1"
 color = Color(1, 0, 0, 1)
-spawn_position = Vector2(220, 368)
+spawn_position = Vector2(823, 767)
 
 [node name="Player2" parent="." unique_id=1507594264 instance=ExtResource("1_ig7tw")]
-position = Vector2(779, 676)
+position = Vector2(824, 454)
 player_prefix = "2"
 color = Color(0, 1, 0, 1)
-spawn_position = Vector2(779, 676)
+spawn_position = Vector2(824, 454)

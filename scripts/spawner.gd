@@ -7,11 +7,9 @@ const MISSILE_SCENE = preload("res://scenes/missile.tscn")
 func respawn_player(player: CharacterBody2D) -> void:
 	if player == null:
 		return
-
 	var player_prefix: String = player.player_prefix
 	var player_color: Color = player.color
 	var spawn_position: Vector2 = player.spawn_position
-
 	Global.explosion.set_explosion(player.position, player_color, "ShipExplode")
 	player.queue_free()
 
