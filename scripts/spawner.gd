@@ -10,7 +10,6 @@ func respawn_player(player: CharacterBody2D) -> void:
 	var player_prefix: String = player.player_prefix
 	var player_color: Color = player.color
 	var spawn_position: Vector2 = player.spawn_position
-	Global.explosion.set_explosion(player.position, player_color, "ShipExplode")
 	player.queue_free()
 
 	await get_tree().create_timer(2.0).timeout

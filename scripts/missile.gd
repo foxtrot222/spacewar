@@ -30,8 +30,6 @@ func _on_body_entered(body: Node2D) -> void:
 			return
 		body.take_damage(MISSILE_DAMAGE)
 		print("Missile hit Player %s! Damage: %s" % [int(body.player_prefix), MISSILE_DAMAGE])
-		var pos = $ShapeCast2D.get_collision_point(0)
-		Global.explosion.set_explosion(pos, shooter.color, "MissileExplode")
 		queue_free()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
