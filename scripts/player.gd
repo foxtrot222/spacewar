@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends RigidBody2D
 
 @export var player_prefix : String
 @export var color : Color
@@ -27,7 +27,7 @@ const MISSILE_FIRE_INTERVAL := 1.5
 const MISSILE_SLOT_RECOVERY_SECONDS := 7.5
 
 var screen_size: Vector2
-var angular_velocity := 0.0
+# var angular_velocity := 0.0
 var ghost := false
 var birth := true
 var is_eliminated := false
@@ -53,68 +53,76 @@ func _ready() -> void:
 		$Sprite2D.modulate.a = 0.35
 
 func _physics_process(delta: float) -> void:
+	pass
 	missile_fire_cooldown = max(missile_fire_cooldown - delta, 0.0)
-
 	var direction = Global.star.global_position - global_position
 	var distance = max(direction.length(), 30.0)
-	if not ghost:
-		var gravity_force = direction.normalized() * (Global.star.GRAVITY_STRENGTH / (distance * distance))
-		velocity += gravity_force * delta
-
-	if Input.is_action_pressed("rotate_left" + player_prefix):
-		if Global.ENABLE_ANGULAR_INERTIA:
-			angular_velocity -= ANGULAR_ACCELERATION * delta
-		else:
-			rotation_degrees -= ROTATION_SPEED * delta
-
-	if Input.is_action_pressed("rotate_right" + player_prefix):
-		if Global.ENABLE_ANGULAR_INERTIA:
-			angular_velocity += ANGULAR_ACCELERATION * delta
-		else:
-			rotation_degrees += ROTATION_SPEED * delta
-
+	
+	#if not ghost:
+		#var gravity_force = direction.normalized() * (Global.star.GRAVITY_STRENGTH / (distance * distance))
+		#velocity += gravity_force * delta
+#
+	#if Input.is_action_pressed("rotate_left" + player_prefix):
+		#if Global.ENABLE_ANGULAR_INERTIA:
+			#angular_velocity -= ANGULAR_ACCELERATION * delta
+		#else:
+			#rotation_degrees -= ROTATION_SPEED * delta
+#
+	#if Input.is_action_pressed("rotate_right" + player_prefix):
+		#if Global.ENABLE_ANGULAR_INERTIA:
+			#angular_velocity += ANGULAR_ACCELERATION * delta
+		#else:
+			#rotation_degrees += ROTATION_SPEED * delta
+#
 	if Input.is_action_just_pressed("bullet" + player_prefix) and not ghost:
 		fire_bullet()
-
+#
 	if Input.is_action_just_pressed("missile" + player_prefix) and not ghost:
 		try_fire_missile()
-
+#
 	if Input.is_action_pressed("laser" + player_prefix) and not ghost:
 		laser.is_casting = true
 	else:
 		laser.is_casting = false
-
-	if Global.ENABLE_ANGULAR_INERTIA:
-		rotation_degrees += angular_velocity * delta
-
+#
+	#if Global.ENABLE_ANGULAR_INERTIA:
+		#rotation_degrees += angular_velocity * delta
+#
 	var forward = Vector2.UP.rotated(rotation)
 	var is_thrusting = false
-	if Input.is_action_pressed("forward_thrust" + player_prefix ):
-		velocity += forward * THRUST * delta
-		thruster_animation(true)
-		is_thrusting = true
-	if Input.is_action_pressed("reverse_thrust" + player_prefix ):
-		velocity += -forward * THRUST * delta
-		thruster_animation(true)
-		is_thrusting = true
-		
-	if Input.is_action_just_pressed("quantum_jump" + player_prefix ) and not ghost:
-		if qj_cooldown:
-			quantum_jump()
-			qj_cooldown=false
-			$QJCooldown.start()
-
-	if velocity.length() > MAX_SPEED:
-		velocity = velocity.normalized() * MAX_SPEED
+	#if Input.is_action_pressed("forward_thrust" + player_prefix ):
+		#velocity += forward * THRUST * delta
+		#thruster_animation(true)
+		#is_thrusting = true
+	#if Input.is_action_pressed("reverse_thrust" + player_prefix ):
+		#velocity += -forward * THRUST * delta
+		#thruster_animation(true)
+		#is_thrusting = true
+		#
+	#if Input.is_action_just_pressed("quantum_jump" + player_prefix ) and not ghost:
+		#if qj_cooldown:
+			#quantum_jump()
+			#qj_cooldown=false
+			#$QJCooldown.start()
+#
+	#if velocity.length() > MAX_SPEED:
+		#velocity = velocity.normalized() * MAX_SPEED
+	#
+	#if not is_thrusting:
+		#thruster_animation(false)
 	
-	if not is_thrusting:
-		thruster_animation(false)
 	
-	move_and_slide()
-	
+func quantum_jump() -> void:
+	var random_position = Vector2(
+	randf_range(0, screen_size.x),
+	randf_range(0, screen_size.y)
+	)
+	#if velocity.length() > 0:
+		#random_position += velocity.normalized() * QUANTUM_JUMP_OFFSET
+	global_position = random_position
+	#velocity *= VELOCITY_RETENTION
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-
 	if global_position.x < 0:
 		global_position.x = screen_size.x
 	elif global_position.x > screen_size.x:
@@ -132,34 +140,18 @@ func _on_body_entered(body: Node2D) -> void:
 func take_damage(amount: int) -> void:
 	if is_eliminated:
 		return
-
 	health = max(health - amount, 0)
 	print("Player " + str(int(player_prefix)) + " took " + str(amount) + " damage! Health: " + str(health))
-
 	if health <= 0:
 		die("after health reached zero")
 
 func die(reason: String) -> void:
 	if is_eliminated:
 		return
-
 	is_eliminated = true
 	print("Player " + str(int(player_prefix)) + " died " + reason + "!")
 	Spawner.respawn_player(self)
 	
-func quantum_jump() -> void:
-	var random_position = Vector2(
-	randf_range(0, screen_size.x),
-	randf_range(0, screen_size.y)
-	)
-
-	if velocity.length() > 0:
-		random_position += velocity.normalized() * QUANTUM_JUMP_OFFSET
-
-	global_position = random_position
-
-	velocity *= VELOCITY_RETENTION
-
 func fire_bullet() -> void:
 	Spawner.spawn_bullet(
 		$FirePosition.global_position,

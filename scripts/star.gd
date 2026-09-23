@@ -8,7 +8,7 @@ func _ready() -> void:
 	add_to_group("star")
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body is CharacterBody2D:
+	if body is RigidBody2D:
 		body.take_damage(1000)
 
 func _process(delta: float) -> void:

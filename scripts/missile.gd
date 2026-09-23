@@ -5,9 +5,9 @@ const MISSILE_LIFETIME := 5.0
 const MISSILE_DAMAGE := 50
 
 var velocity: Vector2
-var shooter: CharacterBody2D
+var shooter: RigidBody2D
 
-func setup(start_position: Vector2, start_direction: Vector2, shooter_player: CharacterBody2D) -> void:
+func setup(start_position: Vector2, start_direction: Vector2, shooter_player: RigidBody2D) -> void:
 	global_position = start_position
 	velocity = start_direction.normalized() * MISSILE_SPEED
 	rotation = start_direction.angle()

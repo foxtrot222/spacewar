@@ -5,9 +5,9 @@ const MAX_SPEED := 800.0
 const BULLET_DAMAGE := 5
 
 var velocity: Vector2
-var shooter: CharacterBody2D
+var shooter: RigidBody2D
 
-func setup(start_position: Vector2, start_direction: Vector2, shooter_player: CharacterBody2D) -> void:
+func setup(start_position: Vector2, start_direction: Vector2, shooter_player: RigidBody2D) -> void:
 	global_position = start_position
 	velocity = start_direction.normalized() * BULLET_SPEED
 	rotation = start_direction.angle()
@@ -21,7 +21,7 @@ func _physics_process(delta: float) -> void:
 	rotation = velocity.angle()
 
 func _on_body_entered(body: Node2D) -> void:
-	if body is CharacterBody2D:
+	if body is RigidBody2D:
 		if body == shooter:
 			return
 		var damage := BULLET_DAMAGE

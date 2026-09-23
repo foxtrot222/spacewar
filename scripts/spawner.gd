@@ -4,7 +4,7 @@ const PLAYER_SCENE = preload("res://scenes/player.tscn")
 const BULLET_SCENE = preload("res://scenes/bullet.tscn")
 const MISSILE_SCENE = preload("res://scenes/missile.tscn")
 
-func respawn_player(player: CharacterBody2D) -> void:
+func respawn_player(player: RigidBody2D) -> void:
 	if player == null:
 		return
 	var player_prefix: String = player.player_prefix
@@ -14,7 +14,7 @@ func respawn_player(player: CharacterBody2D) -> void:
 
 	await get_tree().create_timer(2.0).timeout
 
-	var new_player := PLAYER_SCENE.instantiate() as CharacterBody2D
+	var new_player := PLAYER_SCENE.instantiate() as RigidBody2D
 
 	new_player.player_prefix = player_prefix
 	new_player.color = player_color
@@ -28,7 +28,7 @@ func respawn_player(player: CharacterBody2D) -> void:
 func spawn_bullet(
 	start_position: Vector2,
 	start_direction: Vector2,
-	shooter_player: CharacterBody2D
+	shooter_player: RigidBody2D
 ) -> void:
 	var bullet := BULLET_SCENE.instantiate()
 	bullet.setup(start_position, start_direction, shooter_player)
@@ -37,7 +37,7 @@ func spawn_bullet(
 func spawn_missile(
 	start_position: Vector2,
 	start_direction: Vector2,
-	shooter_player: CharacterBody2D
+	shooter_player: RigidBody2D
 ) -> void:
 	var missile := MISSILE_SCENE.instantiate()
 	missile.set_script(load("res://scripts/missile.gd"))
