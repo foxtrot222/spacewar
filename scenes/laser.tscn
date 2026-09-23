@@ -2,11 +2,21 @@
 
 [ext_resource type="Script" uid="uid://cgi6qi0javcu1" path="res://scripts/laser.gd" id="1_xmihv"]
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_laser"]
+b = Vector2(-6.993822e-07, 16)
+
 [node name="Laser" type="RayCast2D" unique_id=2090494508]
-target_position = Vector2(1400, 0)
+target_position = Vector2(0, 0)
 collision_mask = 59
-collision_layer = 32
 script = ExtResource("1_xmihv")
+
+[node name="LaserCollision" type="Area2D" parent="." unique_id=1183768391]
+rotation = -1.5707964
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaserCollision" unique_id=1183768392]
+shape = SubResource("SegmentShape2D_laser")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1183768390]
 modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)

@@ -5,13 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://ch10ouhn7vsse" path="res://scenes/laser.tscn" id="3_laser"]
 
 [node name="Player" type="CharacterBody2D" unique_id=1459089273]
-collision_mask = 63
+collision_mask = 59
 script = ExtResource("1_hjaqi")
 
 [node name="Laser" parent="." unique_id=2090494508 instance=ExtResource("3_laser")]
 position = Vector2(0, -48)
 rotation = -1.5707964
-target_position = Vector2(0, 0)
 collide_with_areas = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=986086804]
@@ -38,7 +37,7 @@ points = PackedVector2Array(-12, 32, -12, 32)
 width = 8.0
 
 [node name="FirePosition" type="Marker2D" parent="." unique_id=658544316]
-position = Vector2(0, -48)
+position = Vector2(0, -56)
 rotation = -1.5707964
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1298041126]

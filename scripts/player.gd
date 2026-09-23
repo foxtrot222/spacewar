@@ -80,9 +80,22 @@ func _physics_process(delta: float) -> void:
 		try_fire_missile()
 
 	if Input.is_action_pressed("laser" + player_prefix) and not ghost:
-		laser.is_casting = true
+		if is_instance_valid(laser):
+			laser.is_casting = true
+		else:
+			# Laser was destroyed, create a new one
+			var laser_scene = load("res://scenes/laser.tscn")
+			laser = laser_scene.instantiate()
+			add_child(laser)
+			# Set position and rotation to match FirePosition
+			laser.global_position = $FirePosition.global_position
+			laser.global_rotation = $FirePosition.global_rotation
+			# Set color to match player
+			laser.line_2d.default_color = color
+			laser.is_casting = true
 	else:
-		laser.is_casting = false
+		if is_instance_valid(laser):
+			laser.is_casting = false
 
 	if Global.ENABLE_ANGULAR_INERTIA:
 		rotation_degrees += angular_velocity * delta
@@ -184,7 +197,7 @@ func _on_ghost_timer_timeout() -> void:
 	thruster1.modulate.a = 1.0
 	thruster2.modulate.a = 1.0
 	collision_layer = 1
-	collision_mask = 58
+	collision_mask = 59
 	ghost = false
 
 func _on_qj_cool_down_timeout() -> void:

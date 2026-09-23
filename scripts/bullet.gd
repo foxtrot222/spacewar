@@ -30,6 +30,10 @@ func _on_body_entered(body: Node2D) -> void:
 		queue_free()
 
 func _on_area_entered(area: Area2D) -> void:
+	# Check if it's the star - bullets destroyed by star
+	if area.get_parent().name == "Star" or area.name == "Star":
+		queue_free()
+		return
 	# Check if it's a missile - bullets don't destroy missiles
 	if area.name == "Missile":
 		return  # Don't destroy missile, bullet passes through
