@@ -13,14 +13,15 @@ var health := MAX_HEALTH
 
 const THRUST := 100.0
 const MAX_SPEED := 800.0
+const THRUST_LENGTH := 48.0 # > 32.0
+const THRUST_FACTOR := 0.3
+const NO_THRUST_FACTOR := 1.0
+
 const ROTATION_SPEED := 60.0
 const ANGULAR_ACCELERATION := 120.0
 const MAX_ANGULAR_SPEED := 180.0
 const QUANTUM_JUMP_OFFSET := 100
 const VELOCITY_RETENTION := 0.5
-const THRUST_LENGTH := 48.0 # > 32.0
-const THRUST_FACTOR := 0.3
-const NO_THRUST_FACTOR := 1.0
 
 const MAX_MISSILE_SLOTS := 5
 const MISSILE_FIRE_INTERVAL := 1.5
@@ -51,29 +52,11 @@ func _ready() -> void:
 		collision_layer = 4
 		collision_mask = 0
 		$Sprite2D.modulate.a = 0.35
-
-func _physics_process(delta: float) -> void:
-	pass
-	missile_fire_cooldown = max(missile_fire_cooldown - delta, 0.0)
-	var direction = Global.star.global_position - global_position
-	var distance = max(direction.length(), 30.0)
 	
-	#if not ghost:
-		#var gravity_force = direction.normalized() * (Global.star.GRAVITY_STRENGTH / (distance * distance))
-		#velocity += gravity_force * delta
-#
-	#if Input.is_action_pressed("rotate_left" + player_prefix):
-		#if Global.ENABLE_ANGULAR_INERTIA:
-			#angular_velocity -= ANGULAR_ACCELERATION * delta
-		#else:
-			#rotation_degrees -= ROTATION_SPEED * delta
-#
-	#if Input.is_action_pressed("rotate_right" + player_prefix):
-		#if Global.ENABLE_ANGULAR_INERTIA:
-			#angular_velocity += ANGULAR_ACCELERATION * delta
-		#else:
-			#rotation_degrees += ROTATION_SPEED * delta
-#
+	
+func _physics_process(delta: float) -> void:
+	missile_fire_cooldown = max(missile_fire_cooldown - delta, 0.0)
+
 	if Input.is_action_just_pressed("bullet" + player_prefix) and not ghost:
 		fire_bullet()
 #
@@ -85,33 +68,43 @@ func _physics_process(delta: float) -> void:
 	else:
 		laser.is_casting = false
 #
-	#if Global.ENABLE_ANGULAR_INERTIA:
-		#rotation_degrees += angular_velocity * delta
-#
-	var forward = Vector2.UP.rotated(rotation)
-	var is_thrusting = false
-	#if Input.is_action_pressed("forward_thrust" + player_prefix ):
-		#velocity += forward * THRUST * delta
-		#thruster_animation(true)
-		#is_thrusting = true
-	#if Input.is_action_pressed("reverse_thrust" + player_prefix ):
-		#velocity += -forward * THRUST * delta
-		#thruster_animation(true)
-		#is_thrusting = true
-		#
+
+
 	#if Input.is_action_just_pressed("quantum_jump" + player_prefix ) and not ghost:
 		#if qj_cooldown:
 			#quantum_jump()
 			#qj_cooldown=false
 			#$QJCooldown.start()
-#
-	#if velocity.length() > MAX_SPEED:
-		#velocity = velocity.normalized() * MAX_SPEED
-	#
-	#if not is_thrusting:
-		#thruster_animation(false)
+
+
 	
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	var direction = Global.star.global_position - global_position
+	var distance = max(direction.length(), 30.0)
+	if not ghost:
+		var gravity_force = direction.normalized() * (Global.star.GRAVITY_STRENGTH / (distance * distance))
+		state.apply_central_force(gravity_force)
 	
+	var is_thrusting = false
+	var forward = Vector2.UP.rotated(rotation)
+	if Input.is_action_pressed("forward_thrust" + player_prefix ):
+		state.apply_central_force(forward * THRUST)
+		thruster_animation(true)
+		is_thrusting = true
+	if Input.is_action_pressed("reverse_thrust" + player_prefix ):
+		state.apply_central_force(-forward * THRUST)
+		thruster_animation(true)
+		is_thrusting = true
+	if not is_thrusting:
+		thruster_animation(false)
+	if state.linear_velocity.length() > MAX_SPEED:
+		state.linear_velocity = state.linear_velocity.normalized() * MAX_SPEED
+	
+	if Input.is_action_pressed("rotate_left" + player_prefix):
+		state.apply_torque(-1000.0)
+	if Input.is_action_pressed("rotate_right" + player_prefix):
+		state.apply_torque(1000.0)
+
 func quantum_jump() -> void:
 	var random_position = Vector2(
 	randf_range(0, screen_size.x),
