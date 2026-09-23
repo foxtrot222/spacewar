@@ -24,7 +24,8 @@ spread = 180.0
 initial_velocity_min = -20.0
 initial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
-scale_max = 4.0
+scale_min = 3.0
+scale_max = 3.0
 
 [node name="Explosions" type="Node2D" unique_id=56338772]
 script = ExtResource("1_h8kb6")
@@ -56,6 +57,17 @@ self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 emitting = false
 amount = 50
 lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_u62fb")
+
+[node name="LaserExplode" type="GPUParticles2D" parent="." unique_id=809318849]
+modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+emitting = false
+amount = 10
+lifetime = 0.25
 one_shot = true
 explosiveness = 1.0
 randomness = 0.5
