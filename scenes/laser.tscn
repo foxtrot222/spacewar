@@ -9,8 +9,8 @@ script = ExtResource("1_xmihv")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1183768390]
 visible = false
-modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
+modulate = Color(1.4586968, 1.4586968, 1.4586968, 1)
 self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 scale = Vector2(1e-05, 1)
-points = PackedVector2Array(4000000, 0, 4000000, 0)
+points = PackedVector2Array(0, 0, 0, 0)
 width = 5.0
