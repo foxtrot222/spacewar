@@ -18,6 +18,7 @@ position = Vector2(8, 0)
 points = PackedVector2Array(-8, 0, 8, 0)
 width = 6.0
 default_color = Color(1, 0, 0, 1)
+antialiased = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1515094647]
 position = Vector2(8, 0)

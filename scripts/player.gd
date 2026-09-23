@@ -98,7 +98,7 @@ func _physics_process(delta: float) -> void:
 		thruster_animation(true)
 		is_thrusting = true
 		
-	if Input.is_action_just_pressed("quantum_jump" + player_prefix ):
+	if Input.is_action_just_pressed("quantum_jump" + player_prefix ) and not ghost:
 		if qj_cooldown:
 			quantum_jump()
 			qj_cooldown=false
@@ -109,6 +109,7 @@ func _physics_process(delta: float) -> void:
 	
 	if not is_thrusting:
 		thruster_animation(false)
+	
 	move_and_slide()
 	
 
@@ -182,8 +183,6 @@ func _recover_missile_slot() -> void:
 func _on_ghost_timer_timeout() -> void:
 	$Sprite2D.modulate.a = 1.0
 	$Indicator.modulate.a = 1.0
-	thruster1.modulate.a = 1.0
-	thruster2.modulate.a = 1.0
 	collision_layer = 1
 	collision_mask = 3
 	ghost = false

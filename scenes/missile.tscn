@@ -16,7 +16,7 @@ position = Vector2(26, 0)
 points = PackedVector2Array(-15, 0, 18, 0)
 width = 12.0
 default_color = Color(0.5137255, 0.49411765, 0.5294118, 1)
-round_precision = 10
+antialiased = true
 
 [node name="TailLine2D" type="Line2D" parent="." unique_id=1227544564]
 modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
@@ -25,7 +25,7 @@ position = Vector2(23, 0)
 points = PackedVector2Array(-23.304344, 0, -11.304346, 0)
 width = 12.0
 default_color = Color(1, 0, 0, 1)
-round_precision = 10
+antialiased = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=300952497]
 position = Vector2(22, 0)

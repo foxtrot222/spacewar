@@ -23,13 +23,13 @@ points = PackedVector2Array(-12, 11, -12, 35)
 width = 16.0
 
 [node name="Thruster1" type="Line2D" parent="." unique_id=967369349]
-modulate = Color(1.5720325, 1.5720325, 1.5720325, 0.34901962)
+modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 points = PackedVector2Array(-12, 32, -12, 32)
 width = 8.0
 
 [node name="Thruster2" type="Line2D" parent="." unique_id=656040490]
-modulate = Color(1.5720325, 1.5720325, 1.5720325, 0.34901962)
+modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 self_modulate = Color(1.5720325, 1.5720325, 1.5720325, 1)
 position = Vector2(24, 0)
 points = PackedVector2Array(-12, 32, -12, 32)
