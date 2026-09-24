@@ -11,6 +11,7 @@ radius = 80.0
 
 [node name="Star" type="StaticBody2D" unique_id=1793359952]
 collision_layer = 2
+collision_mask = 57
 script = ExtResource("1_2p5qd")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1812083077]
@@ -22,6 +23,7 @@ texture = ExtResource("2_uky64")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=495165208]
 collision_layer = 2
+collision_mask = 57
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1181455034]
 position = Vector2(0, 2)

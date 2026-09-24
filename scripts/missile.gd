@@ -22,6 +22,20 @@ func _physics_process(delta: float) -> void:
 	global_position += velocity * delta
 	rotation = velocity.angle()
 
+func _on_area_entered(area: Area2D) -> void:
+	# Check if it's the star - missiles destroyed by star
+	if area.get_parent().name == "Star" or area.name == "Star":
+		queue_free()
+		return
+	# Check if it's a bullet - missiles destroy bullets
+	if area.name == "Bullet":
+		area.queue_free()
+		# Missile continues, doesn't get destroyed
+	# Check if it's another missile - missiles destroy each other
+	elif area.name == "Missile":
+		area.queue_free()
+		queue_free()
+
 func _on_body_entered(body: Node2D) -> void:
 	if body is RigidBody2D:
 		if body == shooter:

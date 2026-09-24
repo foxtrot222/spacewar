@@ -49,14 +49,19 @@ func _physics_process(delta: float) -> void:
 	var laser_end_position: Vector2
 	if is_colliding():
 		laser_end_position = to_local(get_collision_point())
-		
+		var collider = get_collider()
+
 		# Deal damage to hit object - 1 damage per 10ms (100 dmg/sec)
 		damage_timer += delta
 		if damage_timer >= 0.01:  # 10ms = 0.01 seconds
-			var collider = get_collider()
 			if collider and collider.has_method("take_damage"):
 				collider.take_damage(1)  # 1 damage per 10ms
 			damage_timer = 0.0
+
+		# Destroy missiles and bullets on contact
+		if collider:
+			if collider.name == "Missile" or collider.name == "Bullet":
+				collider.queue_free()
 	else:
 		laser_end_position = laser_target
 		damage_timer = 0.0

@@ -4,7 +4,8 @@
 
 [node name="Laser" type="RayCast2D" unique_id=2090494508]
 target_position = Vector2(1400, 0)
-collision_mask = 3
+collision_mask = 27
+collide_with_areas = true
 script = ExtResource("1_xmihv")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1183768390]

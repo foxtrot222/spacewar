@@ -123,6 +123,9 @@ laser2={
 2d_physics/layer_1="player"
 2d_physics/layer_2="star"
 2d_physics/layer_3="ghost"
+2d_physics/layer_4="bullet"
+2d_physics/layer_5="missile"
+2d_physics/layer_6="laser"
 
 [physics]
 
