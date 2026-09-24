@@ -121,11 +121,6 @@ func quantum_jump(state : PhysicsDirectBodyState2D) -> void:
 	state.transform.origin = random_position
 	state.linear_velocity *= VELOCITY_RETENTION
 
-
-func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("star") or body.name == "Star":
-		die("by entering the star")
-
 func take_damage(amount: int) -> void:
 	if is_eliminated:
 		return

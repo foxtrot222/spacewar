@@ -19,10 +19,8 @@ func _physics_process(delta: float) -> void:
 	var distance = max(direction_to_star.length(), 30.0)
 	var gravity_force = direction_to_star.normalized() * (Global.star.GRAVITY_STRENGTH / (distance * distance))
 	velocity += gravity_force * delta
-
 	global_position += velocity * delta
 	rotation = velocity.angle()
-
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is RigidBody2D:

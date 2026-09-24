@@ -13,16 +13,15 @@ func respawn_player(player: RigidBody2D) -> void:
 	player.queue_free()
 
 	await get_tree().create_timer(2.0).timeout
-
+	
 	var new_player := PLAYER_SCENE.instantiate() as RigidBody2D
-
 	new_player.player_prefix = player_prefix
 	new_player.color = player_color
 	new_player.spawn_position = spawn_position
 	new_player.health = new_player.MAX_HEALTH
 	new_player.birth = false
 	new_player.ghost = true
-
+	
 	get_tree().current_scene.add_child(new_player)
 
 func spawn_bullet(
@@ -40,7 +39,5 @@ func spawn_missile(
 	shooter_player: RigidBody2D
 ) -> void:
 	var missile := MISSILE_SCENE.instantiate()
-	missile.set_script(load("res://scripts/missile.gd"))
-	missile.body_entered.connect(missile._on_body_entered)
-	get_tree().current_scene.add_child(missile)
 	missile.setup(start_position, start_direction, shooter_player)
+	get_tree().current_scene.add_child(missile)

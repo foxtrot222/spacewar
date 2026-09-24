@@ -40,4 +40,5 @@ shape = SubResource("RectangleShape2D_np454")
 target_position = Vector2(44, 0)
 collide_with_areas = true
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

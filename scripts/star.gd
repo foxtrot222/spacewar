@@ -5,7 +5,6 @@ const ROTATE_FACTOR := 5
 
 func _ready() -> void:
 	Global.set_star(self)
-	add_to_group("star")
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is RigidBody2D:

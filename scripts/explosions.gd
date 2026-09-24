@@ -4,7 +4,7 @@ extends Node2D
 func _ready() -> void:
 	Global.set_explosion(self)
 
-func set_explosion(pos: Vector2, color : Color, expsn : String) -> void:
+func boom(pos: Vector2, color : Color, expsn : String) -> void:
 	var tmp = get_node(expsn)
 	var candidate = tmp.duplicate()
 	add_child(candidate)
