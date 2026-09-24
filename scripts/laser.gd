@@ -48,7 +48,9 @@ func _physics_process(delta: float) -> void:
 
 	var laser_end_position: Vector2
 	if is_colliding():
+		var boom_point = get_collision_point()
 		laser_end_position = to_local(get_collision_point())
+		Global.explosion.boom(boom_point, line_2d.default_color, "LaserExplode")
 		var collider = get_collider()
 
 		# Deal damage to hit object - 1 damage per 10ms (100 dmg/sec)
@@ -61,6 +63,7 @@ func _physics_process(delta: float) -> void:
 		# Destroy missiles and bullets on contact
 		if collider:
 			if collider.name == "Missile" or collider.name == "Bullet":
+				Global.explosion.boom(boom_point, line_2d.default_color, collider.name + "Explode	")
 				collider.queue_free()
 	else:
 		laser_end_position = laser_target

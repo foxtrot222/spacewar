@@ -23,16 +23,14 @@ func _physics_process(delta: float) -> void:
 	rotation = velocity.angle()
 
 func _on_area_entered(area: Area2D) -> void:
-	# Check if it's the star - missiles destroyed by star
-	if area.get_parent().name == "Star" or area.name == "Star":
+	if area.name == "KillZone":
+		Global.explosion.boom(position, shooter.color, "BulletExplode")
 		queue_free()
-		return
-	# Check if it's a bullet - missiles destroy bullets
 	if area.name == "Bullet":
+		Global.explosion.boom(position, shooter.color, "BulletExplode")
 		area.queue_free()
-		# Missile continues, doesn't get destroyed
-	# Check if it's another missile - missiles destroy each other
 	elif area.name == "Missile":
+		Global.explosion.boom(position, shooter.color, "MissileExplode")
 		area.queue_free()
 		queue_free()
 
@@ -42,6 +40,8 @@ func _on_body_entered(body: Node2D) -> void:
 			return
 		body.take_damage(MISSILE_DAMAGE)
 		print("Missile hit Player %s! Damage: %s" % [int(body.player_prefix), MISSILE_DAMAGE])
+		var pos = $ShapeCast2D.get_collision_point(0)
+		Global.explosion.boom(pos, shooter.color, "MissileExplode")
 		queue_free()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
