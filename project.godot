@@ -126,6 +126,7 @@ laser2={
 2d_physics/layer_4="bullet"
 2d_physics/layer_5="missile"
 2d_physics/layer_6="laser"
+2d_physics/layer_7="kill-zone"
 
 [physics]
 

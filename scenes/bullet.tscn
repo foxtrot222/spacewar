@@ -10,7 +10,7 @@ size = Vector2(5, 6)
 
 [node name="Bullet" type="Area2D" unique_id=1434779568]
 collision_layer = 8
-collision_mask = 51
+collision_mask = 67
 script = ExtResource("1_y25gk")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1362633326]
@@ -35,6 +35,6 @@ shape = SubResource("RectangleShape2D_bsm7h")
 target_position = Vector2(16, 0)
 collide_with_areas = true
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -3,14 +3,14 @@
 [ext_resource type="Script" uid="uid://br8v74t0x4aqm" path="res://scripts/star.gd" id="1_2p5qd"]
 [ext_resource type="Texture2D" uid="uid://mn63rl7k0ny5" path="res://assets/star.png" id="2_uky64"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_c7ew2"]
-radius = 100.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_ms4yx"]
 radius = 80.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_c7ew2"]
+radius = 100.0
+
 [node name="Star" type="StaticBody2D" unique_id=1793359952]
-collision_layer = 2
+collision_layer = 66
 collision_mask = 57
 script = ExtResource("1_2p5qd")
 
@@ -21,15 +21,15 @@ texture_filter = 1
 scale = Vector2(5, 5)
 texture = ExtResource("2_uky64")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2038222818]
+shape = SubResource("CircleShape2D_ms4yx")
+
 [node name="Area2D" type="Area2D" parent="." unique_id=495165208]
-collision_layer = 2
-collision_mask = 57
+collision_layer = 64
+collision_mask = 25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1181455034]
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_c7ew2")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2038222818]
-shape = SubResource("CircleShape2D_ms4yx")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
