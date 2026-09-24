@@ -5,7 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://ch10ouhn7vsse" path="res://scenes/laser.tscn" id="3_laser"]
 
 [node name="Player" type="RigidBody2D" unique_id=1836203]
+collision_layer = 4
 collision_mask = 0
+can_sleep = false
+linear_damp_mode = 1
+angular_damp_mode = 1
 script = ExtResource("1_hjaqi")
 
 [node name="Laser" parent="." unique_id=2090494508 instance=ExtResource("3_laser")]
@@ -42,10 +46,6 @@ rotation = -1.5707964
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1298041126]
 polygon = PackedVector2Array(-8, -48, 8, -48, 40, 8, 40, 31, 24, 40, 9, 48, -8, 48, -24, 40, -40, 32, -40, 8)
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=545320082]
-scale = Vector2(4, 4)
-rect = Rect2(-10, -12, 20, 24)
-
 [node name="GhostTimer" type="Timer" parent="." unique_id=1748035997]
 wait_time = 2.5
 one_shot = true
@@ -54,6 +54,5 @@ autostart = true
 [node name="QJCooldown" type="Timer" parent="." unique_id=1241653968]
 wait_time = 2.0
 
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
 [connection signal="timeout" from="QJCooldown" to="." method="_on_qj_cool_down_timeout"]

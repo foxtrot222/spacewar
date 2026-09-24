@@ -1,6 +1,6 @@
 extends Node
 
-const ENABLE_ANGULAR_INERTIA = true
+const ENABLE_ANGULAR_INERTIA = false
 
 var star: Node2D
 var explosion: Node2D

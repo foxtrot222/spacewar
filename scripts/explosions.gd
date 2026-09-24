@@ -4,10 +4,6 @@ extends Node2D
 func _ready() -> void:
 	Global.set_explosion(self)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func set_explosion(pos: Vector2, color : Color, expsn : String) -> void:
 	var tmp = get_node(expsn)
 	var candidate = tmp.duplicate()

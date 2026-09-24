@@ -17,9 +17,9 @@ const THRUST_LENGTH := 48.0 # > 32.0
 const THRUST_FACTOR := 0.3
 const NO_THRUST_FACTOR := 1.0
 
-const ROTATION_SPEED := 60.0
-const ANGULAR_ACCELERATION := 120.0
-const MAX_ANGULAR_SPEED := 180.0
+const ROTATION_SPEED := 100.0
+const ANGULAR_DAMP := 2.5
+
 const QUANTUM_JUMP_OFFSET := 100
 const VELOCITY_RETENTION := 0.5
 
@@ -28,7 +28,6 @@ const MISSILE_FIRE_INTERVAL := 1.5
 const MISSILE_SLOT_RECOVERY_SECONDS := 7.5
 
 var screen_size: Vector2
-# var angular_velocity := 0.0
 var ghost := false
 var birth := true
 var is_eliminated := false
@@ -52,34 +51,23 @@ func _ready() -> void:
 		collision_layer = 4
 		collision_mask = 0
 		$Sprite2D.modulate.a = 0.35
-	
-	
+		
+	if not Global.ENABLE_ANGULAR_INERTIA:
+		angular_damp = ANGULAR_DAMP
+
 func _physics_process(delta: float) -> void:
 	missile_fire_cooldown = max(missile_fire_cooldown - delta, 0.0)
-
 	if Input.is_action_just_pressed("bullet" + player_prefix) and not ghost:
 		fire_bullet()
-#
 	if Input.is_action_just_pressed("missile" + player_prefix) and not ghost:
 		try_fire_missile()
-#
 	if Input.is_action_pressed("laser" + player_prefix) and not ghost:
 		laser.is_casting = true
 	else:
 		laser.is_casting = false
-#
 
-
-	#if Input.is_action_just_pressed("quantum_jump" + player_prefix ) and not ghost:
-		#if qj_cooldown:
-			#quantum_jump()
-			#qj_cooldown=false
-			#$QJCooldown.start()
-
-
-	
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	var direction = Global.star.global_position - global_position
+	var direction = Global.star.global_position - state.transform.origin
 	var distance = max(direction.length(), 30.0)
 	if not ghost:
 		var gravity_force = direction.normalized() * (Global.star.GRAVITY_STRENGTH / (distance * distance))
@@ -101,30 +89,36 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		state.linear_velocity = state.linear_velocity.normalized() * MAX_SPEED
 	
 	if Input.is_action_pressed("rotate_left" + player_prefix):
-		state.apply_torque(-1000.0)
+		state.apply_torque_impulse(-ROTATION_SPEED)
 	if Input.is_action_pressed("rotate_right" + player_prefix):
-		state.apply_torque(1000.0)
+		state.apply_torque_impulse(ROTATION_SPEED)
 
-func quantum_jump() -> void:
+	if Input.is_action_just_pressed("quantum_jump" + player_prefix ) and not ghost:
+		if qj_cooldown:
+			quantum_jump(state)
+			qj_cooldown=false
+			$QJCooldown.start()
+			
+	if state.transform.origin.x < 0:
+		state.transform.origin.x = screen_size.x
+	elif state.transform.origin.x > screen_size.x:
+		state.transform.origin.x = 0
+
+	if state.transform.origin.y < 0:
+		state.transform.origin.y = screen_size.y
+	elif state.transform.origin.y > screen_size.y:
+		state.transform.origin.y = 0
+
+func quantum_jump(state : PhysicsDirectBodyState2D) -> void:
 	var random_position = Vector2(
 	randf_range(0, screen_size.x),
 	randf_range(0, screen_size.y)
 	)
-	#if velocity.length() > 0:
-		#random_position += velocity.normalized() * QUANTUM_JUMP_OFFSET
-	global_position = random_position
-	#velocity *= VELOCITY_RETENTION
+	if state.linear_velocity.length() > 0:
+		random_position += state.linear_velocity.normalized() * QUANTUM_JUMP_OFFSET
+	state.transform.origin = random_position
+	state.linear_velocity *= VELOCITY_RETENTION
 
-func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	if global_position.x < 0:
-		global_position.x = screen_size.x
-	elif global_position.x > screen_size.x:
-		global_position.x = 0
-
-	if global_position.y < 0:
-		global_position.y = screen_size.y
-	elif global_position.y > screen_size.y:
-		global_position.y = 0
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("star") or body.name == "Star":
