@@ -11,6 +11,8 @@ extends RigidBody2D
 const MAX_HEALTH := 100
 var health := MAX_HEALTH
 
+const WRAP_MARGIN := 48
+
 const THRUST := 100.0
 const MAX_SPEED := 800.0
 const THRUST_LENGTH := 48.0 # > 32.0
@@ -99,15 +101,15 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			qj_cooldown=false
 			$QJCooldown.start()
 			
-	if state.transform.origin.x < 0:
-		state.transform.origin.x = screen_size.x
-	elif state.transform.origin.x > screen_size.x:
-		state.transform.origin.x = 0
+	if state.transform.origin.x + WRAP_MARGIN < 0:
+		state.transform.origin.x = screen_size.x + WRAP_MARGIN
+	elif state.transform.origin.x - WRAP_MARGIN > screen_size.x:
+		state.transform.origin.x = -WRAP_MARGIN
 
-	if state.transform.origin.y < 0:
-		state.transform.origin.y = screen_size.y
-	elif state.transform.origin.y > screen_size.y:
-		state.transform.origin.y = 0
+	if state.transform.origin.y + WRAP_MARGIN < 0:
+		state.transform.origin.y = screen_size.y  + WRAP_MARGIN
+	elif state.transform.origin.y - WRAP_MARGIN > screen_size.y:
+		state.transform.origin.y = -WRAP_MARGIN
 
 func quantum_jump(state : PhysicsDirectBodyState2D) -> void:
 	var random_position = Vector2(
