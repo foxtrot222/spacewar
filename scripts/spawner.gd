@@ -28,17 +28,17 @@ func respawn_player(player: RigidBody2D) -> void:
 func spawn_bullet(
 	start_position: Vector2,
 	start_direction: Vector2,
-	shooter_player: RigidBody2D
+	color : Color
 ) -> void:
 	var bullet := BULLET_SCENE.instantiate()
-	bullet.setup(start_position, start_direction, shooter_player)
+	bullet.setup(start_position, start_direction, color)
 	get_tree().current_scene.add_child(bullet)
 
 func spawn_missile(
 	start_position: Vector2,
 	start_direction: Vector2,
-	shooter_player: RigidBody2D
+	color : Color
 ) -> void:
 	var missile := MISSILE_SCENE.instantiate()
-	missile.setup(start_position, start_direction, shooter_player)
+	missile.setup(start_position, start_direction, color)
 	get_tree().current_scene.add_child(missile)

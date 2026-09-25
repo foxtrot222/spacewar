@@ -10,7 +10,7 @@ size = Vector2(5, 6)
 
 [node name="Bullet" type="Area2D" unique_id=1434779568]
 collision_layer = 8
-collision_mask = 67
+collision_mask = 75
 script = ExtResource("1_y25gk")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1362633326]
@@ -33,6 +33,7 @@ rect = Rect2(-8, -6, 16, 6)
 [node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=901478640]
 shape = SubResource("RectangleShape2D_bsm7h")
 target_position = Vector2(16, 0)
+collision_mask = 75
 collide_with_areas = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

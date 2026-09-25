@@ -140,7 +140,7 @@ func fire_bullet() -> void:
 	Spawner.spawn_bullet(
 		$FirePosition.global_position,
 		Vector2.UP.rotated(rotation),
-		self)
+		color)
 
 func try_fire_missile() -> void:
 	if missile_slots <= 0 or missile_fire_cooldown > 0.0:
@@ -150,7 +150,7 @@ func try_fire_missile() -> void:
 	Spawner.spawn_missile(
 		$FirePosition.global_position,
 		Vector2.UP.rotated(rotation),
-		self)
+		color)
 	get_tree().create_timer(MISSILE_SLOT_RECOVERY_SECONDS).timeout.connect(_recover_missile_slot)
 
 func _recover_missile_slot() -> void:

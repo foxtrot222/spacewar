@@ -63,7 +63,7 @@ func _physics_process(delta: float) -> void:
 		# Destroy missiles and bullets on contact
 		if collider:
 			if collider.name == "Missile" or collider.name == "Bullet":
-				Global.explosion.boom(boom_point, line_2d.default_color, collider.name + "Explode	")
+				Global.explosion.boom(boom_point, collider.color, collider.name + "Explode")
 				collider.queue_free()
 	else:
 		laser_end_position = laser_target

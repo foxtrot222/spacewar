@@ -6,13 +6,14 @@ const MISSILE_DAMAGE := 50
 
 var velocity: Vector2
 var shooter: RigidBody2D
+var color : Color
 
-func setup(start_position: Vector2, start_direction: Vector2, shooter_player: RigidBody2D) -> void:
+func setup(start_position: Vector2, start_direction: Vector2, col : Color) -> void:
 	global_position = start_position
 	velocity = start_direction.normalized() * MISSILE_SPEED
 	rotation = start_direction.angle()
-	shooter = shooter_player
-	$TailLine2D.default_color = shooter.color
+	color = col
+	$TailLine2D.default_color = color
 
 func _physics_process(delta: float) -> void:
 	var direction_to_star = Global.star.global_position - global_position
@@ -23,25 +24,31 @@ func _physics_process(delta: float) -> void:
 	rotation = velocity.angle()
 
 func _on_area_entered(area: Area2D) -> void:
+	var pos = position
+	if $ShapeCast2D.get_collision_count():
+		pos = $ShapeCast2D.get_collision_point(0)
 	if area.name == "KillZone":
-		Global.explosion.boom(position, shooter.color, "BulletExplode")
+		Global.explosion.boom(pos, color, "MissileExplode")
 		queue_free()
 	if area.name == "Bullet":
-		Global.explosion.boom(position, shooter.color, "BulletExplode")
+		Global.explosion.boom(pos, color, "BulletExplode")
 		area.queue_free()
 	elif area.name == "Missile":
-		Global.explosion.boom(position, shooter.color, "MissileExplode")
+		Global.explosion.boom(pos, color, "MissileExplode")
+		Global.explosion.boom(pos, area.color, "MissileExplode")
 		area.queue_free()
 		queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is RigidBody2D:
-		if body == shooter:
+		if body.color == color:
 			return
 		body.take_damage(MISSILE_DAMAGE)
 		print("Missile hit Player %s! Damage: %s" % [int(body.player_prefix), MISSILE_DAMAGE])
-		var pos = $ShapeCast2D.get_collision_point(0)
-		Global.explosion.boom(pos, shooter.color, "MissileExplode")
+		var pos = position
+		if $ShapeCast2D.get_collision_count():
+			pos = $ShapeCast2D.get_collision_point(0)
+		Global.explosion.boom(pos, color, "MissileExplode")
 		queue_free()
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
