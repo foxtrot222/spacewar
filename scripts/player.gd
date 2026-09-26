@@ -5,8 +5,7 @@ extends RigidBody2D
 @export var spawn_position : Vector2
 
 @onready var laser = $Laser
-@onready var thruster1 = $Thruster1
-@onready var thruster2 = $Thruster2
+@onready var thrusters = [$Thruster1, $Thruster2]
 
 const MAX_HEALTH := 100
 var health := MAX_HEALTH
@@ -16,8 +15,8 @@ const WRAP_MARGIN := 48
 const THRUST := 100.0
 const MAX_SPEED := 800.0
 const THRUST_LENGTH := 48.0 # > 32.0
-const THRUST_FACTOR := 0.3
-const NO_THRUST_FACTOR := 1.0
+const THRUST_FACTOR := 10.0
+const NO_THRUST_FACTOR := 20.0
 
 const ROTATION_SPEED := 100.0
 const ANGULAR_DAMP := 2.5
@@ -46,8 +45,8 @@ func _ready() -> void:
 	global_position = spawn_position
 	
 	$Indicator.default_color = color
-	thruster1.default_color = color
-	thruster2.default_color = color
+	thrusters[0].default_color = color
+	thrusters[1].default_color = color
 	laser.line_2d.default_color = color
 	
 	if birth:
@@ -83,21 +82,23 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		var gravity_force = direction.normalized() * (Global.star.GRAVITY_STRENGTH / (distance * distance))
 		state.apply_central_force(gravity_force)
 	
-	var is_thrusting = false
 	var forward = Vector2.UP.rotated(rotation)
+	var thrust_direction := Vector2.ZERO
 	if Input.is_action_pressed("forward_thrust" + player_prefix ):
-		state.apply_central_force(forward * THRUST)
-		thruster_animation(true)
-		is_thrusting = true
-	if Input.is_action_pressed("reverse_thrust" + player_prefix ):
-		state.apply_central_force(-forward * THRUST)
-		thruster_animation(true)
-		is_thrusting = true
-	if not is_thrusting:
-		thruster_animation(false)
+		thrust_direction = forward
+	elif Input.is_action_pressed("reverse_thrust" + player_prefix ):
+		thrust_direction = -forward
+	if thrust_direction != Vector2.ZERO:
+		if state.linear_velocity.length() < MAX_SPEED:
+			thruster_animation(true, state.step)
+		else:
+			thruster_animation(false, state.step)
+		state.apply_central_force(thrust_direction * THRUST)
+	else:
+		thruster_animation(false, state.step)
 	if state.linear_velocity.length() > MAX_SPEED:
 		state.linear_velocity = state.linear_velocity.normalized() * MAX_SPEED
-	
+		
 	if Input.is_action_pressed("rotate_left" + player_prefix):
 		state.apply_torque_impulse(-ROTATION_SPEED)
 	if Input.is_action_pressed("rotate_right" + player_prefix):
@@ -174,22 +175,15 @@ func _on_ghost_timer_timeout() -> void:
 func _on_qj_cool_down_timeout() -> void:
 	qj_cooldown=true
 
-func thruster_animation(thrust : bool) -> void:
-	if thrust:
-		var tmp = thruster1.points
-		if tmp[1].y < THRUST_LENGTH:
-			tmp[1].y += THRUST_FACTOR
-		thruster1.points = tmp
-		tmp = thruster2.points
-		if tmp[1].y < THRUST_LENGTH:
-			tmp[1].y += THRUST_FACTOR
-		thruster2.points = tmp
-	else:
-		var tmp = thruster1.points
-		if tmp[1].y > 32.0:
-			tmp[1].y -= NO_THRUST_FACTOR
-		thruster1.points = tmp	
-		tmp = thruster2.points
-		if tmp[1].y > 32.0:
-			tmp[1].y -= NO_THRUST_FACTOR
-		thruster2.points = tmp
+func thruster_animation(thrust : bool, delta : float) -> void:
+	for t in thrusters:
+		if thrust:
+			var tmp = t.points
+			if tmp[1].y < THRUST_LENGTH:
+				tmp[1].y += THRUST_FACTOR * delta
+			t.points = tmp
+		else:
+			var tmp = t.points
+			if tmp[1].y > 32.0:
+				tmp[1].y -= NO_THRUST_FACTOR * delta
+			t.points = tmp
