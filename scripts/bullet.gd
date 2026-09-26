@@ -1,7 +1,6 @@
 extends Area2D
 
 const BULLET_SPEED := 800.0
-const MAX_SPEED := 800.0
 const BULLET_DAMAGE := 5
 
 var velocity: Vector2
@@ -16,8 +15,6 @@ func setup(start_position: Vector2, start_direction: Vector2, col : Color) -> vo
 	$Line2D.default_color = color
 
 func _physics_process(delta: float) -> void:
-	if velocity.length() > MAX_SPEED:
-		velocity = velocity.normalized() * MAX_SPEED
 	global_position += velocity * delta
 	rotation = velocity.angle()
 

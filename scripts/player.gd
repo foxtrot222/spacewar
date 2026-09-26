@@ -29,6 +29,9 @@ const MAX_MISSILE_SLOTS := 5
 const MISSILE_FIRE_INTERVAL := 1.5
 const MISSILE_SLOT_RECOVERY_SECONDS := 7.5
 
+const MAX_LASER_TIME := 100.0
+const LASER_POINTS := 50.0
+
 var screen_size: Vector2
 var ghost := false
 var birth := true
@@ -36,6 +39,7 @@ var is_eliminated := false
 var qj_cooldown := true
 var missile_slots := MAX_MISSILE_SLOTS
 var missile_fire_cooldown := 0.0
+var laser_cooldown := 100.0
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
@@ -63,11 +67,15 @@ func _physics_process(delta: float) -> void:
 		fire_bullet()
 	if Input.is_action_just_pressed("missile" + player_prefix) and not ghost:
 		try_fire_missile()
-	if Input.is_action_pressed("laser" + player_prefix) and not ghost:
+	if Input.is_action_pressed("laser" + player_prefix) and not ghost and laser_cooldown > 0.0:
+		laser_cooldown -= LASER_POINTS * delta
 		laser.is_casting = true
 	else:
+		if laser_cooldown < MAX_LASER_TIME:
+			laser_cooldown += LASER_POINTS * delta
 		laser.is_casting = false
 
+	
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var direction = Global.star.global_position - state.transform.origin
 	var distance = max(direction.length(), 30.0)
