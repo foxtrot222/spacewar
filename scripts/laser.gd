@@ -7,13 +7,16 @@ const MAX_LENGTH := 1400.0
 const GROWTH_TIME := 0.1
 const DAMAGE_TIME := 0.01
 const LASER_DAMAGE := 1
+const MAX_LASER_TIME := 100.0
+const LASER_POINTS := 50.0
 
 var is_casting := false: set = set_is_casting
 var tween: Tween = null
 var laser_target: Vector2
 var damage_timer: float = 0.0
 var length
-
+var laser_cooldown := MAX_LASER_TIME
+var laser_overheated := false
 
 func _ready() -> void:
 	set_is_casting(is_casting)
@@ -23,7 +26,13 @@ func _ready() -> void:
 	length = MAX_LENGTH
 
 func _physics_process(delta: float) -> void:
-	if not is_casting:
+	if not is_casting and not laser_overheated:
+		laser_cooldown = min(laser_cooldown + LASER_POINTS * delta, MAX_LASER_TIME)
+		return
+	laser_cooldown = max(laser_cooldown - LASER_POINTS * delta, 0.0)
+	if laser_cooldown <= 0.0:
+		is_casting = false
+		laser_overheated = true
 		return
 
 	laser_target.x = move_toward(
@@ -37,6 +46,7 @@ func _physics_process(delta: float) -> void:
 	var laser_end_position: Vector2
 	if is_colliding():
 		var boom_point := get_collision_point()
+		
 		laser_end_position = to_local(boom_point)
 		laser_target = laser_end_position
 		target_position = laser_target
@@ -63,16 +73,18 @@ func set_is_casting(new_value: bool) -> void:
 	if is_casting == new_value:
 		return
 	is_casting = new_value
-	set_physics_process(is_casting)
-
+	
 	if is_casting:
 		line_2d.set_point_position(0, Vector2.ZERO)
 		line_2d.set_point_position(1, Vector2.ZERO)
 		damage_timer = 0.0
 		appear()
 	else:
+		
 		laser_target = Vector2.ZERO
 		disappear()
+
+		
 
 func appear() -> void:
 	line_2d.visible = true
