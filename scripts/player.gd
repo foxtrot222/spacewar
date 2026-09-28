@@ -3,46 +3,36 @@ extends RigidBody2D
 @export var player_prefix : String
 @export var color : Color
 @export var spawn_position : Vector2
-@export var spawn_rotation_degrees : float = 0.0
-
-var spawn_rotation_radians: float = 0.0
+@export var spawn_rotation : float = 0.0
 
 @onready var laser = $Laser
 @onready var thrusters = [$Thruster1, $Thruster2]
 
 const MAX_HEALTH := 100
-var health := MAX_HEALTH
-
 const WRAP_MARGIN := 48
-
 const THRUST := 100.0
 const MAX_SPEED := 800.0
 const THRUST_LENGTH := 48.0 # > 32.0
 const THRUST_FACTOR := 10.0
 const NO_THRUST_FACTOR := 20.0
-
 const ROTATION_SPEED := 100.0
-const ANGULAR_DAMP := 2.5
-const MAX_ANGULAR_SPEED := 3.14 # radians/sec (~180 deg/s), for state.angular_velocity
-
+const ANGULAR_DAMP := PI
 const QUANTUM_JUMP_OFFSET := 100
 const VELOCITY_RETENTION := 0.5
-
 const MAX_MISSILE_SLOTS := 5
 const MISSILE_FIRE_INTERVAL := 1.5
 const MISSILE_SLOT_RECOVERY_SECONDS := 7.5
 
 var screen_size: Vector2
+var health := MAX_HEALTH
+var missile_slots := MAX_MISSILE_SLOTS
 var ghost := false
 var birth := true
 var is_eliminated := false
 var qj_cooldown := true
-var missile_slots := MAX_MISSILE_SLOTS
 var missile_fire_cooldown := 0.0
 
 func _ready() -> void:
-	spawn_rotation_radians = deg_to_rad(spawn_rotation_degrees)
-	
 	screen_size = get_viewport_rect().size
 	global_position = spawn_position
 	
@@ -61,9 +51,8 @@ func _ready() -> void:
 		
 	if not Global.ENABLE_ANGULAR_INERTIA:
 		angular_damp = ANGULAR_DAMP
-	
-	# Apply spawn rotation at the very end to ensure it's not overridden
-	rotation = spawn_rotation_radians
+		
+	rotation = deg_to_rad(spawn_rotation)
 
 func _physics_process(delta: float) -> void:
 	missile_fire_cooldown = max(missile_fire_cooldown - delta, 0.0)
@@ -113,12 +102,12 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			qj_cooldown=false
 			$QJCooldown.start()
 			
-	if state.transform.origin.x + WRAP_MARGIN < 0:
+	if state.transform.origin.x + WRAP_MARGIN < 0.0:
 		state.transform.origin.x = screen_size.x + WRAP_MARGIN
 	elif state.transform.origin.x - WRAP_MARGIN > screen_size.x:
 		state.transform.origin.x = -WRAP_MARGIN
 
-	if state.transform.origin.y + WRAP_MARGIN < 0:
+	if state.transform.origin.y + WRAP_MARGIN < 0.0:
 		state.transform.origin.y = screen_size.y  + WRAP_MARGIN
 	elif state.transform.origin.y - WRAP_MARGIN > screen_size.y:
 		state.transform.origin.y = -WRAP_MARGIN
@@ -130,15 +119,10 @@ func quantum_jump(state : PhysicsDirectBodyState2D) -> void:
 	)
 	if state.linear_velocity.length() > 0:
 		random_position += state.linear_velocity.normalized() * QUANTUM_JUMP_OFFSET
-	state.transform.origin = random_position
+	state.transform = Transform2D(randf_range(0, TAU), random_position)
 	state.linear_velocity *= VELOCITY_RETENTION
-	
-	# Add random rotation
-	state.rotation = randf_range(0, TAU)
-	
-	# Apply random angular velocity using physics engine state
 	if Global.ENABLE_ANGULAR_INERTIA:
-		state.angular_velocity = randf_range(-MAX_ANGULAR_SPEED, MAX_ANGULAR_SPEED)
+		state.angular_velocity *= VELOCITY_RETENTION
 
 func take_damage(amount: int) -> void:
 	if is_eliminated:

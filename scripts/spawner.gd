@@ -10,7 +10,7 @@ func respawn_player(player: RigidBody2D) -> void:
 	var player_prefix: String = player.player_prefix
 	var player_color: Color = player.color
 	var spawn_position: Vector2 = player.spawn_position
-	var spawn_rotation: float = player.spawn_rotation_degrees
+	var spawn_rotation: float = player.spawn_rotation
 	Global.explosion.boom(player.position, player_color, "ShipExplode")
 	player.queue_free()
 
@@ -20,27 +20,19 @@ func respawn_player(player: RigidBody2D) -> void:
 	new_player.player_prefix = player_prefix
 	new_player.color = player_color
 	new_player.spawn_position = spawn_position
-	new_player.spawn_rotation_degrees = spawn_rotation
+	new_player.spawn_rotation = spawn_rotation
 	new_player.health = new_player.MAX_HEALTH
 	new_player.birth = false
 	new_player.ghost = true
 	
 	get_tree().current_scene.add_child(new_player)
 
-func spawn_bullet(
-	start_position: Vector2,
-	start_direction: Vector2,
-	color : Color
-) -> void:
+func spawn_bullet(start_position: Vector2, start_direction: Vector2, color : Color) -> void:
 	var bullet := BULLET_SCENE.instantiate()
 	bullet.setup(start_position, start_direction, color)
 	get_tree().current_scene.add_child(bullet)
 
-func spawn_missile(
-	start_position: Vector2,
-	start_direction: Vector2,
-	color : Color
-) -> void:
+func spawn_missile(start_position: Vector2, start_direction: Vector2, color : Color) -> void:
 	var missile := MISSILE_SCENE.instantiate()
 	missile.setup(start_position, start_direction, color)
 	get_tree().current_scene.add_child(missile)

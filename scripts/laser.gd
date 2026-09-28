@@ -8,14 +8,13 @@ const MAX_LENGTH := 1400.0
 const GROWTH_TIME := 0.1
 const DAMAGE_TIME := 0.01
 const LASER_DAMAGE := 1
-const MAX_LASER_TIME := 100000.0
+const MAX_LASER_TIME := 100.0
 const LASER_POINTS := 50.0
 
 var is_casting := false: set = set_is_casting
 var tween: Tween = null
 var laser_target: Vector2
 var damage_timer: float = 0.0
-var length
 var laser_cooldown := MAX_LASER_TIME
 var laser_overheated := false
 
@@ -25,7 +24,6 @@ func _ready() -> void:
 	line_2d.set_point_position(1, Vector2.ZERO)
 	shape.b = Vector2.ZERO
 	line_2d.visible = false
-	length = MAX_LENGTH
 
 func _physics_process(delta: float) -> void:
 	if not is_casting and not laser_overheated:
