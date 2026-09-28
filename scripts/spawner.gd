@@ -10,6 +10,7 @@ func respawn_player(player: RigidBody2D) -> void:
 	var player_prefix: String = player.player_prefix
 	var player_color: Color = player.color
 	var spawn_position: Vector2 = player.spawn_position
+	var spawn_rotation: float = player.spawn_rotation_degrees
 	Global.explosion.boom(player.position, player_color, "ShipExplode")
 	player.queue_free()
 
@@ -19,6 +20,7 @@ func respawn_player(player: RigidBody2D) -> void:
 	new_player.player_prefix = player_prefix
 	new_player.color = player_color
 	new_player.spawn_position = spawn_position
+	new_player.spawn_rotation_degrees = spawn_rotation
 	new_player.health = new_player.MAX_HEALTH
 	new_player.birth = false
 	new_player.ghost = true

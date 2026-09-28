@@ -3,6 +3,9 @@ extends RigidBody2D
 @export var player_prefix : String
 @export var color : Color
 @export var spawn_position : Vector2
+@export var spawn_rotation_degrees : float = 0.0
+
+var spawn_rotation_radians: float = 0.0
 
 @onready var laser = $Laser
 @onready var thrusters = [$Thruster1, $Thruster2]
@@ -37,6 +40,8 @@ var missile_slots := MAX_MISSILE_SLOTS
 var missile_fire_cooldown := 0.0
 
 func _ready() -> void:
+	spawn_rotation_radians = deg_to_rad(spawn_rotation_degrees)
+	
 	screen_size = get_viewport_rect().size
 	global_position = spawn_position
 	
@@ -55,6 +60,9 @@ func _ready() -> void:
 		
 	if not Global.ENABLE_ANGULAR_INERTIA:
 		angular_damp = ANGULAR_DAMP
+	
+	# Apply spawn rotation at the very end to ensure it's not overridden
+	rotation = spawn_rotation_radians
 
 func _physics_process(delta: float) -> void:
 	missile_fire_cooldown = max(missile_fire_cooldown - delta, 0.0)
