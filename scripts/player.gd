@@ -23,6 +23,7 @@ const NO_THRUST_FACTOR := 20.0
 
 const ROTATION_SPEED := 100.0
 const ANGULAR_DAMP := 2.5
+const MAX_ANGULAR_SPEED := 3.14 # radians/sec (~180 deg/s), for state.angular_velocity
 
 const QUANTUM_JUMP_OFFSET := 100
 const VELOCITY_RETENTION := 0.5
@@ -131,6 +132,13 @@ func quantum_jump(state : PhysicsDirectBodyState2D) -> void:
 		random_position += state.linear_velocity.normalized() * QUANTUM_JUMP_OFFSET
 	state.transform.origin = random_position
 	state.linear_velocity *= VELOCITY_RETENTION
+	
+	# Add random rotation
+	state.rotation = randf_range(0, TAU)
+	
+	# Apply random angular velocity using physics engine state
+	if Global.ENABLE_ANGULAR_INERTIA:
+		state.angular_velocity = randf_range(-MAX_ANGULAR_SPEED, MAX_ANGULAR_SPEED)
 
 func take_damage(amount: int) -> void:
 	if is_eliminated:
