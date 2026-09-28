@@ -1,13 +1,14 @@
 extends RayCast2D
 
 @onready var line_2d: Line2D = $Line2D
+@onready var shape: SegmentShape2D = $Area2D/CollisionShape2D.shape
 
 const CAST_SPEED := 7000.0
 const MAX_LENGTH := 1400.0
 const GROWTH_TIME := 0.1
 const DAMAGE_TIME := 0.01
 const LASER_DAMAGE := 1
-const MAX_LASER_TIME := 100.0
+const MAX_LASER_TIME := 100000.0
 const LASER_POINTS := 50.0
 
 var is_casting := false: set = set_is_casting
@@ -22,6 +23,7 @@ func _ready() -> void:
 	set_is_casting(is_casting)
 	line_2d.set_point_position(0, Vector2.ZERO)
 	line_2d.set_point_position(1, Vector2.ZERO)
+	shape.b = Vector2.ZERO
 	line_2d.visible = false
 	length = MAX_LENGTH
 
@@ -46,7 +48,6 @@ func _physics_process(delta: float) -> void:
 	var laser_end_position: Vector2
 	if is_colliding():
 		var boom_point := get_collision_point()
-		
 		laser_end_position = to_local(boom_point)
 		laser_target = laser_end_position
 		target_position = laser_target
@@ -68,7 +69,8 @@ func _physics_process(delta: float) -> void:
 		damage_timer = 0.0
 		
 	line_2d.set_point_position(1, laser_end_position)
-
+	shape.b = laser_end_position
+	
 func set_is_casting(new_value: bool) -> void:
 	if is_casting == new_value:
 		return
@@ -77,20 +79,19 @@ func set_is_casting(new_value: bool) -> void:
 	if is_casting:
 		line_2d.set_point_position(0, Vector2.ZERO)
 		line_2d.set_point_position(1, Vector2.ZERO)
+		shape.b = Vector2.ZERO
 		damage_timer = 0.0
 		appear()
 	else:
-		
 		laser_target = Vector2.ZERO
 		disappear()
-
-		
 
 func appear() -> void:
 	line_2d.visible = true
 	line_2d.scale = Vector2.ONE
 
 func disappear() -> void:
+	shape.b = Vector2.ZERO
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
