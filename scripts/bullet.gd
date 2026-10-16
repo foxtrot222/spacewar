@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Tirth Kavathiya <tirthkavathiya@gmail.com>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 extends Area2D
 
 const BULLET_SPEED := 800.0

@@ -1,0 +1,26 @@
+version = 1
+
+# All files in scenes files in scenes directory and project.godot.
+[[annotations]]
+path = [
+	"scenes/*",
+	"project.godot"
+]
+SPDX-FileCopyrightText = "2026 Tirth Kavathiya <tirthkavathiya@gmail.com"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+# Godot generated files
+[[annotations]]
+path = [
+	"**/*.uid",
+	"**/*.import"
+]
+SPDX-FileCopyrightText = "2026 Tirth Kavathiya <tirthkavathiya@gmail.com>"
+SPDX-License-Identifier = "CC0-1.0"
+
+# Godot Icon
+
+[[annotations]]
+path = "icon.svg"
+SPDX-FileCopyrightText = "2017 Andrea Calabró"
+SPDX-License-Identifier = "CC-BY-4.0"

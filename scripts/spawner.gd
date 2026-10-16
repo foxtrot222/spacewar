@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Tirth Kavathiya <tirthkavathiya@gmail.com>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 extends Node
 
 const PLAYER_SCENE = preload("res://scenes/player.tscn")

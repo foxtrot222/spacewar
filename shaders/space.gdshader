@@ -1,3 +1,9 @@
+/*
+ * SPDX-FileCopyrightText: 2026 Tirth Kavathiya <tirthkavathiya@gmail.com>
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
 shader_type canvas_item;
 uniform float twink_factor = 5.0;
 uniform int twink_cood = 25;
