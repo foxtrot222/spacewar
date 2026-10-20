@@ -14,5 +14,6 @@ func boom(pos: Vector2, color : Color, expsn : String) -> void:
 	candidate.position = pos
 	candidate.process_material = candidate.process_material.duplicate()
 	candidate.process_material.color = color
+	SoundManager.boom(expsn)
 	candidate.restart()
 	candidate.finished.connect(candidate.queue_free)
