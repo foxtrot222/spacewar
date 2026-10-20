@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c35ye40347ojq"]
+
+[ext_resource type="Script" uid="uid://ynf4vmc3g63f" path="res://scripts/sound_manager.gd" id="1_gbdfy"]
+[ext_resource type="AudioStream" uid="uid://bk2tigcb1go2u" path="res://assets/sfx/qj.wav" id="2_s6peo"]
+[ext_resource type="AudioStream" uid="uid://clex30nei47de" path="res://assets/sfx/fire_missile.wav" id="2_shlr6"]
+[ext_resource type="AudioStream" uid="uid://dxohbll75mvxb" path="res://assets/sfx/fire_bullet.wav" id="4_5lwbd"]
+
+[node name="SoundManager" type="Node" unique_id=989475336]
+script = ExtResource("1_gbdfy")
+
+[node name="Sound" type="AudioStreamPlayer" parent="." unique_id=238643535]
+stream = ExtResource("2_s6peo")
+
+[node name="QJ" type="AudioStreamPlayer" parent="." unique_id=1631131316]
+stream = ExtResource("2_s6peo")
+
+[node name="FireBullet" type="AudioStreamPlayer" parent="." unique_id=1105190352]
+stream = ExtResource("4_5lwbd")
+
+[node name="FireMissile" type="AudioStreamPlayer" parent="." unique_id=1441313275]
+stream = ExtResource("2_shlr6")

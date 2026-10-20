@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ck244wsn1nj50"]
 
 [ext_resource type="PackedScene" uid="uid://citcq11bhhs0b" path="res://scenes/player.tscn" id="1_ig7tw"]
-[ext_resource type="Texture2D" uid="uid://bp8d7pyl4wxiq" path="res://assets/space_background.png" id="1_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://bp8d7pyl4wxiq" path="res://assets/sprites/space_background.png" id="1_tbgi4"]
 [ext_resource type="Shader" uid="uid://cgu76c2smn8bj" path="res://shaders/space.gdshader" id="1_tefeu"]
 [ext_resource type="PackedScene" uid="uid://cao82m7f0s4gp" path="res://scenes/star.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://cnj05l6072alu" path="res://scenes/explosions.tscn" id="5_tbgi4"]

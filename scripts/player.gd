@@ -62,6 +62,8 @@ func _physics_process(delta: float) -> void:
 	missile_fire_cooldown = max(missile_fire_cooldown - delta, 0.0)
 	if Input.is_action_just_pressed("bullet" + player_prefix) and not ghost:
 		fire_bullet()
+		SoundManager.fire_bullet()
+		
 	if Input.is_action_just_pressed("missile" + player_prefix) and not ghost:
 		try_fire_missile()
 	if Input.is_action_pressed("laser" + player_prefix) and not ghost and not laser.laser_overheated:
@@ -105,6 +107,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			quantum_jump(state)
 			qj_cooldown=false
 			$QJCooldown.start()
+			SoundManager.qj()
 			
 	if state.transform.origin.x + WRAP_MARGIN < 0.0:
 		state.transform.origin.x = screen_size.x + WRAP_MARGIN
@@ -152,6 +155,7 @@ func fire_bullet() -> void:
 func try_fire_missile() -> void:
 	if missile_slots <= 0 or missile_fire_cooldown > 0.0:
 		return
+	SoundManager.fire_missile()
 	missile_slots -= 1
 	missile_fire_cooldown = MISSILE_FIRE_INTERVAL
 	Spawner.spawn_missile(

@@ -1,0 +1,19 @@
+{
+  "synth_type": "Riftr",
+  "version": "1.0.0",
+  "file_name": "TeleportArrive350",
+  "params": {
+    "masterVolume": 0.5,
+    "seed": 0.5,
+    "excitation": 1,
+    "duration": 0.15,
+    "pitch": 0.4,
+    "bend": -0.19999999999999996,
+    "space": 0.5,
+    "feedback": 0.4,
+    "dispersion": 0.2,
+    "motion": 0.2,
+    "field": 0.2,
+    "reverse": 0.5
+  }
+}
