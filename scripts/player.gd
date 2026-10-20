@@ -73,6 +73,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_released("laser" + player_prefix) and laser.laser_overheated:
 		laser.laser_overheated = false
 	
+	
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var direction = Global.star.global_position - state.transform.origin
 	var distance = max(direction.length(), 30.0)

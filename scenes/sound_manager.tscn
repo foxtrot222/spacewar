@@ -13,7 +13,7 @@
 script = ExtResource("1_gbdfy")
 
 [node name="Sound" type="AudioStreamPlayer" parent="." unique_id=238643535]
-stream = ExtResource("2_mpi5b")
+stream = ExtResource("2_v1pt3")
 
 [node name="QJ" type="AudioStreamPlayer" parent="." unique_id=1631131316]
 stream = ExtResource("2_s6peo")
