@@ -1,37 +1,69 @@
 [gd_scene format=3 uid="uid://c35ye40347ojq"]
 
 [ext_resource type="Script" uid="uid://ynf4vmc3g63f" path="res://scripts/sound_manager.gd" id="1_gbdfy"]
+[ext_resource type="AudioStream" uid="uid://crmsopqycju4w" path="res://assets/sfx/collision.wav" id="2_74mgu"]
 [ext_resource type="AudioStream" uid="uid://copkpeq8a1hne" path="res://assets/sfx/laser_explode.wav" id="2_mpi5b"]
 [ext_resource type="AudioStream" uid="uid://bln4vubkpawwq" path="res://assets/sfx/missile_explode.wav" id="2_ro3ww"]
 [ext_resource type="AudioStream" uid="uid://bk2tigcb1go2u" path="res://assets/sfx/qj.wav" id="2_s6peo"]
 [ext_resource type="AudioStream" uid="uid://clex30nei47de" path="res://assets/sfx/fire_missile.wav" id="2_shlr6"]
 [ext_resource type="AudioStream" uid="uid://b65gseiicxli7" path="res://assets/sfx/bullet_explode.wav" id="2_v1pt3"]
+[ext_resource type="AudioStream" uid="uid://bgiqqgn01xi7a" path="res://assets/sfx/ghost.wav" id="3_aa63w"]
 [ext_resource type="AudioStream" uid="uid://dxohbll75mvxb" path="res://assets/sfx/fire_bullet.wav" id="4_5lwbd"]
+[ext_resource type="AudioStream" uid="uid://btdysgepb1yko" path="res://assets/sfx/start_thrust.wav" id="4_55or6"]
+[ext_resource type="AudioStream" uid="uid://cy71fj4uioqoo" path="res://assets/sfx/end_thrust.wav" id="5_55or6"]
+[ext_resource type="AudioStream" uid="uid://n4w3m1fqjnve" path="res://assets/sfx/thrust.wav" id="5_gb18h"]
 [ext_resource type="AudioStream" uid="uid://bke7s02ujxv3q" path="res://assets/sfx/ship_explode.wav" id="8_aa63w"]
 
 [node name="SoundManager" type="Node" unique_id=989475336]
 script = ExtResource("1_gbdfy")
 
-[node name="Sound" type="AudioStreamPlayer" parent="." unique_id=238643535]
-stream = ExtResource("2_v1pt3")
+[node name="Collision" type="AudioStreamPlayer" parent="." unique_id=238643535]
+stream = ExtResource("2_74mgu")
+pitch_scale = 0.5
 
 [node name="QJ" type="AudioStreamPlayer" parent="." unique_id=1631131316]
 stream = ExtResource("2_s6peo")
+volume_db = -5.0
+
+[node name="Ghost" type="AudioStreamPlayer" parent="." unique_id=77242500]
+stream = ExtResource("3_aa63w")
+volume_db = -5.0
+
+[node name="Thrust" type="AudioStreamPlayer" parent="." unique_id=2089857630]
+stream = ExtResource("5_gb18h")
+volume_db = -15.0
+pitch_scale = 0.5
+
+[node name="StartThrust" type="AudioStreamPlayer" parent="." unique_id=1821952951]
+stream = ExtResource("4_55or6")
+volume_db = -15.0
+pitch_scale = 0.5
+
+[node name="EndThrust" type="AudioStreamPlayer" parent="." unique_id=648322205]
+stream = ExtResource("5_55or6")
+volume_db = -15.0
+pitch_scale = 0.5
 
 [node name="FireBullet" type="AudioStreamPlayer" parent="." unique_id=1105190352]
 stream = ExtResource("4_5lwbd")
+volume_db = -5.0
 
 [node name="FireMissile" type="AudioStreamPlayer" parent="." unique_id=1441313275]
 stream = ExtResource("2_shlr6")
+volume_db = -5.0
 
 [node name="MissileExplode" type="AudioStreamPlayer" parent="." unique_id=199028270]
 stream = ExtResource("2_ro3ww")
+volume_db = -10.0
 
 [node name="BulletExplode" type="AudioStreamPlayer" parent="." unique_id=1041881767]
 stream = ExtResource("2_v1pt3")
+volume_db = -10.0
 
 [node name="LaserExplode" type="AudioStreamPlayer" parent="." unique_id=1813803469]
 stream = ExtResource("2_mpi5b")
+volume_db = -10.0
 
 [node name="ShipExplode" type="AudioStreamPlayer" parent="." unique_id=1759474328]
 stream = ExtResource("8_aa63w")
+volume_db = -10.0

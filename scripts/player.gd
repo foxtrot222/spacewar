@@ -35,8 +35,10 @@ var birth := true
 var is_eliminated := false
 var qj_cooldown := true
 var missile_fire_cooldown := 0.0
+var touched := false
 
 func _ready() -> void:
+	max_contacts_reported = Global.PLAYERS
 	screen_size = get_viewport_rect().size
 	global_position = spawn_position
 	
@@ -48,6 +50,7 @@ func _ready() -> void:
 	if birth:
 		$GhostTimer.timeout.emit()
 	else:
+		SoundManager.ghost()
 		ghost = true
 		collision_layer = 4
 		collision_mask = 0
@@ -72,7 +75,7 @@ func _physics_process(delta: float) -> void:
 		laser.is_casting = false
 	if Input.is_action_just_released("laser" + player_prefix) and laser.laser_overheated:
 		laser.laser_overheated = false
-	
+		
 	
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var direction = Global.star.global_position - state.transform.origin
@@ -89,11 +92,14 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		thrust_direction = -forward
 	if thrust_direction != Vector2.ZERO:
 		if state.linear_velocity.length() < MAX_SPEED:
+			SoundManager.thrust(int(player_prefix), 0)
 			thruster_animation(true, state.step)
 		else:
+			SoundManager.thrust(int(player_prefix),1)
 			thruster_animation(false, state.step)
 		state.apply_central_force(thrust_direction * THRUST)
 	else:
+		SoundManager.thrust(int(player_prefix),1)
 		thruster_animation(false, state.step)
 	if state.linear_velocity.length() > MAX_SPEED:
 		state.linear_velocity = state.linear_velocity.normalized() * MAX_SPEED
@@ -119,6 +125,13 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		state.transform.origin.y = screen_size.y  + WRAP_MARGIN
 	elif state.transform.origin.y - WRAP_MARGIN > screen_size.y:
 		state.transform.origin.y = -WRAP_MARGIN
+	
+	var touching := state.get_contact_count() > 0
+	if touching and not touched:
+		SoundManager.collision()
+	touched = touching
+			
+	
 
 func quantum_jump(state : PhysicsDirectBodyState2D) -> void:
 	var random_position = Vector2(

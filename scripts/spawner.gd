@@ -16,6 +16,7 @@ func respawn_player(player: RigidBody2D) -> void:
 	var spawn_position: Vector2 = player.spawn_position
 	var spawn_rotation: float = player.spawn_rotation
 	Global.explosion.boom(player.position, player_color, "ShipExplode")
+	SoundManager.thrust(int(player_prefix), -1)
 	player.queue_free()
 
 	await get_tree().create_timer(2.0).timeout
@@ -28,7 +29,6 @@ func respawn_player(player: RigidBody2D) -> void:
 	new_player.health = new_player.MAX_HEALTH
 	new_player.birth = false
 	new_player.ghost = true
-	
 	get_tree().current_scene.add_child(new_player)
 
 func spawn_bullet(start_position: Vector2, start_direction: Vector2, color : Color) -> void:

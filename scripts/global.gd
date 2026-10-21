@@ -4,6 +4,7 @@
 
 extends Node
 
+const PLAYERS = 3
 const ENABLE_ANGULAR_INERTIA = false
 
 var star: Node2D

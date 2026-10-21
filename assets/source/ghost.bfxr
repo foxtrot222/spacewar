@@ -1,0 +1,19 @@
+{
+  "synth_type": "Riftr",
+  "version": "1.0.0",
+  "file_name": "PortalTear40",
+  "params": {
+    "masterVolume": 0.5,
+    "seed": 0.15561300995501792,
+    "excitation": 0,
+    "duration": 2.4899999999999998,
+    "pitch": 0.2620908211868393,
+    "bend": 0.6319270821553501,
+    "space": 0.8117950206861493,
+    "feedback": 0.5745392708308842,
+    "dispersion": 0.7144046399274655,
+    "motion": 0.6676012482118143,
+    "field": 0.6852213942762275,
+    "reverse": 0.5
+  }
+}
