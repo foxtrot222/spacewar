@@ -34,6 +34,7 @@ var is_eliminated := false
 var qj_cooldown := true
 var missile_fire_cooldown := 0.0
 var touched := false
+var qj_risk_value = 3
 
 func _ready() -> void:
 	max_contacts_reported = Global.PLAYERS
@@ -126,14 +127,10 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if touching and not touched:
 		SoundManager.collision()
 	touched = touching
-			
-	
 
 func quantum_jump(state : PhysicsDirectBodyState2D) -> void:
-	var random_position = Vector2(
-	randf_range(0, screen_size.x),
-	randf_range(0, screen_size.y)
-	)
+	var random_position = Global.randcc(float(qj_risk_value * 100))
+	qj_risk_value -= 1 if qj_risk_value > 0 else 0
 	if state.linear_velocity.length() > 0:
 		random_position += state.linear_velocity.normalized() * QUANTUM_JUMP_OFFSET
 	state.transform = Transform2D(randf_range(0, TAU), random_position)

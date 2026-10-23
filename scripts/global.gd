@@ -24,7 +24,7 @@ func randcc(size: float) -> Vector2:
 	var center := Vector2.ONE * (frame / 2.0)
 	var radius_sq := size * size
 	while true:
-		var value := Vector2(randf_range(0.0, frame),randf_range(0.0, frame))
+		var value := Vector2(randf_range(100.0, frame - 100.0),randf_range(100.0, frame - 100.0))
 		if (value - center).length_squared() > radius_sq:
 			return value
 	return Vector2.ZERO

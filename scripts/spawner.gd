@@ -30,7 +30,7 @@ func respawn_player(player: RigidBody2D) -> void:
 	new_player.ghost = true
 	new_player.hud = hud
 	new_player.position = Global.randcc(200.0)
-	new_player.rotation = randf()
+	new_player.rotation = randf_range(0.0, TAU)
 	get_tree().current_scene.add_child(new_player)
 	
 	player_respawned.emit(new_player)
