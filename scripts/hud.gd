@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Tirth Kavathiya <tirthkavathiya@gmail.com>
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 extends Control
 
 @export var color : Color
@@ -7,11 +11,9 @@ var max_laser := 0.0
 var max_health := 0.0
 var missiles : Array[ColorRect]
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	missiles.resize(6)
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta: float) -> void:
 	if not is_instance_valid(player):
 		visible = false

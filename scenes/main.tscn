@@ -38,15 +38,12 @@ position = Vector2(512, 512)
 position = Vector2(812, 809)
 player_prefix = "1"
 color = Color(1, 0, 0, 1)
-spawn_position = Vector2(812, 809)
 
 [node name="Player2" parent="." unique_id=1507594264 instance=ExtResource("1_ig7tw")]
 position = Vector2(226, 229)
 rotation = 3.1415927
 player_prefix = "2"
 color = Color(0, 1, 0, 1)
-spawn_position = Vector2(226, 229)
-spawn_rotation = 180.0
 
 [node name="HUD1" parent="." unique_id=738116492 instance=ExtResource("6_tefeu")]
 

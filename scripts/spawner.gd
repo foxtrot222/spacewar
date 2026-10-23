@@ -15,8 +15,6 @@ func respawn_player(player: RigidBody2D) -> void:
 		return
 	var player_prefix: String = player.player_prefix
 	var player_color: Color = player.color
-	var spawn_position: Vector2 = player.spawn_position
-	var spawn_rotation: float = player.spawn_rotation
 	var hud : Control = player.hud
 	Global.explosion.boom(player.position, player_color, "ShipExplode")
 	SoundManager.thrust(int(player_prefix), -1)
@@ -27,12 +25,12 @@ func respawn_player(player: RigidBody2D) -> void:
 	var new_player := PLAYER_SCENE.instantiate() as RigidBody2D
 	new_player.player_prefix = player_prefix
 	new_player.color = player_color
-	new_player.spawn_position = spawn_position
-	new_player.spawn_rotation = spawn_rotation
 	new_player.health = new_player.MAX_HEALTH
 	new_player.birth = false
 	new_player.ghost = true
 	new_player.hud = hud
+	new_player.position = Global.randcc(200.0)
+	new_player.rotation = randf()
 	get_tree().current_scene.add_child(new_player)
 	
 	player_respawned.emit(new_player)

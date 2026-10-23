@@ -6,8 +6,6 @@ extends RigidBody2D
 
 @export var player_prefix : String
 @export var color : Color
-@export var spawn_position : Vector2
-@export var spawn_rotation : float = 0.0
 @export var hud : Control
 @onready var laser = $Laser
 @onready var thrusters = [$Thruster1, $Thruster2]
@@ -40,7 +38,6 @@ var touched := false
 func _ready() -> void:
 	max_contacts_reported = Global.PLAYERS
 	screen_size = get_viewport_rect().size
-	global_position = spawn_position
 	
 	$Indicator.default_color = color
 	thrusters[0].default_color = color
@@ -58,8 +55,7 @@ func _ready() -> void:
 		
 	if not Global.ENABLE_ANGULAR_INERTIA:
 		angular_damp = ANGULAR_DAMP
-		
-	rotation = deg_to_rad(spawn_rotation)
+	
 
 func _physics_process(delta: float) -> void:
 	missile_fire_cooldown = max(missile_fire_cooldown - delta, 0.0)
