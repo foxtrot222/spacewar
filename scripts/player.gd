@@ -8,7 +8,7 @@ extends RigidBody2D
 @export var color : Color
 @export var spawn_position : Vector2
 @export var spawn_rotation : float = 0.0
-
+@export var hud : Control
 @onready var laser = $Laser
 @onready var thrusters = [$Thruster1, $Thruster2]
 

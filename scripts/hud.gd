@@ -14,7 +14,9 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if not is_instance_valid(player):
+		visible = false
 		return
+	visible = not player.ghost
 	$HealthBar.size.x = scale(player.health, 0.0, 104.0, max_health)
 	$LaserBar.size.x = scale(player.laser.laser_cooldown, 0.0, 48.0, max_laser)
 	$QJBar.modulate.a = float(player.qj_cooldown) * 0.392
@@ -23,6 +25,7 @@ func _process(delta: float) -> void:
 
 func initialize(p : RigidBody2D):
 	player = p
+	player.hud = self
 	color = player.color
 	var j = 0
 	for i in get_children():

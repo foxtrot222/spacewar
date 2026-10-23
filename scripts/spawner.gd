@@ -4,6 +4,8 @@
 
 extends Node
 
+signal player_respawned(player: RigidBody2D)
+
 const PLAYER_SCENE = preload("res://scenes/player.tscn")
 const BULLET_SCENE = preload("res://scenes/bullet.tscn")
 const MISSILE_SCENE = preload("res://scenes/missile.tscn")
@@ -15,6 +17,7 @@ func respawn_player(player: RigidBody2D) -> void:
 	var player_color: Color = player.color
 	var spawn_position: Vector2 = player.spawn_position
 	var spawn_rotation: float = player.spawn_rotation
+	var hud : Control = player.hud
 	Global.explosion.boom(player.position, player_color, "ShipExplode")
 	SoundManager.thrust(int(player_prefix), -1)
 	player.queue_free()
@@ -29,7 +32,10 @@ func respawn_player(player: RigidBody2D) -> void:
 	new_player.health = new_player.MAX_HEALTH
 	new_player.birth = false
 	new_player.ghost = true
+	new_player.hud = hud
 	get_tree().current_scene.add_child(new_player)
+	
+	player_respawned.emit(new_player)
 
 func spawn_bullet(start_position: Vector2, start_direction: Vector2, color : Color) -> void:
 	var bullet := BULLET_SCENE.instantiate()
