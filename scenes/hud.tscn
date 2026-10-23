@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://bxqmq7s5w4g2"]
+
+[ext_resource type="Script" uid="uid://bnypkvoaj5fwx" path="res://scripts/hud.gd" id="1_ahhtf"]
+
+[node name="HUD" type="Control" unique_id=738116492]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_ahhtf")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=71697064]
+modulate = Color(1, 1, 1, 0.039215688)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 128.0
+offset_bottom = 64.0
+
+[node name="HealthBar" type="ColorRect" parent="." unique_id=1125830418]
+modulate = Color(1, 1, 1, 0.78431374)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 120.0
+offset_bottom = 32.0
+
+[node name="LaserBar" type="ColorRect" parent="." unique_id=1427710398]
+modulate = Color(1, 1, 1, 0.6862745)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 40.0
+offset_right = 64.0
+offset_bottom = 48.0
+
+[node name="QJBar" type="ColorRect" parent="." unique_id=499784451]
+modulate = Color(1, 1, 1, 0.39215687)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 48.0
+offset_right = 64.0
+offset_bottom = 56.0
+
+[node name="Missile1" type="ColorRect" parent="." unique_id=258055201]
+modulate = Color(1, 1, 1, 0.5882353)
+layout_mode = 0
+offset_left = 72.0
+offset_top = 40.0
+offset_right = 80.0
+offset_bottom = 48.0
+
+[node name="Missile2" type="ColorRect" parent="." unique_id=2099996001]
+modulate = Color(1, 1, 1, 0.5882353)
+layout_mode = 0
+offset_left = 80.0
+offset_top = 48.0
+offset_right = 88.0
+offset_bottom = 56.0
+
+[node name="Missile3" type="ColorRect" parent="." unique_id=1635304396]
+modulate = Color(1, 1, 1, 0.5882353)
+layout_mode = 0
+offset_left = 88.0
+offset_top = 40.0
+offset_right = 96.0
+offset_bottom = 48.0
+
+[node name="Missile4" type="ColorRect" parent="." unique_id=1196220569]
+modulate = Color(1, 1, 1, 0.5882353)
+layout_mode = 0
+offset_left = 96.0
+offset_top = 48.0
+offset_right = 104.0
+offset_bottom = 56.0
+
+[node name="Missile5" type="ColorRect" parent="." unique_id=1586347509]
+modulate = Color(1, 1, 1, 0.5882353)
+layout_mode = 0
+offset_left = 104.0
+offset_top = 40.0
+offset_right = 112.0
+offset_bottom = 48.0
+
+[node name="Missile6" type="ColorRect" parent="." unique_id=1310933861]
+modulate = Color(1, 1, 1, 0.5882353)
+layout_mode = 0
+offset_left = 112.0
+offset_top = 48.0
+offset_right = 120.0
+offset_bottom = 56.0
