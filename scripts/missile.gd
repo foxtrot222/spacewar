@@ -23,13 +23,13 @@ func setup(t : RigidBody2D, start_position: Vector2, start_direction: Vector2, c
 	target = t
 
 func _physics_process(delta: float) -> void:
-	acceleration += seek()
+	if is_instance_valid(target) and target:
+		acceleration += seek() + safe()
 	velocity += acceleration * delta
 	velocity = velocity.limit_length(MISSILE_SPEED)
 	rotation = velocity.angle()
 	global_position += velocity * delta
 	
-
 func _on_area_entered(area: Area2D) -> void:
 	var pos = position
 	if $ShapeCast2D.get_collision_count():
@@ -63,7 +63,14 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 
 func seek():
 	var steer = Vector2.ZERO
-	if is_instance_valid(target) and target:
-		var desired = (target.position - position).normalized() * MISSILE_SPEED
-		steer = ( desired - velocity ).normalized() * STEER_FORCE
+	var desired = (target.position - position).normalized() * MISSILE_SPEED
+	steer = ( desired - velocity ).normalized() * STEER_FORCE
 	return steer
+
+func safe():
+	var center = Global.star.position
+	var radius = 200.0
+	var dist = position - center
+	if dist.length_squared() < radius * radius:
+		return dist.normalized() * STEER_FORCE
+	return Vector2.ZERO
