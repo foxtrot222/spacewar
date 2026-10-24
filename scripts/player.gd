@@ -36,6 +36,9 @@ var missile_fire_cooldown := 0.0
 var touched := false
 var qj_risk_value = 5
 
+enum Weapon { BULLET, MISSILE, LASER }
+var equipped_weapon: Weapon = Weapon.BULLET
+
 func _ready() -> void:
 	max_contacts_reported = Global.PLAYERS
 	screen_size = get_viewport_rect().size
@@ -60,17 +63,29 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	missile_fire_cooldown = max(missile_fire_cooldown - delta, 0.0)
-	if Input.is_action_just_pressed("bullet" + player_prefix) and not ghost:
-		fire_bullet()
-		SoundManager.fire_bullet()
+	
+	if Input.is_action_just_pressed("bullet" + player_prefix):
+		equipped_weapon = Weapon.BULLET
+	elif Input.is_action_just_pressed("missile" + player_prefix):
+		equipped_weapon = Weapon.MISSILE
+	elif Input.is_action_just_pressed("laser" + player_prefix):
+		equipped_weapon = Weapon.LASER
 		
-	if Input.is_action_just_pressed("missile" + player_prefix) and not ghost:
-		try_fire_missile()
-	if Input.is_action_pressed("laser" + player_prefix) and not ghost and not laser.laser_overheated:
+	if Input.is_action_just_pressed("fire" + player_prefix) and not ghost:
+		match equipped_weapon:
+			Weapon.BULLET:
+				fire_bullet()
+				SoundManager.fire_bullet()
+			Weapon.MISSILE:
+				try_fire_missile()
+			Weapon.LASER:
+				pass
+				
+	if equipped_weapon == Weapon.LASER and Input.is_action_pressed("fire" + player_prefix) and not ghost and not laser.laser_overheated:
 		laser.is_casting = true
 	else:
 		laser.is_casting = false
-	if Input.is_action_just_released("laser" + player_prefix) and laser.laser_overheated:
+	if equipped_weapon == Weapon.LASER and Input.is_action_just_released("fire" + player_prefix) and laser.laser_overheated:
 		laser.laser_overheated = false
 		
 	

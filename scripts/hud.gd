@@ -10,6 +10,10 @@ extends Control
 var max_laser := 0.0
 var max_health := 0.0
 var missiles : Array[ColorRect]
+enum Weapon { BULLET, MISSILE, LASER }
+
+const SELECTED := 0.784
+const NOT_SELECTED := 0.686
 
 func _ready() -> void:
 	missiles.resize(6)
@@ -20,10 +24,12 @@ func _process(delta: float) -> void:
 		return
 	visible = not player.ghost
 	$HealthBar.size.x = scale(player.health, 0.0, 104.0, max_health)
+	$LaserBar.modulate.a = SELECTED if player.equipped_weapon == Weapon.LASER else NOT_SELECTED
 	$LaserBar.size.x = scale(player.laser.laser_cooldown, 0.0, 48.0, max_laser)
 	$QJBar.modulate.a = float(player.qj_cooldown) * 0.392
 	for i in missiles.size():
-		missiles[i].modulate.a = ( 0.5882353 if i < player.missile_slots else 0.0 )
+		var value = SELECTED if player.equipped_weapon == Weapon.MISSILE else NOT_SELECTED
+		missiles[i].modulate.a = ( value if i < player.missile_slots else 0.0 )
 
 func initialize(p : RigidBody2D):
 	player = p
