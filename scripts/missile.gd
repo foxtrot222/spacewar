@@ -4,28 +4,31 @@
 
 extends Area2D
 
-const MISSILE_SPEED := 150.0
-const MISSILE_LIFETIME := 5.0
+const MISSILE_SPEED := 50.0
 const MISSILE_DAMAGE := 50
+const STEER_FORCE := 50.0
 
 var velocity: Vector2
 var shooter: RigidBody2D
 var color : Color
+var target : RigidBody2D = null
+var acceleration := Vector2.ZERO
 
-func setup(start_position: Vector2, start_direction: Vector2, col : Color) -> void:
+func setup(t : RigidBody2D, start_position: Vector2, start_direction: Vector2, col : Color) -> void:
 	global_position = start_position
 	velocity = start_direction.normalized() * MISSILE_SPEED
 	rotation = start_direction.angle()
 	color = col
 	$TailLine2D.default_color = color
+	target = t
 
 func _physics_process(delta: float) -> void:
-	var direction_to_star = Global.star.global_position - global_position
-	var distance = max(direction_to_star.length(), 30.0)
-	var gravity_force = direction_to_star.normalized() * (Global.star.GRAVITY_STRENGTH / (distance * distance))
-	velocity += gravity_force * delta
-	global_position += velocity * delta
+	acceleration += seek()
+	velocity += acceleration * delta
+	velocity = velocity.limit_length(MISSILE_SPEED)
 	rotation = velocity.angle()
+	global_position += velocity * delta
+	
 
 func _on_area_entered(area: Area2D) -> void:
 	var pos = position
@@ -57,3 +60,10 @@ func _on_body_entered(body: Node2D) -> void:
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
+
+func seek():
+	var steer = Vector2.ZERO
+	if is_instance_valid(target) and target:
+		var desired = (target.position - position).normalized() * MISSILE_SPEED
+		steer = ( desired - velocity ).normalized() * STEER_FORCE
+	return steer

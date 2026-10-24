@@ -12,6 +12,8 @@ contact_monitor = true
 linear_damp_mode = 1
 angular_damp_mode = 1
 script = ExtResource("1_hjaqi")
+player_prefix = null
+color = null
 
 [node name="Laser" parent="." unique_id=2090494508 instance=ExtResource("3_laser")]
 position = Vector2(0, -48)
@@ -20,8 +22,9 @@ rotation = -1.5707964
 [node name="Target" type="RayCast2D" parent="." unique_id=935714127]
 position = Vector2(0, -48)
 rotation = 3.1415927
+enabled = false
 target_position = Vector2(0, 1400)
-collision_mask = 3
+collision_mask = 67
 collide_with_areas = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=986086804]

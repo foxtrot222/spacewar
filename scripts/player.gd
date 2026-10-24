@@ -66,10 +66,13 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("bullet" + player_prefix):
 		equipped_weapon = Weapon.BULLET
+		$Target.enabled = false
 	elif Input.is_action_just_pressed("missile" + player_prefix):
 		equipped_weapon = Weapon.MISSILE
+		$Target.enabled = true
 	elif Input.is_action_just_pressed("laser" + player_prefix):
 		equipped_weapon = Weapon.LASER
+		$Target.enabled = false
 		
 	if Input.is_action_just_pressed("fire" + player_prefix) and not ghost:
 		match equipped_weapon:
@@ -187,6 +190,7 @@ func try_fire_missile() -> void:
 	missile_slots -= 1
 	missile_fire_cooldown = MISSILE_FIRE_INTERVAL
 	Spawner.spawn_missile(
+		target,
 		$FirePosition.global_position,
 		Vector2.UP.rotated(rotation),
 		color)
