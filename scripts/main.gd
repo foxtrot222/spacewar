@@ -7,7 +7,7 @@ func _ready() -> void:
 	Spawner.player_respawned.connect(_on_player_respawned)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func _on_player_respawned(player : RigidBody2D):

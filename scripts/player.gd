@@ -88,6 +88,12 @@ func _physics_process(delta: float) -> void:
 	if equipped_weapon == Weapon.LASER and Input.is_action_just_released("fire" + player_prefix) and laser.laser_overheated:
 		laser.laser_overheated = false
 		
+	if $Target.is_colliding():
+		# TODO : Add SFX
+		var collider = $Target.get_collider()
+		target = collider if collider is RigidBody2D else null
+	else:
+		target = null
 	
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var direction = Global.star.global_position - state.transform.origin
@@ -197,6 +203,7 @@ func _on_ghost_timer_timeout() -> void:
 	ghost = false
 
 func _on_qj_cool_down_timeout() -> void:
+	# TODO : Add SFX
 	qj_cooldown=true
 
 func thruster_animation(thrust : bool, delta : float) -> void:

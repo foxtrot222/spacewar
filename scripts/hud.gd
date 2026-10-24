@@ -17,7 +17,7 @@ var front :=  0.784
 func _ready() -> void:
 	missiles.resize(4)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not is_instance_valid(player):
 		visible = false
 		return
@@ -55,5 +55,5 @@ func initialize(p : RigidBody2D):
 	max_laser = player.laser.MAX_LASER_TIME
 	max_health = player.MAX_HEALTH
 
-func scale(x : float, a : float, b : float, max : float) -> float:
-	return a + ( x * (b - a) ) / max
+func scale(x : float, a : float, b : float, mx : float) -> float:
+	return a + ( x * (b - a) ) / mx

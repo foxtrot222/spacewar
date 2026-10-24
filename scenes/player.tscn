@@ -17,6 +17,13 @@ script = ExtResource("1_hjaqi")
 position = Vector2(0, -48)
 rotation = -1.5707964
 
+[node name="Target" type="RayCast2D" parent="." unique_id=935714127]
+position = Vector2(0, -48)
+rotation = 3.1415927
+target_position = Vector2(0, 1400)
+collision_mask = 3
+collide_with_areas = true
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=986086804]
 modulate = Color(1, 1, 1, 0.35000002)
 texture = ExtResource("2_g2els")
