@@ -10,26 +10,37 @@ extends Control
 var max_laser := 0.0
 var max_health := 0.0
 var missiles : Array[ColorRect]
-enum Weapon { BULLET, MISSILE, LASER }
 
-const SELECTED := 0.784
-const NOT_SELECTED := 0.686
+var back := 0.118
+var front :=  0.784
 
 func _ready() -> void:
-	missiles.resize(6)
+	missiles.resize(4)
 
 func _process(delta: float) -> void:
 	if not is_instance_valid(player):
 		visible = false
 		return
 	visible = not player.ghost
-	$HealthBar.size.x = scale(player.health, 0.0, 104.0, max_health)
-	$LaserBar.modulate.a = SELECTED if player.equipped_weapon == Weapon.LASER else NOT_SELECTED
-	$LaserBar.size.x = scale(player.laser.laser_cooldown, 0.0, 48.0, max_laser)
-	$QJBar.modulate.a = float(player.qj_cooldown) * 0.392
+	$HealthBar.size.x = scale(player.health, 0.0, 128.0, max_health)
+	$LaserBar.size.x = scale(player.laser.laser_cooldown, 0.0, 64.0, max_laser)
+	$QJ.modulate.a = front if player.qj_cooldown else back
+	$Target.modulate.a = front if player.target != null else back
+	match player.equipped_weapon:
+		player.Weapon.BULLET:
+			$Bullet.modulate.a = front
+			$Laser.modulate.a = back
+			$HMissile.modulate.a = back
+		player.Weapon.MISSILE:
+			$HMissile.modulate.a = front
+			$Bullet.modulate.a = back
+			$Laser.modulate.a = back
+		player.Weapon.LASER:
+			$Laser.modulate.a = front
+			$Bullet.modulate.a = back
+			$HMissile.modulate.a = back
 	for i in missiles.size():
-		var value = SELECTED if player.equipped_weapon == Weapon.MISSILE else NOT_SELECTED
-		missiles[i].modulate.a = ( value if i < player.missile_slots else 0.0 )
+		missiles[i].modulate.a = ( front if i < player.missile_slots else back )
 
 func initialize(p : RigidBody2D):
 	player = p
@@ -37,7 +48,7 @@ func initialize(p : RigidBody2D):
 	color = player.color
 	var j = 0
 	for i in get_children():
-		i.color = color
+		i.modulate = Color(color.r, color.g, color.b, i.modulate.a)
 		if i.name.begins_with("Missile"):
 			missiles[j] = i
 			j += 1

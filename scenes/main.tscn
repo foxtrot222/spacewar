@@ -48,7 +48,5 @@ color = Color(0, 1, 0, 1)
 [node name="HUD1" parent="." unique_id=738116492 instance=ExtResource("6_tefeu")]
 
 [node name="HUD2" parent="." unique_id=1631387382 instance=ExtResource("6_tefeu")]
-offset_left = 888.0
-offset_top = 952.0
-offset_right = 888.0
-offset_bottom = 952.0
+offset_left = 864.0
+offset_right = 864.0

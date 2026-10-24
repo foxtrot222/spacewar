@@ -4,7 +4,7 @@
 
 extends Area2D
 
-const BULLET_SPEED := 800.0
+const BULLET_SPEED := 1500.0
 const BULLET_DAMAGE := 5
 
 var velocity: Vector2

@@ -21,7 +21,7 @@ const ROTATION_SPEED := 100.0
 const ANGULAR_DAMP := PI
 const QUANTUM_JUMP_OFFSET := 100
 const VELOCITY_RETENTION := 0.5
-const MAX_MISSILE_SLOTS := 6
+const MAX_MISSILE_SLOTS := 4
 const MISSILE_FIRE_INTERVAL := 2.0
 const MISSILE_SLOT_RECOVERY_SECONDS := 7.5
 
@@ -35,7 +35,7 @@ var qj_cooldown := true
 var missile_fire_cooldown := 0.0
 var touched := false
 var qj_risk_value = 5
-
+var target : RigidBody2D = null
 enum Weapon { BULLET, MISSILE, LASER }
 var equipped_weapon: Weapon = Weapon.BULLET
 

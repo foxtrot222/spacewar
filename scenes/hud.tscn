@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://bxqmq7s5w4g2"]
 
 [ext_resource type="Script" uid="uid://bnypkvoaj5fwx" path="res://scripts/hud.gd" id="1_ahhtf"]
+[ext_resource type="Texture2D" uid="uid://bhschjocuovsr" path="res://assets/sprites/target.png" id="2_oo0fn"]
+[ext_resource type="Texture2D" uid="uid://bcyirw6akhgp0" path="res://assets/sprites/qj.png" id="3_5ysmq"]
 
 [node name="HUD" type="Control" unique_id=738116492]
 layout_mode = 3
@@ -18,77 +20,129 @@ modulate = Color(1, 1, 1, 0.039215688)
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 128.0
-offset_bottom = 64.0
+offset_right = 152.0
+offset_bottom = 88.0
 
 [node name="HealthBar" type="ColorRect" parent="." unique_id=1125830418]
 modulate = Color(1, 1, 1, 0.78431374)
 layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
-offset_right = 120.0
+offset_right = 144.0
+offset_bottom = 32.0
+
+[node name="Back2" type="ColorRect" parent="." unique_id=861494178]
+modulate = Color(1, 1, 1, 0.11764706)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 144.0
 offset_bottom = 32.0
 
 [node name="LaserBar" type="ColorRect" parent="." unique_id=1427710398]
-modulate = Color(1, 1, 1, 0.6862745)
+modulate = Color(1, 1, 1, 0.78400004)
 layout_mode = 0
 offset_left = 16.0
-offset_top = 40.0
-offset_right = 64.0
-offset_bottom = 48.0
-
-[node name="QJBar" type="ColorRect" parent="." unique_id=499784451]
-modulate = Color(1, 1, 1, 0.39215687)
-layout_mode = 0
-offset_left = 16.0
-offset_top = 48.0
-offset_right = 64.0
-offset_bottom = 56.0
-
-[node name="Missile1" type="ColorRect" parent="." unique_id=258055201]
-modulate = Color(1, 1, 1, 0.5882353)
-layout_mode = 0
-offset_left = 72.0
 offset_top = 40.0
 offset_right = 80.0
 offset_bottom = 48.0
 
-[node name="Missile2" type="ColorRect" parent="." unique_id=2099996001]
-modulate = Color(1, 1, 1, 0.5882353)
+[node name="Back1" type="ColorRect" parent="." unique_id=87764482]
+modulate = Color(1, 1, 1, 0.11764706)
 layout_mode = 0
-offset_left = 80.0
-offset_top = 48.0
-offset_right = 88.0
-offset_bottom = 56.0
+offset_left = 16.0
+offset_top = 40.0
+offset_right = 80.0
+offset_bottom = 48.0
 
-[node name="Missile3" type="ColorRect" parent="." unique_id=1635304396]
-modulate = Color(1, 1, 1, 0.5882353)
+[node name="Missile1" type="ColorRect" parent="." unique_id=258055201]
+modulate = Color(1, 1, 1, 0.78400004)
 layout_mode = 0
 offset_left = 88.0
 offset_top = 40.0
 offset_right = 96.0
 offset_bottom = 48.0
 
-[node name="Missile4" type="ColorRect" parent="." unique_id=1196220569]
-modulate = Color(1, 1, 1, 0.5882353)
+[node name="Back3" type="ColorRect" parent="." unique_id=477446585]
+modulate = Color(1, 1, 1, 0.11800001)
 layout_mode = 0
-offset_left = 96.0
-offset_top = 48.0
-offset_right = 104.0
-offset_bottom = 56.0
+offset_left = 16.0
+offset_top = 56.0
+offset_right = 32.0
+offset_bottom = 80.0
 
-[node name="Missile5" type="ColorRect" parent="." unique_id=1586347509]
-modulate = Color(1, 1, 1, 0.5882353)
+[node name="Back4" type="ColorRect" parent="." unique_id=2096453711]
+modulate = Color(1, 1, 1, 0.11764706)
+layout_mode = 0
+offset_left = 40.0
+offset_top = 56.0
+offset_right = 56.0
+offset_bottom = 80.0
+
+[node name="Back5" type="ColorRect" parent="." unique_id=1605066535]
+modulate = Color(1, 1, 1, 0.11800001)
+layout_mode = 0
+offset_left = 64.0
+offset_top = 56.0
+offset_right = 80.0
+offset_bottom = 80.0
+
+[node name="Bullet" type="ColorRect" parent="." unique_id=1868606088]
+modulate = Color(1, 1, 1, 0.11800001)
+layout_mode = 0
+offset_left = 22.0
+offset_top = 60.0
+offset_right = 26.0
+offset_bottom = 76.0
+
+[node name="HMissile" type="ColorRect" parent="." unique_id=179534573]
+modulate = Color(1, 1, 1, 0.11800001)
+layout_mode = 0
+offset_left = 44.0
+offset_top = 60.0
+offset_right = 52.0
+offset_bottom = 76.0
+
+[node name="Laser" type="ColorRect" parent="." unique_id=771796294]
+modulate = Color(1, 1, 1, 0.11800001)
+layout_mode = 0
+offset_left = 68.0
+offset_top = 64.0
+offset_right = 76.0
+offset_bottom = 72.0
+
+[node name="Missile2" type="ColorRect" parent="." unique_id=2099996001]
+modulate = Color(1, 1, 1, 0.78431374)
 layout_mode = 0
 offset_left = 104.0
 offset_top = 40.0
 offset_right = 112.0
 offset_bottom = 48.0
 
-[node name="Missile6" type="ColorRect" parent="." unique_id=1310933861]
-modulate = Color(1, 1, 1, 0.5882353)
+[node name="Missile3" type="ColorRect" parent="." unique_id=1635304396]
+modulate = Color(1, 1, 1, 0.78400004)
 layout_mode = 0
-offset_left = 112.0
-offset_top = 48.0
-offset_right = 120.0
-offset_bottom = 56.0
+offset_left = 120.0
+offset_top = 40.0
+offset_right = 128.0
+offset_bottom = 48.0
+
+[node name="Missile4" type="ColorRect" parent="." unique_id=1196220569]
+modulate = Color(1, 1, 1, 0.78400004)
+layout_mode = 0
+offset_left = 136.0
+offset_top = 40.0
+offset_right = 144.0
+offset_bottom = 48.0
+
+[node name="Target" type="Sprite2D" parent="." unique_id=1177015187]
+modulate = Color(1, 1, 1, 0.78400004)
+position = Vector2(132, 68)
+scale = Vector2(0.18749993, 0.1875)
+texture = ExtResource("2_oo0fn")
+
+[node name="QJ" type="Sprite2D" parent="." unique_id=521532701]
+modulate = Color(1, 1, 1, 0.78400004)
+position = Vector2(100.00001, 68)
+scale = Vector2(0.18750004, 0.1875)
+texture = ExtResource("3_5ysmq")
