@@ -34,7 +34,7 @@ var is_eliminated := false
 var qj_cooldown := true
 var missile_fire_cooldown := 0.0
 var touched := false
-var qj_risk_value = 3
+var qj_risk_value = 5
 
 func _ready() -> void:
 	max_contacts_reported = Global.PLAYERS
