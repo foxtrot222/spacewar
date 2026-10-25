@@ -26,7 +26,7 @@ func randcc(size: float) -> Vector2:
 	var margin := 200.0
 	for _i in 64:
 		var p := Vector2(randf_range(margin, frame.x - margin),randf_range(margin, frame.y - margin))
-		if p.distance_squared_to(center) > radius * radius:
+		if p.distance_squared_to(center) > radius:
 			return p
 	var a := randf_range(0.0, TAU)
 	return ( center + Vector2.RIGHT.rotated(a) * radius ).clamp(Vector2(margin, margin), frame - Vector2(margin, margin))

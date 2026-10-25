@@ -34,7 +34,7 @@ var is_eliminated := false
 var qj_cooldown := true
 var missile_fire_cooldown := 0.0
 var touched := false
-var qj_risk_value = 5
+var qj_risk_value = 4
 var target : RigidBody2D = null
 enum Weapon { BULLET, MISSILE, LASER }
 var equipped_weapon: Weapon = Weapon.BULLET

@@ -4,9 +4,9 @@
 
 extends Area2D
 
-const MISSILE_SPEED := 50.0
+const MISSILE_SPEED := 150.0
 const MISSILE_DAMAGE := 50
-const STEER_FORCE := 50.0
+const STEER_FORCE := 10000.0
 
 var velocity: Vector2
 var shooter: RigidBody2D
@@ -24,7 +24,7 @@ func setup(t : RigidBody2D, start_position: Vector2, start_direction: Vector2, c
 
 func _physics_process(delta: float) -> void:
 	if is_instance_valid(target) and target:
-		acceleration += seek() + safe()
+		acceleration += (seek() + safe()) * delta
 	velocity += acceleration * delta
 	velocity = velocity.limit_length(MISSILE_SPEED)
 	rotation = velocity.angle()
