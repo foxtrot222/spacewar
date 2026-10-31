@@ -20,12 +20,17 @@ func setup(t : RigidBody2D, start_position: Vector2, start_direction: Vector2, c
 	rotation = start_direction.angle()
 	color = col
 	$TailLine2D.default_color = color
-	target = t
+	target = t	
 
 func _physics_process(delta: float) -> void:
-	# TODO : Fix the confused animation
+	acceleration = Vector2.ZERO
 	if is_instance_valid(target) and target:
-		acceleration += (seek() + safe()) * delta
+		var avoidance = safe() * delta
+		if avoidance != Vector2.ZERO:
+			acceleration = avoidance
+		else:
+			acceleration = seek() * delta
+
 	velocity += acceleration * delta
 	velocity = velocity.limit_length(MISSILE_SPEED)
 	rotation = velocity.angle()
@@ -64,7 +69,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 
 func seek():
 	var steer = Vector2.ZERO
-	var desired = (target.position - position).normalized() * MISSILE_SPEED
+	var desired = (target.global_position - global_position).normalized() * MISSILE_SPEED
 	steer = ( desired - velocity ).normalized() * STEER_FORCE
 	return steer
 
