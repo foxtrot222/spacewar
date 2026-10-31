@@ -158,7 +158,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	touched = touching
 
 func quantum_jump(state : PhysicsDirectBodyState2D) -> void:
-	var random_position = Global.randcc(float(qj_risk_value * 100)) # TODO : improve this based on the usage -> more usage then more risk
+	var random_position = Global.randcc(float(qj_risk_value * 100))
 	qj_risk_value -= 1 if qj_risk_value > 0 else 0
 	if state.linear_velocity.length() > 0:
 		random_position += state.linear_velocity.normalized() * QUANTUM_JUMP_OFFSET

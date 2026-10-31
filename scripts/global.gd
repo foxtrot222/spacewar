@@ -29,4 +29,4 @@ func randcc(size: float) -> Vector2:
 		if p.distance_squared_to(center) > radius:
 			return p
 	var a := randf_range(0.0, TAU)
-	return ( center + Vector2.RIGHT.rotated(a) * radius ).clamp(Vector2(margin, margin), frame - Vector2(margin, margin))
+	return ( center + Vector2.RIGHT.rotated(a) * size ).clamp(Vector2(margin, margin), frame - Vector2(margin, margin))

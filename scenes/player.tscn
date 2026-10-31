@@ -61,7 +61,6 @@ one_shot = true
 autostart = true
 
 [node name="QJCooldown" type="Timer" parent="." unique_id=1241653968]
-wait_time = 2.5
 
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
 [connection signal="timeout" from="QJCooldown" to="." method="_on_qj_cool_down_timeout"]
