@@ -5,7 +5,7 @@
 extends Area2D
 
 const MISSILE_SPEED := 150.0
-const MISSILE_DAMAGE := 50
+const MISSILE_DAMAGE := 50 # TODO : LOWER THIS
 const STEER_FORCE := 10000.0
 
 var velocity: Vector2
@@ -23,6 +23,7 @@ func setup(t : RigidBody2D, start_position: Vector2, start_direction: Vector2, c
 	target = t
 
 func _physics_process(delta: float) -> void:
+	# TODO : Fix the confused animation
 	if is_instance_valid(target) and target:
 		acceleration += (seek() + safe()) * delta
 	velocity += acceleration * delta

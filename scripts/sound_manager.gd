@@ -27,6 +27,12 @@ func sound():
 func collision():
 	$Collision.play()
 	
+func qj_unlocked():
+	$QJUnlocked.play()
+
+func targeted():
+	$Targeted.play()
+	
 func boom(expsn : String):
 	get_node(expsn).play()
 

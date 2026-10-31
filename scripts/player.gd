@@ -12,8 +12,8 @@ extends RigidBody2D
 
 const MAX_HEALTH := 100
 const WRAP_MARGIN := 48
-const THRUST := 100.0
-const MAX_SPEED := 800.0
+const THRUST := 100.0 # TODO : LOWER THIS
+const MAX_SPEED := 800.0 # TODO : LOWER THIS
 const THRUST_LENGTH := 48.0 # > 32.0
 const THRUST_FACTOR := 10.0
 const NO_THRUST_FACTOR := 20.0
@@ -92,9 +92,14 @@ func _physics_process(delta: float) -> void:
 		laser.laser_overheated = false
 		
 	if $Target.is_colliding():
-		# TODO : Add SFX
 		var collider = $Target.get_collider()
-		target = collider if collider is RigidBody2D else null
+		var prev = collider
+		if collider is RigidBody2D:
+			if not prev == target:
+				SoundManager.targeted()
+			target = collider
+		else:
+			target = null
 	else:
 		target = null
 	
@@ -153,7 +158,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	touched = touching
 
 func quantum_jump(state : PhysicsDirectBodyState2D) -> void:
-	var random_position = Global.randcc(float(qj_risk_value * 100))
+	var random_position = Global.randcc(float(qj_risk_value * 100)) # TODO : improve this based on the usage -> more usage then more risk
 	qj_risk_value -= 1 if qj_risk_value > 0 else 0
 	if state.linear_velocity.length() > 0:
 		random_position += state.linear_velocity.normalized() * QUANTUM_JUMP_OFFSET
@@ -207,7 +212,8 @@ func _on_ghost_timer_timeout() -> void:
 	ghost = false
 
 func _on_qj_cool_down_timeout() -> void:
-	# TODO : Add SFX
+	if not qj_cooldown:
+		SoundManager.qj_unlocked()
 	qj_cooldown=true
 
 func thruster_animation(thrust : bool, delta : float) -> void:

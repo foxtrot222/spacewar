@@ -12,8 +12,6 @@ contact_monitor = true
 linear_damp_mode = 1
 angular_damp_mode = 1
 script = ExtResource("1_hjaqi")
-player_prefix = null
-color = null
 
 [node name="Laser" parent="." unique_id=2090494508 instance=ExtResource("3_laser")]
 position = Vector2(0, -48)
@@ -63,7 +61,7 @@ one_shot = true
 autostart = true
 
 [node name="QJCooldown" type="Timer" parent="." unique_id=1241653968]
-wait_time = 2.0
+wait_time = 2.5
 
 [connection signal="timeout" from="GhostTimer" to="." method="_on_ghost_timer_timeout"]
 [connection signal="timeout" from="QJCooldown" to="." method="_on_qj_cool_down_timeout"]
